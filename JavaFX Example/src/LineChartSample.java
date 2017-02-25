@@ -95,34 +95,5 @@ public class LineChartSample extends Application {
 
 
         launch(args);
-        try{
-            getDataFromCSV();
-        }
-        catch (IOException e)  {
-
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void getDataFromCSV() throws IOException
-    {
-
-
-
-//           File stockData = new File("Sample data.csv");
-//           Scanner scanner = new Scanner(stockData);
-//            while(scanner.hasNext())
-//            {
-//                System.out.println(scanner.next() + ",");
-//            }
-//
-//            scanner.close();
-
-
-
-
-
-
     }
 }
