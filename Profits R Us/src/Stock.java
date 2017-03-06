@@ -1,33 +1,57 @@
 
-public class Stock {
+public class Stock
+{
 	
-	// ATTRIBUTES
-	String date;
-	double closingPrice;
-	 
-	//METHODS
-	public Stock(){
-		this.date = "";
-		this.closingPrice = 0;
+	private String stock_name;
+	private String stock_ticker;
+
+	//We should use Map<String, Double> = new HashMap<String, Double>()
+	// java does not have a Dictionnary
+	private Map<String, Double> stock_prices;
+
+	private MovingAverage[] moving_averages;
+
+
+	public Stock(String stock_name, String stock_ticker, Map<String, Double> stock_prices)
+	{
+		this.stock_name = stock_name;
+		this.stock_ticker = stock_ticker;
+		this.stock_prices = stock_prices;
 	}
-	   
-	public Stock(String date, double closingPrice){
-	   this.date = date;
-	   this.closingPrice = closingPrice;
+
+	// getters and setters for stock class
+	public String getStock_name() {
+		return stock_name;
 	}
-	   
-	public void setValues(String date, double closingPrice){
-		this.date = date;
-		this.closingPrice = closingPrice;
+
+	public void setStock_name(String stock_name) {
+		this.stock_name = stock_name;
 	}
-	public void printObject(){
-	   System.out.println("Date: " + date + " and closing price of: " + closingPrice);
+
+	public String getStock_ticker() {
+		return stock_ticker;
 	}
-	public String getDate(){
-	   return date;
+
+	public void setStock_ticker(String stock_ticker) {
+		this.stock_ticker = stock_ticker;
 	}
-	public double getPrice(){
-	   return closingPrice;
+
+	public Map<String, Double> getStock_prices() {
+		return stock_prices;
 	}
+
+	public void setStock_prices(Map<String, Double> stock_prices) {
+		this.stock_prices = stock_prices;
+	}
+
+	public MovingAverage[] getMoving_averages() {
+		return moving_averages;
+	}
+
+	public void setMoving_averages(MovingAverage[] moving_averages) {
+		this.moving_averages = moving_averages;
+	}
+
+
 }
 
