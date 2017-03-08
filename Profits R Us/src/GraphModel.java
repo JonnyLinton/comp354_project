@@ -23,7 +23,7 @@ public class GraphModel {
 		
         try{
         	//Load File csv data into csvFile
-			Scanner csvFile = new Scanner(new File("C:\\Users\\chris\\Desktop\\Sample data.csv"));
+			Scanner csvFile = new Scanner(new File("Sample data.csv"));
 			csvFile.useDelimiter(",");
 			
 			//Skip Header data
