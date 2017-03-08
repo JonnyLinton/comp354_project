@@ -49,6 +49,8 @@ public class GraphView {
     	graphBorderLayout.setBottom(recommendBox);
     	graphScene  = new Scene(graphBorderLayout, 1800,1000);
     	//graphScene.getStylesheets().add("style.css");
+
+		lineChart.setCreateSymbols(false);
 	}
 	 public Scene graphScene(){
 	    	return graphScene;
