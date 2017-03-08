@@ -10,7 +10,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class LoginView {
+public class LoginView
+{
 	
     private TextField emailTextField;
     private PasswordField passwordTextField;
@@ -18,8 +19,8 @@ public class LoginView {
     private Button loginButton;
     private Button registerButton;
 
-	public LoginView(){
-		
+	public LoginView()
+	{
 		//CREATE LOGIN SCENE
 		BorderPane welcomeBorderLayout = new BorderPane();
 		
@@ -50,15 +51,18 @@ public class LoginView {
        	welcomeScene = new Scene(welcomeBorderLayout, 800,600);
 	}
 	 
-	public void addRegisterHandler(EventHandler<ActionEvent> registerHandler){
+	public void addRegisterHandler(EventHandler<ActionEvent> registerHandler)
+	{
 	   registerButton.setOnAction(registerHandler);
     }
 	
-	public void addLoginHandler(EventHandler<ActionEvent> loginHandler){
+	public void addLoginHandler(EventHandler<ActionEvent> loginHandler)
+	{
 	   loginButton.setOnAction(loginHandler);
 	}
 	
-	public Scene welcomeScene(){
+	public Scene welcomeScene()
+	{
 	    return welcomeScene;
 	}
 

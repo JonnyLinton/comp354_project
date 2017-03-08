@@ -2,7 +2,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
-public class GraphController {
+public class GraphController
+{
 	
 	//Attributes that it needs to manipulate
 	private GraphModel graphModel;
@@ -11,7 +12,8 @@ public class GraphController {
 	private LoginView loginView;
 	
 	//Constructor initializing important objects and methods
-	public GraphController(GraphModel graphModel, GraphView graphView, LoginView loginView, Stage stage){
+	public GraphController(GraphModel graphModel, GraphView graphView, LoginView loginView, Stage stage)
+	{
 		this.graphView = graphView;
 		this.loginView = loginView;
 		this.graphModel = graphModel;
@@ -21,25 +23,29 @@ public class GraphController {
 		this.graphView.addTimelineHandler(new TimelineHandler());
 		this.graphView.addLogoutHandler(new LogoutHandler());
 	}
+
 	//ActionEvent Inner Classes to handle timeline update actions
-	public class TimelineHandler implements EventHandler<ActionEvent>{
+	public class TimelineHandler implements EventHandler<ActionEvent>
+	{
 		
-		public void handle(ActionEvent arg0) {
-		
-			try{
+		public void handle(ActionEvent arg0)
+		{
+			try
+			{
 				System.out.println("Test1");
 				graphModel.createStockPriceSeries(graphView.getTimeline());
 				graphView.setChart(graphModel.getStockPriceSeries());
 			
 			}
-			catch(NumberFormatException exception)
-			{}
+			catch(NumberFormatException exception) {}
 		}
 	}
+
 	//ActionEvent Inner Classes to handle logout function
-	public class LogoutHandler implements EventHandler<ActionEvent>{
-		
-		public void handle(ActionEvent arg0) {
+	public class LogoutHandler implements EventHandler<ActionEvent>
+	{
+		public void handle(ActionEvent arg0)
+		{
 		
 			//LOGOUT CODE HERE
 			stage.setScene(loginView.welcomeScene());

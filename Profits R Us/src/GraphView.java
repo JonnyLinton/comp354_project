@@ -16,7 +16,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
-public class GraphView {
+public class GraphView
+{
 
 	//Attributes
 	private Label recommendation;
@@ -33,7 +34,8 @@ public class GraphView {
     private Button logoutButton;
  
     //constructor
-	public GraphView(){
+	public GraphView()
+	{
 		
 		//Toggle Group for timeline
 		oneYear = new ToggleButton("1Y");
@@ -79,25 +81,34 @@ public class GraphView {
     	graphScene  = new Scene(graphBorderLayout, 800,600);
     	graphScene.getStylesheets().add("style.css");
 	}
-	 public Scene graphScene(){
-	    	return graphScene;
-	    }
-	 public void setChart(XYChart.Series<String, Number> stockPriceSeries){
-		 lineChart.getData().clear();
-		   lineChart.getData().add(stockPriceSeries);
-	 }
 
-	public int getTimeline(){
-		   return Integer.parseInt(timelineGroup.getSelectedToggle().getUserData().toString());
-		}
-	public void addTimelineHandler(EventHandler<ActionEvent> timelineHandler){
+	public Scene graphScene()
+	{
+		return graphScene;
+	}
+
+	public void setChart(XYChart.Series<String, Number> stockPriceSeries)
+	{
+		lineChart.getData().clear();
+		lineChart.getData().add(stockPriceSeries);
+	}
+
+	public int getTimeline()
+	{
+		return Integer.parseInt(timelineGroup.getSelectedToggle().getUserData().toString());
+	}
+
+	public void addTimelineHandler(EventHandler<ActionEvent> timelineHandler)
+	{
 		oneYear.setOnAction(timelineHandler);
 		fiveYear.setOnAction(timelineHandler);
 		tenYear.setOnAction(timelineHandler);
 		max.setOnAction(timelineHandler);
 		
 	}
-	public void addLogoutHandler(EventHandler<ActionEvent> logoutHandler){
+
+	public void addLogoutHandler(EventHandler<ActionEvent> logoutHandler)
+	{
 		logoutButton.setOnAction(logoutHandler);
 	}
 	

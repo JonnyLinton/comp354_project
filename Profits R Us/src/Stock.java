@@ -1,5 +1,6 @@
 
-public class Stock {
+public class Stock
+{
 	
 	//*** NEEDS TO BE UPDATED TO MEET UML DIAGRAM ***
 	
@@ -8,27 +9,36 @@ public class Stock {
 	double closingPrice;
 	 
 	//METHODS
-	public Stock(){
+	public Stock()
+	{
 		this.date = "";
 		this.closingPrice = 0;
 	}
 	   
-	public Stock(String date, double closingPrice){
+	public Stock(String date, double closingPrice)
+	{
 	   this.date = date;
 	   this.closingPrice = closingPrice;
 	}
 	   
-	public void setValues(String date, double closingPrice){
+	public void setValues(String date, double closingPrice)
+	{
 		this.date = date;
 		this.closingPrice = closingPrice;
 	}
-	public void printObject(){
+
+	public void printObject()
+	{
 	   System.out.println("Date: " + date + " and closing price of: " + closingPrice);
 	}
-	public String getDate(){
+
+	public String getDate()
+	{
 	   return date;
 	}
-	public double getPrice(){
+
+	public double getPrice()
+	{
 	   return closingPrice;
 	}
 }
