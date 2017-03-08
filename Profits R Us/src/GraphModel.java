@@ -51,7 +51,7 @@ public class GraphModel {
     	catch (FileNotFoundException e){
 			e.printStackTrace();
 	    }
-        int dataPointDivider = allStockValues.size()/100;  //Give's us the closest amount of data points to 300 for the graph
+        int dataPointDivider = allStockValues.size()/300;  //Give's us the closest amount of data points to 300 for the graph
         Stock temp;
         for (int i = allStockValues.size() ; i > 0 ; i--){
         	
