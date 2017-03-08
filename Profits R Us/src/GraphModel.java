@@ -10,6 +10,8 @@ public class GraphModel {
 	
 	private XYChart.Series<String, Number> stockPriceSeries;
 	
+	//*****THIS NEEDS TO BE UPDATE TO FIT UML MODEL*****
+	
 	public void createStockPriceSeries(int timeline){
 		
 		stockPriceSeries  = new XYChart.Series<String, Number>();
@@ -49,7 +51,7 @@ public class GraphModel {
     	catch (FileNotFoundException e){
 			e.printStackTrace();
 	    }
-        int dataPointDivider = allStockValues.size()/300;  //Give's us the closest amount of data points to 300 for the graph
+        int dataPointDivider = allStockValues.size()/100;  //Give's us the closest amount of data points to 300 for the graph
         Stock temp;
         for (int i = allStockValues.size() ; i > 0 ; i--){
         	

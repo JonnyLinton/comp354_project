@@ -47,7 +47,7 @@ public class LoginView {
     	loginVBox.setAlignment(Pos.CENTER);
     	
     	welcomeBorderLayout.setCenter(loginVBox);
-       	welcomeScene = new Scene(welcomeBorderLayout, 1800,1000);
+       	welcomeScene = new Scene(welcomeBorderLayout, 800,600);
 	}
 	 
 	public void addRegisterHandler(EventHandler<ActionEvent> registerHandler){
