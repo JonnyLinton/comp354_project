@@ -14,11 +14,11 @@ public class StocksRUs extends Application {
     }
     public void start(Stage primaryStage) {
         primaryStage.setTitle("StocksRUs");
-//        LoginView loginView = new LoginView();
-//        LoginController loginController = new LoginController(primaryStage);
-//        primaryStage.setScene(loginView.getScene());
-        MainView mainView = new MainView();
-        primaryStage.setScene(mainView.getScene());
+        LoginView loginView = new LoginView();
+        LoginController loginController = new LoginController(primaryStage, loginView);
+        primaryStage.setScene(loginView.getScene());
+//        MainView mainView = new MainView();
+//        primaryStage.setScene(mainView.getScene());
         primaryStage.show();
     }
 }

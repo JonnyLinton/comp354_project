@@ -1,6 +1,5 @@
 package view;
 
-import javafx.application.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -44,4 +43,20 @@ public class LoginView {
         return loginScene;
     }
 
+    public Button getLoginButton() {
+        return loginButton;
+    }
+
+    public Button getRegisterButton() {
+        return registerButton;
+    }
+
+
+    public TextField getEmailTexField() {
+        return emailTexField;
+    }
+
+    public PasswordField getPasswordTextField() {
+        return passwordTextField;
+    }
 }
