@@ -5,8 +5,8 @@ public class UserAccount {
     private String password;
 
     public UserAccount() {
-        email = "";
-        password = "";
+        email = null;
+        password = null;
     }
     public UserAccount(String email, String password) {
         this.email = email;
