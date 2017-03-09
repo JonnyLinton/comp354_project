@@ -2,6 +2,7 @@ package controller;
 
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import view.LoginView;
 import view.MainView;
 
 import java.io.BufferedReader;
@@ -11,10 +12,12 @@ import java.io.FileWriter;
 
 public class LoginController {
     private Stage primaryStage;
+    private LoginView loginView;
 
     public LoginController() {}
-    public LoginController(Stage primaryStage) {
+    public LoginController(Stage primaryStage, LoginView loginView) {
         this.primaryStage = primaryStage;
+        this.loginView = loginView;
     }
 
 
