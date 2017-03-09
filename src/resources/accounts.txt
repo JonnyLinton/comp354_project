@@ -1,2 +1,1 @@
-linton.jonny@gmail.com:password
-thisguy@hotmail.com:abc
+test@test.com:password
