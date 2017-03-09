@@ -15,6 +15,7 @@ public class LoginView {
     private TextField emailTexField;
     private PasswordField passwordTextField;
     private Scene loginScene;
+    private GridPane grid;
 
     public LoginView() {
         loginButton = new Button("Login");
@@ -23,22 +24,22 @@ public class LoginView {
         emailTexField.setPromptText("john.doe@me.com");
         passwordTextField = new PasswordField();
 
-        GridPane gridPane = new GridPane();
-        gridPane.setAlignment(Pos.CENTER);
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(25, 25, 25, 25));
+        grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(25, 25, 25, 25));
 
-        gridPane.add(emailTexField, 0, 0, 2, 1);
-        gridPane.add(passwordTextField, 0, 1, 2, 1);
-        gridPane.add(loginButton, 0, 2);
-        gridPane.add(registerButton, 1, 2);
+        grid.add(emailTexField, 0, 0, 2, 1);
+        grid.add(passwordTextField, 0, 1, 2, 1);
+        grid.add(loginButton, 0, 2);
+        grid.add(registerButton, 1, 2);
 
-        loginScene = new Scene(gridPane, 800, 600);
+        loginScene = new Scene(grid, 800, 600);
 
-        gridPane.setGridLinesVisible(true);
+        grid.setGridLinesVisible(true);
     }
-    public Scene getLoginScene() {
+    public Scene getScene() {
         return loginScene;
     }
 
