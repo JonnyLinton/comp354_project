@@ -1,6 +1,12 @@
 package model;
 
-import java.util.HashMap;
+import javafx.scene.chart.XYChart;
+
+import java.io.File;
+
+import java.util.*;
+
+
 
 /**
  * Created by Palmirouze on 2017-03-08.
@@ -10,19 +16,39 @@ public class Stock
     class MovingAverage
     {
         private MovingAverageInterval interval;
-        private HashMap<String, Double> data;
+        private List<StockEntry> movingAverageDataList;
 
         // default: 20 days
         public MovingAverage()
         {
             this.interval = MovingAverageInterval.TwentyDay;
-            data = null;
+            movingAverageDataList = null;
         }
 
-        public MovingAverage(MovingAverageInterval interval, HashMap<String, Double> data)
+        public MovingAverage(MovingAverageInterval interval, List<StockEntry> parentList)
         {
             this.interval = interval;
-            this.data = data;
+
+            switch(interval)
+            {
+                case TwentyDay:
+                    // make a list of 20 day MA with parent list
+                    break;
+
+                case FiftyDay:
+                    // make a list of 50 day MA with parent list
+                    break;
+
+                case HundredDay:
+                    // make a list of 100 day MA with parent list
+                    break;
+
+                case TwoHundredDay:
+                    // make a list of 200 day MA with parent list
+                    break;
+
+
+            }
         }
 
         public MovingAverageInterval getInterval() {
@@ -33,32 +59,236 @@ public class Stock
             this.interval = interval;
         }
 
-        public HashMap<String, Double> getData() {
-            return data;
+        public List<StockEntry> getData() {
+            return movingAverageDataList;
         }
 
-        public void setData(HashMap<String, Double> data) {
-            this.data = data;
+        public void setData(List<StockEntry> data) {
+            this.movingAverageDataList = data;
         }
     }
 
     private String name;
     private String ticker;
-    private HashMap<String, Double> prices;
+    private List<StockEntry> data;
+    private int dataSize;
     private MovingAverage[] movingAverages;
 
 
+    /**
+     * Default constructor
+     * Sets everything to empty, initializes array with default moving average objects
+     */
+    public Stock()
+    {
+        this.name = "";
+        this.ticker = "";
+        this.data = null;
+        this.dataSize = 0;
+        this.movingAverages = new MovingAverage[4];
+
+        for(int i = 0; i < 4 ; i++)
+        {
+            movingAverages[i] = new MovingAverage();
+        }
+    }
+
+    /**
+     * Main constructor for stock object
+     * Sets name and ticker
+     * Fills the linked list with data from the csv (filePath)
+     * Initializes array of MA and computes the data
+     * @param name
+     * @param ticker
+     * @param filePath
+     */
     public Stock(String name, String ticker, String filePath)
     {
         this.name = name;
         this.ticker = ticker;
 
-        // populate hashmap of prices with csv data from filepath
+        // new linked list
+        this.data = new LinkedList<StockEntry>();
 
+        // fills the list with all the values from the csv
+        this.dataSize = populateList(data, filePath);
+
+        // initialize array of MAs
+        movingAverages = new MovingAverage[4];
+
+        // set each MA to its right interval and fills it with the right computed values
+        movingAverages[0] = new MovingAverage(MovingAverageInterval.TwentyDay, this.data);
+        movingAverages[1] = new MovingAverage(MovingAverageInterval.FiftyDay, this.data);
+        movingAverages[2] = new MovingAverage(MovingAverageInterval.HundredDay, this.data);
+        movingAverages[3] = new MovingAverage(MovingAverageInterval.TwoHundredDay, this.data);
+    }
+
+
+
+
+
+    /**
+     * TODO
+     * @param timeInterval
+     * @param dataList
+     * @param size
+     * @return
+     */
+    public XYChart.Series getPricesInRange(TimeInterval timeInterval, List<StockEntry> dataList, int size)
+    {
+
+        XYChart.Series series = new XYChart.Series();
+
+
+
+        switch(timeInterval)
+        {
+            case OneYear:
+
+
+
+
+                break;
+
+            case TwoYears:
+
+
+
+                break;
+
+
+            case FiveYears:
+
+
+
+                break;
+
+
+            case AllTime:
+
+                for(StockEntry entries : dataList)
+                {
+                    series.getData().add(new XYChart.Data(entries.getDate(), entries.getValue()));
+                }
+
+                break;
+        }
+
+        return series;
+    }
+
+
+    /**
+     * Get moving average serie based on interval
+     * @param interval
+     * @return Series of moving average over interval
+     */
+    public XYChart.Series getMovingAverage(MovingAverageInterval interval)
+    {
+        XYChart.Series series = new XYChart.Series();
+
+        switch(interval)
+        {
+            case TwentyDay:
+                series = putMovingAverageInSeries(0, this.movingAverages, series);
+                break;
+
+            case FiftyDay:
+                series = putMovingAverageInSeries(1, this.movingAverages, series);
+                break;
+
+            case HundredDay:
+                series = putMovingAverageInSeries(2, this.movingAverages, series);
+                break;
+
+            case TwoHundredDay:
+                series = putMovingAverageInSeries(3, this.movingAverages, series);
+                break;
+        }
+
+        return series;
+    }
+
+
+    // HELPER FUNCTIONS:
+
+
+    /**
+     * Populates the list from the CSV file
+     * @param dataList
+     * @param filePath
+     * @return Size of the list
+     */
+    public static int populateList(List<StockEntry> dataList, String filePath)
+    {
+        Scanner csvScanner = null;
+
+        int counter = 0;
+
+        try
+        {
+            csvScanner = new Scanner(new File(filePath));
+
+            csvScanner.nextLine(); // skip first line
+
+            String each_line;
+            String[] columns;
+
+            while(csvScanner.hasNextLine())
+            {
+                each_line = csvScanner.nextLine();
+                columns = each_line.split(",");
+
+                dataList.add(new StockEntry(columns[0], Double.parseDouble(columns[6])));
+
+                counter++;
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            csvScanner.close();
+        }
+
+        return counter;
+    }
+
+
+    /**
+     *
+     * @param index
+     * @param array
+     * @param series
+     * @return Series of moving averages to plug in the graph
+     */
+    public static XYChart.Series putMovingAverageInSeries(int index, MovingAverage[] array, XYChart.Series series)
+    {
+        for(StockEntry entries : array[index].movingAverageDataList)
+        {
+            series.getData().add(new XYChart.Data(entries.getDate(), entries.getValue()));
+        }
+
+        return series;
+    }
+
+
+
+    // MAIN FOR TRYOUTS
+    public static void main(String [] args)
+    {
+        Stock exampleStock = new Stock("Dummy Stock", "STOK", "Sample data.csv");
+
+        // prints all the entries
+        for(StockEntry entry: exampleStock.data)
+        {
+            System.out.println(entry.toString());
+        }
 
     }
 
-    // I assume no constructor taking a map of prices
 
 
     public String getName()
@@ -81,18 +311,27 @@ public class Stock
         this.ticker = ticker;
     }
 
-    public void getPricesInRange(TimeInterval timeInterval)
-    {
-
+    public List<StockEntry> getData() {
+        return data;
     }
 
-    public MovingAverage getMovingAverage(MovingAverageInterval interval)
-    {
-        return new MovingAverage();
+    public void setData(List<StockEntry> data) {
+        this.data = data;
     }
 
-    public void setMovingAverageOverInterval(MovingAverageInterval interval)
-    {
+    public int getDataSize() {
+        return dataSize;
+    }
 
+    public void setDataSize(int dataSize) {
+        this.dataSize = dataSize;
+    }
+
+    public MovingAverage[] getMovingAverages() {
+        return movingAverages;
+    }
+
+    public void setMovingAverages(MovingAverage[] movingAverages) {
+        this.movingAverages = movingAverages;
     }
 }
