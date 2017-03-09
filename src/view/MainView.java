@@ -14,7 +14,7 @@ import javafx.scene.text.FontWeight;
 
 public class MainView {
 
-	// Instantiating attriutes
+	// Instantiating attributes
     private TextField searchTextField;
     private CheckBox[] movingAverageIntervalCheckboxes;
     private Button[] timeLineButtons;
