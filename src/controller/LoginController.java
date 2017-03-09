@@ -1,22 +1,20 @@
 package controller;
 
-import model.UserAccount;
+import javafx.scene.control.Alert;
+import javafx.stage.Stage;
+import view.MainView;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 public class LoginController {
-    private UserAccount currentUser; // not sure if we need this attribute...?
+    private Stage primaryStage;
 
-    public LoginController() {
-        currentUser = new UserAccount();
-
-    }
-
-    public UserAccount getCurrentUser() {
-        return currentUser;
-    }
-    public void setCurrentUser(UserAccount currentUser) {
-        this.currentUser = currentUser;
+    public LoginController() {}
+    public LoginController(Stage primaryStage) {
+        this.primaryStage = primaryStage;
     }
 
 
@@ -51,13 +49,12 @@ public class LoginController {
         return null;
     }
 
-    public boolean login(String email, String password) {
+    public void login(String email, String password) {
         if (!userInfoValid(email, password)) { // if user info is not valid, display error.
             displayError("Provided information is invalid.");
-            return false;
         }
 
-        return true;
+        navigateToMain();
     }
 
     public boolean registerUser(String email, String password) {
@@ -76,14 +73,21 @@ public class LoginController {
             return false;
         }
 
+         login(email, password);
+
         return true;
     }
 
     private void navigateToMain() {
-
+        primaryStage.setScene(new MainView().getScene());
     }
 
-    private void displayError(String s) {
-        System.out.println(s); // TODO: temporary work around
+    private void displayError(String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error Dialog");
+        alert.setHeaderText("An error occurred! Details below.");
+        alert.setContentText(content);
+
+        alert.showAndWait();
     }
 }
