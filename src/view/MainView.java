@@ -1,11 +1,14 @@
 package view;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 
 
 public class MainView {
@@ -24,13 +27,19 @@ public class MainView {
 
     public MainView() {
         grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setPadding(new Insets(10, 10, 10, 10));
+        grid.setHgap(10);
+        grid.setVgap(10);
+
         searchTextField = new TextField();
+        searchTextField.setPrefWidth(500);
         movingAverageIntervalCheckboxes = new CheckBox[4];
         timeLineButtons = new Button[4];
-        timeLineButtons[0] = new Button("1Y");
-        timeLineButtons[1] = new Button("2Y");
-        timeLineButtons[2] = new Button("5Y");
-        timeLineButtons[3] = new Button("All");
+        timeLineButtons[0] = new Button("1 Year");
+        timeLineButtons[1] = new Button("2 Year");
+        timeLineButtons[2] = new Button("5 Year");
+        timeLineButtons[3] = new Button("All Time");
 
         movingAverageIntervalCheckboxes[0] = new CheckBox("20 Days");
         movingAverageIntervalCheckboxes[1] = new CheckBox("50 Days");
@@ -41,19 +50,21 @@ public class MainView {
         analyzeButton = new Button("Analyze");
 
         recommendationsLabel = new Label();
-        timelineLabel = new Label();
-        movingAverageLabel = new Label();
+        timelineLabel = new Label("Timeline");
+        movingAverageLabel = new Label("Moving Average");
 
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Date");
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Price");
         lineChart = new LineChart<String, Number>(xAxis, yAxis);
+        lineChart.setPrefWidth(800);
+        lineChart.setPrefHeight(600);
         recommendationsLabel = new Label();
 
-        grid.add(searchTextField, 0, 0, 3, 1);
-        grid.add(searchButton, 3, 0);
-        grid.add(lineChart, 0, 1, 4, 1);
+        grid.add(searchTextField, 0, 0, 5, 1);
+        grid.add(searchButton, 5, 0);
+        grid.add(lineChart, 0, 1, 5, 1);
 
         grid.add(timelineLabel, 0, 2);
 
@@ -67,7 +78,7 @@ public class MainView {
 
         mainScene = new Scene(grid, 800, 600);
 
-        grid.setGridLinesVisible(true);
+//        grid.setGridLinesVisible(true);
     }
 
     public Scene getScene() {
