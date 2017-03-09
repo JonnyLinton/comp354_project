@@ -1,6 +1,5 @@
 package view;
 
-import javafx.application.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,6 +10,7 @@ import javafx.scene.layout.GridPane;
 
 public class LoginView {
 
+	// Instantiating attributes
     private Button loginButton;
     private Button registerButton;
     private TextField emailTexField;
@@ -18,6 +18,10 @@ public class LoginView {
     private Scene loginScene;
     private GridPane grid;
 
+    /**
+     * Creates a LoginView oject with all of its components
+     */
+    
     public LoginView() {
         loginButton = new Button("Login");
         registerButton = new Button("Register");
@@ -25,6 +29,7 @@ public class LoginView {
         emailTexField.setPromptText("john.doe@me.com");
         passwordTextField = new PasswordField();
 
+        // Create grid pane with 2 columns and 3 rows
         grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -38,8 +43,14 @@ public class LoginView {
 
         loginScene = new Scene(grid, 800, 600);
 
-        grid.setGridLinesVisible(true);
+        //grid.setGridLinesVisible(true);
     }
+    
+    /**
+     * Get the scene for the LoginView
+     * @return loginScene - Scene object
+     */
+    
     public Scene getScene() {
         return loginScene;
     }
