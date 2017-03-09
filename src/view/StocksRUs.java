@@ -10,6 +10,8 @@ public class StocksRUs extends Application {
         launch(args);
     }
     public void start(Stage primaryStage) {
-
+        LoginView loginView = new LoginView();
+        primaryStage.setScene(loginView.getLoginScene());
+        primaryStage.show();
     }
 }
