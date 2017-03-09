@@ -25,6 +25,11 @@ public class Stock
             movingAverageDataList = null;
         }
 
+        /**
+         * TODO
+         * @param interval
+         * @param parentList
+         */
         public MovingAverage(MovingAverageInterval interval, List<StockEntry> parentList)
         {
             this.interval = interval;
@@ -66,6 +71,8 @@ public class Stock
         public void setData(List<StockEntry> data) {
             this.movingAverageDataList = data;
         }
+
+
     }
 
     private String name;
@@ -124,21 +131,15 @@ public class Stock
     }
 
 
-
-
-
     /**
-     * TODO
+     *
      * @param timeInterval
-     * @param dataList
-     * @param size
      * @return
      */
-    public XYChart.Series getPricesInRange(TimeInterval timeInterval, List<StockEntry> dataList, int size)
+    public XYChart.Series getPricesInRange(TimeInterval timeInterval)
     {
 
         XYChart.Series series = new XYChart.Series();
-
 
 
         switch(timeInterval)
@@ -166,10 +167,7 @@ public class Stock
 
             case AllTime:
 
-                for(StockEntry entries : dataList)
-                {
-                    series.getData().add(new XYChart.Data(entries.getDate(), entries.getValue()));
-                }
+
 
                 break;
         }
@@ -179,6 +177,7 @@ public class Stock
 
 
     /**
+     * TODO
      * Get moving average serie based on interval
      * @param interval
      * @return Series of moving average over interval
@@ -258,7 +257,7 @@ public class Stock
 
 
     /**
-     *
+     *TODO
      * @param index
      * @param array
      * @param series
@@ -334,4 +333,24 @@ public class Stock
     public void setMovingAverages(MovingAverage[] movingAverages) {
         this.movingAverages = movingAverages;
     }
+
+
+    /** HELPER FOR MA INNER CLASS
+     * Helps put MAs in list when creating a new MA object for the right time interval
+     * @param interval
+     * @return
+     */
+    private LinkedList<StockEntry> computeMovingAverages(int interval)
+    {
+
+        StockEntry temp;
+
+
+
+
+        return new LinkedList<>();
+    }
+
+
+
 }
