@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import view.LoginView;
@@ -18,6 +19,9 @@ public class LoginController {
     public LoginController(Stage primaryStage, LoginView loginView) {
         this.primaryStage = primaryStage;
         this.loginView = loginView;
+
+        loginView.getLoginButton().setOnAction(this::login);
+        loginView.getRegisterButton().setOnAction(this::registerUser);
     }
 
 
@@ -52,15 +56,25 @@ public class LoginController {
         return null;
     }
 
-    public void login(String email, String password) {
+    public boolean login(ActionEvent loginButtonPressed) {
+//        if (loginButtonPressed.isConsumed()) {}
+        String email = loginView.getEmailTexField().getText();
+        String password = loginView.getPasswordTextField().getText();
+
         if (!userInfoValid(email, password)) { // if user info is not valid, display error.
             displayError("Provided information is invalid.");
+            return false;
         }
 
         navigateToMain();
+
+        return true;
     }
 
-    public boolean registerUser(String email, String password) {
+    public boolean registerUser(ActionEvent registerButtonPressed) {
+        String email = loginView.getEmailTexField().getText();
+        String password = loginView.getPasswordTextField().getText();
+
         // verify email not already in accounts
         if (retrieveUserInfo(email) != null) {
             displayError("The email " +email +" is already used!");
@@ -76,7 +90,11 @@ public class LoginController {
             return false;
         }
 
-         login(email, password);
+        if (!userInfoValid(email, password)) { // if user info is not valid, display error.
+            displayError("Provided information is invalid.");
+        }
+
+        navigateToMain();
 
         return true;
     }
