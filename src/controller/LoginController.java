@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -21,6 +22,8 @@ public class LoginController {
 
     @FXML
     TextField emailTextField;
+    @FXML
+    PasswordField passwordTextField;
 //    private Stage primaryStage;
 //    private LoginView loginView;
 //
@@ -63,16 +66,15 @@ public class LoginController {
 
     @FXML
     public void login(ActionEvent loginButtonPressed) {
-////        if (loginButtonPressed.isConsumed()) {}
-//        String email = loginView.getEmailTexField().getText();
-//        String password = loginView.getPasswordTextField().getText();
-//
-//        if (!userInfoValid(email, password)) { // if user info is not valid, display error.
-//            displayError("Provided information is invalid.");
-//        }
-//
-//        navigateToMain();
-        System.out.println(emailTextField.getText());
+        String email = emailTextField.getText();
+        String password = passwordTextField.getText();
+
+        if (!userInfoValid(email, password)) { // if user info is not valid, display error.
+            displayError("Provided information is invalid.");
+        }
+
+        //navigateToMain();
+        System.out.println(emailTextField.getText() + "\n" + passwordTextField.getText());
     }
 
     @FXML
