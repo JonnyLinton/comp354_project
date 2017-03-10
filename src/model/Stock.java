@@ -102,6 +102,7 @@ public class Stock
     // array of precomputed moving averages
     private MovingAverage[] movingAverages;
 
+    // CONSTRUCTORS
 
     /**
      * Default constructor
@@ -152,6 +153,7 @@ public class Stock
     }
 
 
+    // METHODS TO GET SERIES TO PLUG IN GRAPH
     /** OUTPUT SERIES OF PRICES
      * Cuts the data and outputs a list
      * @param timeInterval
@@ -215,6 +217,8 @@ public class Stock
         return series;
     }
 
+
+    // HELPER METHODS FOR OUTPUTING SERIES/TRUNCATING LISTS
     public XYChart.Series listToSerie(LinkedList<StockEntry> list)
     {
         XYChart.Series series = new XYChart.Series();
@@ -262,7 +266,7 @@ public class Stock
 
 
 
-
+    // HELPER METHODS FOR CREATING STOCK OBJECT
 
     /** HELPER FUNCTION FOR MOVING AVERAGE CLASS
      * Computes the moving averages values
@@ -397,17 +401,4 @@ public class Stock
     public void setMovingAverages(MovingAverage[] movingAverages) {
         this.movingAverages = movingAverages;
     }
-
-    // MAIN FOR TRYOUTS
-//    public static void main(String [] args)
-//    {
-//        Stock exampleStock = new Stock("Dummy Stock", "STOK", "Sample data.csv");
-//
-//        // prints all the entries
-//        for(StockEntry entry: exampleStock.data)
-//        {
-//            System.out.println(entry.toString());
-//        }
-//
-//    }
 }
