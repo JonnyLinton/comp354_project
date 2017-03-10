@@ -2,21 +2,14 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import view.LoginView;
-import view.MainView;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class LoginController {
 
@@ -24,14 +17,6 @@ public class LoginController {
     TextField emailTextField;
     @FXML
     PasswordField passwordTextField;
-//    private Stage primaryStage;
-//    private LoginView loginView;
-//
-//    public LoginController(Stage primaryStage, LoginView loginView) {
-//        this.primaryStage = primaryStage;
-//        this.loginView = loginView;
-//    }
-//
 
     private boolean userInfoValid(String email, String password) {
         String[] accountInfo = retrieveUserInfo(email);
@@ -79,33 +64,40 @@ public class LoginController {
 
     @FXML
     public void register(ActionEvent registerButtonPressed) {
-//        String email = loginView.getEmailTexField().getText();
-//        String password = loginView.getPasswordTextField().getText();
-//
-//        // verify email not already in accounts
-//        if (retrieveUserInfo(email) != null) {
-//            displayError("The email " +email +" is already used!");
-//        }
-//        // user email DNE, create the account in the file.
-//        String userInfo = email +":" +password +"\n";
-//
-//        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/resources/accounts.txt", true))) {
-//            bw.append(userInfo);
-//        } catch (Exception e) {
-//            displayError(e.getMessage());
-//        }
-//
-//        if (!userInfoValid(email, password)) { // if user info is not valid, display error.
-//            displayError("Provided information is invalid.");
-//        }
-//
+        String email = emailTextField.getText();
+        String password = passwordTextField.getText();
+
+        // verify email not already in accounts
+        if (retrieveUserInfo(email) != null) {
+            displayError("The email " +email +" is already used!");
+        }
+        // user email DNE, create the account in the file.
+        String userInfo = email +":" +password +"\n";
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/resources/accounts.txt", true))) {
+            bw.append(userInfo);
+        } catch (Exception e) {
+            displayError(e.getMessage());
+        }
+
+        if (!userInfoValid(email, password)) { // if user info is not valid, display error.
+            displayError("Provided information is invalid.");
+        }
+
 //        navigateToMain();
-        System.out.println("Register");
     }
 
-    private void navigateToMain() {
-//        primaryStage.setScene(new MainView().getScene());
-    }
+//    private void navigateToMain() {
+//        Parent mainView = null;
+//        try {
+//            mainView = FXMLLoader.load(getClass().getResource("MainView.fxml"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        Scene mainScene = new Scene(mainView, 800, 600);
+//        primaryStage.setScene(mainScene);
+//        primaryStage.show();
+//    }
 
     private void displayError(String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
