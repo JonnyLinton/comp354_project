@@ -13,12 +13,21 @@ import java.util.*;
  */
 public class Stock
 {
+
+    // INNER CLASS MOVING AVERAGE
     class MovingAverage
     {
+        // enum type
         private MovingAverageInterval interval;
-        private List<StockEntry> movingAverageDataList;
 
-        // default: 20 days
+        // list of StockEntry objects
+        private LinkedList<StockEntry> movingAverageDataList;
+
+        /**
+         * default constructor for moving average class
+         * default interval is 20 days
+         * list will not contain anything
+         */
         public MovingAverage()
         {
             this.interval = MovingAverageInterval.TwentyDay;
@@ -26,36 +35,35 @@ public class Stock
         }
 
         /**
-         * TODO
+         * Constructor for moving average
+         * Constructor takes care of computing the MAs
          * @param interval
-         * @param parentList
          */
-        public MovingAverage(MovingAverageInterval interval, List<StockEntry> parentList)
+        public MovingAverage(MovingAverageInterval interval)
         {
             this.interval = interval;
 
             switch(interval)
             {
                 case TwentyDay:
-                    // make a list of 20 day MA with parent list
+                    this.movingAverageDataList = computeMovingAverages(20);
                     break;
 
                 case FiftyDay:
-                    // make a list of 50 day MA with parent list
+                    this.movingAverageDataList = computeMovingAverages(50);
                     break;
 
                 case HundredDay:
-                    // make a list of 100 day MA with parent list
+                    this.movingAverageDataList = computeMovingAverages(100);
                     break;
 
                 case TwoHundredDay:
-                    // make a list of 200 day MA with parent list
+                    this.movingAverageDataList = computeMovingAverages(200);
                     break;
-
-
             }
         }
 
+        // getter/setter
         public MovingAverageInterval getInterval() {
             return interval;
         }
@@ -64,21 +72,34 @@ public class Stock
             this.interval = interval;
         }
 
-        public List<StockEntry> getData() {
+        public LinkedList<StockEntry> getData() {
             return movingAverageDataList;
         }
 
-        public void setData(List<StockEntry> data) {
+        public void setData(LinkedList<StockEntry> data) {
             this.movingAverageDataList = data;
         }
 
 
     }
+    // -- END OF INNER CLASS MOVING AVERAGE --
 
+
+    // -- START OF STOCK CLASS --
+
+    // holds name of stock
     private String name;
+
+    // holds ticker of stock
     private String ticker;
-    private List<StockEntry> data;
+
+    // list holding all the StockEntry objects (containing pairs of String/Double)
+    private LinkedList<StockEntry> data;
+
+    // size of the List
     private int dataSize;
+
+    // array of precomputed moving averages
     private MovingAverage[] movingAverages;
 
 
@@ -124,101 +145,174 @@ public class Stock
         movingAverages = new MovingAverage[4];
 
         // set each MA to its right interval and fills it with the right computed values
-        movingAverages[0] = new MovingAverage(MovingAverageInterval.TwentyDay, this.data);
-        movingAverages[1] = new MovingAverage(MovingAverageInterval.FiftyDay, this.data);
-        movingAverages[2] = new MovingAverage(MovingAverageInterval.HundredDay, this.data);
-        movingAverages[3] = new MovingAverage(MovingAverageInterval.TwoHundredDay, this.data);
+        movingAverages[0] = new MovingAverage(MovingAverageInterval.TwentyDay);
+        movingAverages[1] = new MovingAverage(MovingAverageInterval.FiftyDay);
+        movingAverages[2] = new MovingAverage(MovingAverageInterval.HundredDay);
+        movingAverages[3] = new MovingAverage(MovingAverageInterval.TwoHundredDay);
     }
 
 
-    /**
-     *
+    /** OUTPUT SERIES OF PRICES
+     * Cuts the data and outputs a list
      * @param timeInterval
-     * @return
+     * @return series of closing prices
      */
     public XYChart.Series getPricesInRange(TimeInterval timeInterval)
     {
-
         XYChart.Series series = new XYChart.Series();
+        LinkedList<StockEntry> truncatedList = new LinkedList<StockEntry>();
 
-
-        switch(timeInterval)
+        if(timeInterval == TimeInterval.AllTime)
         {
-            case OneYear:
-
-
-
-
-                break;
-
-            case TwoYears:
-
-
-
-                break;
-
-
-            case FiveYears:
-
-
-
-                break;
-
-
-            case AllTime:
-
-
-
-                break;
+            truncatedList = this.data;
         }
+        else
+        {
+            truncatedList = truncateList(this.data, timeInterval);
+        }
+
+        series = listToSerie(truncatedList);
 
         return series;
     }
 
 
-    /**
-     * TODO
+    /** OUTPUT SERIES OF MA
+     * Prob need to adapt to selected timeline of graph (return 254 MAs if timeline is one year for stock)
      * Get moving average serie based on interval
      * @param interval
      * @return Series of moving average over interval
      */
-    public XYChart.Series getMovingAverage(MovingAverageInterval interval)
+    public XYChart.Series getMovingAverage(MovingAverageInterval interval, TimeInterval timeInterval)
     {
         XYChart.Series series = new XYChart.Series();
+
+        LinkedList<StockEntry> truncatedList;
 
         switch(interval)
         {
             case TwentyDay:
-                series = putMovingAverageInSeries(0, this.movingAverages, series);
+                truncatedList = truncateList(this.movingAverages[0].movingAverageDataList, timeInterval);
+                series = listToSerie(truncatedList);
                 break;
 
             case FiftyDay:
-                series = putMovingAverageInSeries(1, this.movingAverages, series);
+                truncatedList = truncateList(this.movingAverages[1].movingAverageDataList, timeInterval);
+                series = listToSerie(truncatedList);
                 break;
 
             case HundredDay:
-                series = putMovingAverageInSeries(2, this.movingAverages, series);
+                truncatedList = truncateList(this.movingAverages[2].movingAverageDataList, timeInterval);
+                series = listToSerie(truncatedList);
                 break;
 
             case TwoHundredDay:
-                series = putMovingAverageInSeries(3, this.movingAverages, series);
+                truncatedList = truncateList(this.movingAverages[3].movingAverageDataList, timeInterval);
+                series = listToSerie(truncatedList);
                 break;
         }
 
         return series;
     }
 
+    public XYChart.Series listToSerie(LinkedList<StockEntry> list)
+    {
+        XYChart.Series series = new XYChart.Series();
 
-    // HELPER FUNCTIONS:
+        for(StockEntry entries : list)
+        {
+            series.getData().add(new XYChart.Data(entries.getDate(), entries.getValue()));
+        }
+
+        return series;
+    }
 
 
-    /**
+    private LinkedList<StockEntry> truncateList(LinkedList<StockEntry> list, TimeInterval timeInterval)
+    {
+        LinkedList<StockEntry> tempList = new LinkedList<StockEntry>();
+        LinkedList<StockEntry> tempFullData = list;
+
+        int TIMEFRAME = 0;
+
+        switch(timeInterval)
+        {
+            case OneYear:
+                TIMEFRAME = 254;
+                break;
+
+            case TwoYears:
+                TIMEFRAME = 505;
+                break;
+
+            case FiveYears:
+                TIMEFRAME = 1259;
+                break;
+        }
+
+        for (int i = 0; i < TIMEFRAME; i++)
+        {
+            tempList.add(tempFullData.removeLast());
+        }
+
+        return tempList;
+    }
+
+
+
+
+
+
+
+    /** HELPER FUNCTION FOR MOVING AVERAGE CLASS
+     * Computes the moving averages values
+     * @param interval
+     * @return
+     */
+    private LinkedList<StockEntry> computeMovingAverages(int interval)
+    {
+        LinkedList<StockEntry> tempList = data;
+        LinkedList<StockEntry> movingAverageList = new LinkedList<StockEntry>();
+        Queue<Double> queueTemp = new LinkedList<Double>();
+
+        double movingAverageTotal = 0;
+        int count = 0;
+
+        StockEntry temp;
+        for (int i = tempList.size() ; i > 0 ; i--)
+        {
+            temp = tempList.removeLast();
+
+            if(queueTemp.size()< movingAverageTotal)
+            {
+                queueTemp.add(temp.getValue());
+                movingAverageTotal += temp.getValue();
+            }
+            else
+            {
+                if(count%interval == 0)
+                {
+                    movingAverageList.add(new StockEntry(temp.getDate(), movingAverageTotal/interval));
+                }
+
+                movingAverageTotal -= queueTemp.poll();
+                queueTemp.add(temp.getValue());
+                movingAverageTotal += temp.getValue();
+                count++;
+            }
+        }
+
+        return movingAverageList;
+    }
+
+
+    /** HELPER FOR STOCK CLASS
      * Populates the list from the CSV file
      * @param dataList
      * @param filePath
      * @return Size of the list
      */
-    public static int populateList(List<StockEntry> dataList, String filePath)
+    public static int populateList(LinkedList<StockEntry> dataList, String filePath)
     {
         Scanner csvScanner = null;
 
@@ -256,40 +350,10 @@ public class Stock
     }
 
 
-    /**
-     *TODO
-     * @param index
-     * @param array
-     * @param series
-     * @return Series of moving averages to plug in the graph
-     */
-    public static XYChart.Series putMovingAverageInSeries(int index, MovingAverage[] array, XYChart.Series series)
-    {
-        for(StockEntry entries : array[index].movingAverageDataList)
-        {
-            series.getData().add(new XYChart.Data(entries.getDate(), entries.getValue()));
-        }
-
-        return series;
-    }
 
 
 
-    // MAIN FOR TRYOUTS
-    public static void main(String [] args)
-    {
-        Stock exampleStock = new Stock("Dummy Stock", "STOK", "Sample data.csv");
-
-        // prints all the entries
-        for(StockEntry entry: exampleStock.data)
-        {
-            System.out.println(entry.toString());
-        }
-
-    }
-
-
-
+    // GETTERS AND SETTERS
     public String getName()
     {
         return name;
@@ -310,11 +374,11 @@ public class Stock
         this.ticker = ticker;
     }
 
-    public List<StockEntry> getData() {
+    public LinkedList<StockEntry> getData() {
         return data;
     }
 
-    public void setData(List<StockEntry> data) {
+    public void setData(LinkedList<StockEntry> data) {
         this.data = data;
     }
 
@@ -334,23 +398,16 @@ public class Stock
         this.movingAverages = movingAverages;
     }
 
-
-    /** HELPER FOR MA INNER CLASS
-     * Helps put MAs in list when creating a new MA object for the right time interval
-     * @param interval
-     * @return
-     */
-    private LinkedList<StockEntry> computeMovingAverages(int interval)
-    {
-
-        StockEntry temp;
-
-
-
-
-        return new LinkedList<>();
-    }
-
-
-
+    // MAIN FOR TRYOUTS
+//    public static void main(String [] args)
+//    {
+//        Stock exampleStock = new Stock("Dummy Stock", "STOK", "Sample data.csv");
+//
+//        // prints all the entries
+//        for(StockEntry entry: exampleStock.data)
+//        {
+//            System.out.println(entry.toString());
+//        }
+//
+//    }
 }
