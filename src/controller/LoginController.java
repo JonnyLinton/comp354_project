@@ -15,7 +15,6 @@ public class LoginController {
     private Stage primaryStage;
     private LoginView loginView;
 
-    public LoginController() {}
     public LoginController(Stage primaryStage, LoginView loginView) {
         this.primaryStage = primaryStage;
         this.loginView = loginView;
