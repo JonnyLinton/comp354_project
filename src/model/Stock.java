@@ -165,14 +165,7 @@ public class Stock
         XYChart.Series series = new XYChart.Series();
         LinkedList<StockEntry> truncatedList = new LinkedList<StockEntry>();
 
-        if(timeInterval == TimeInterval.AllTime)
-        {
-            truncatedList = this.data;
-        }
-        else
-        {
-            truncatedList = truncateList(this.data, timeInterval);
-        }
+        truncatedList = truncateList(this.data, timeInterval);
 
         series = listToSerie(truncatedList);
 
@@ -245,6 +238,12 @@ public class Stock
 
     private LinkedList<StockEntry> truncateList(LinkedList<StockEntry> list, TimeInterval timeInterval)
     {
+
+        if(timeInterval == TimeInterval.AllTime)
+        {
+            return list;
+        }
+
         LinkedList<StockEntry> tempList = new LinkedList<StockEntry>();
         LinkedList<StockEntry> tempFullData = new LinkedList<StockEntry>();
         tempFullData = list;
@@ -263,10 +262,6 @@ public class Stock
 
             case FiveYears:
                 TIMEFRAME = 1259;
-                break;
-
-            case AllTime:
-                TIMEFRAME = this.dataSize; // SLOW SHIT NEED TO CHANGE
                 break;
         }
 
