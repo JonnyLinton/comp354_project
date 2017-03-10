@@ -19,6 +19,9 @@ public class LoginController extends AnchorPane {
     public LoginController(Stage primaryStage, LoginView loginView) {
         this.primaryStage = primaryStage;
         this.loginView = loginView;
+
+        loginView.getLoginButton().setOnAction(this::login);
+        loginView.getRegisterButton().setOnAction(this::register);
     }
 
 
