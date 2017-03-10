@@ -2,6 +2,7 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import view.LoginView;
 import view.MainView;
@@ -11,16 +12,13 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 
-public class LoginController {
+public class LoginController extends AnchorPane {
     private Stage primaryStage;
     private LoginView loginView;
 
     public LoginController(Stage primaryStage, LoginView loginView) {
         this.primaryStage = primaryStage;
         this.loginView = loginView;
-
-        loginView.getLoginButton().setOnAction(this::login);
-        loginView.getRegisterButton().setOnAction(this::registerUser);
     }
 
 
@@ -70,7 +68,7 @@ public class LoginController {
         return true;
     }
 
-    public boolean registerUser(ActionEvent registerButtonPressed) {
+    public boolean register(ActionEvent registerButtonPressed) {
         String email = loginView.getEmailTexField().getText();
         String password = loginView.getPasswordTextField().getText();
 
