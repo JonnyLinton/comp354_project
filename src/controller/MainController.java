@@ -1,39 +1,61 @@
 package controller;
 
+import model.Stock;
+import model.TimeInterval;
+import model.MovingAverageInterval;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import model.Stock;
 
 public class MainController {
-    private Stock currentStock;
+	
+	private Stock currentStock;
 
-    public MainController(){
-        currentStock = null;
+	//For Iteration 2
+	public void searchStock(String currentStock){	
     }
-
-    public void searchStock(Event event) {
-
+	
+	public void showDefaultStock(Stock currentStock){
+		currentStock.getPricesInRange(TimeInterval.OneYear);
+	}
+	
+	private void graphTimeline(Stock currentStock, TimeInterval timeLength){
+		currentStock.getPricesInRange(timeLength);
+	}
+	
+	private void graphMovingAverage(ActionEvent event) {
+		//TBD
+		switch(movingAverageButtonPressed.getEventType().getName()) {
+        case "20Day":
+        	if(movingAverageButtonPressed.GETSELECTED() == True)
+        		currentStock.getMovingAverage(MovingAverageInterval.TwentyDay, get);
+        	else
+        		currentStock.getMovingAverage(null, null);
+        	break;
+        case "50day":
+        	if(movingAverageButtonPressed.GETSELECTED() == True)
+        		currentStock.getMovingAverage(MovingAverageInterval.FiftyDay, get);
+        	else
+        		currentStock.getMovingAverage(null, null);
+            break;
+        case "100day":
+        	if(movingAverageButtonPressed.GETSELECTED() == True)
+        		currentStock.getMovingAverage(MovingAverageInterval.HundredDay, get);
+        	else
+        		currentStock.getMovingAverage(null, null);
+            break;
+        case "200day":
+        	if(movingAverageButtonPressed.GETSELECTED() == True)
+        		currentStock.getMovingAverage(MovingAverageInterval.TwoHundredDay, get);
+        	else
+        		currentStock.getMovingAverage(null, null);
+            break; 
     }
-
-    public void showDefaultStock() {
-
-    }
-
-    private void graphData() {
-
-    }
-
-    private String getRecommendations() {
-
-        return "Sell";
-    }
-
-    public boolean logout(){
-
-        return true;
-    }
-
-    private void displayError() {
-
-    }
+		
+		
+		
+	}
+	private void getRecommendations(String recom){
+		
+	}
 }
