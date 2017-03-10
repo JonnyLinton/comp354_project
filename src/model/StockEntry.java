@@ -8,6 +8,8 @@ public class StockEntry {
     private String date;
     private Double value;
 
+
+
     public StockEntry(String date, Double value)
     {
         this.date = date;
