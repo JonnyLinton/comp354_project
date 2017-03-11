@@ -2,14 +2,16 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 
 public class LoginController {
 
@@ -58,8 +60,7 @@ public class LoginController {
             displayError("Provided information is invalid.");
         }
 
-        //navigateToMain();
-        System.out.println(emailTextField.getText() + "\n" + passwordTextField.getText());
+        navigateToMain(loginButtonPressed);
     }
 
     @FXML
@@ -84,20 +85,21 @@ public class LoginController {
             displayError("Provided information is invalid.");
         }
 
-//        navigateToMain();
+        navigateToMain(registerButtonPressed);
     }
 
-//    private void navigateToMain() {
-//        Parent mainView = null;
-//        try {
-//            mainView = FXMLLoader.load(getClass().getResource("MainView.fxml"));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        Scene mainScene = new Scene(mainView, 800, 600);
-//        primaryStage.setScene(mainScene);
-//        primaryStage.show();
-//    }
+    private void navigateToMain(ActionEvent event) {
+        Parent mainView = null;
+        try {
+            mainView = FXMLLoader.load(getClass().getResource("../view/MainView.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene mainScene = new Scene(mainView, 800, 600);
+        Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        primaryStage.setScene(mainScene);
+        primaryStage.show();
+    }
 
     private void displayError(String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

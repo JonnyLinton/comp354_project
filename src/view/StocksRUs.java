@@ -18,12 +18,7 @@ public class StocksRUs extends Application {
         launch(args);
     }
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("StocksRUs");
-//        LoginView loginView = new LoginView();
-//        LoginController loginController = new LoginController(primaryStage, loginView);
-//        primaryStage.setScene(loginView.getScene());
-//        MainView mainView = new MainView();
-//        primaryStage.setScene(mainView.getScene());
+        primaryStage.setTitle("In Stock");
         Parent loginView = null;
         try {
             loginView = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
@@ -32,6 +27,7 @@ public class StocksRUs extends Application {
         }
         Scene loginScene = new Scene(loginView, 800, 600);
         primaryStage.setScene(loginScene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 }
