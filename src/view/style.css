@@ -1,18 +1,37 @@
 .chart {
 	-fx-background-color: white;
 }
+.chart-title {
+	-fx-text-fill: #4da0ff;
+	-fx-font-size: 1.6em;
+}
+.chart-legend {
+	-fx-margin: 10px;
+}
+.chart-plot-background {
+	-fx-background-color: transparent;
+}
+.chart-vertical-grid-lines {
+	-fx-stroke: transparent;
+}
+.chart-horizontal-grid-lines {
+	-fx-stroke: gray;
+}
 .axis {
-	-fx-tick-label-fill: black;
+	-fx-tick-label-fill: #4da0ff;
+	-fx-tick-length: 10;
+	-fx-minor-tick-length: 5;
 }
 .axis-label {
 	-fx-text-fill: black;
 }
 .axis-tick-mark {
-	-fx-stroke: black;
-	-fx-stroke-width: 3;
+	-fx-stroke: #4da0ff;
+	-fx-stroke-width: 1px;
 }
 .axis-minor-tick-mark {
-	-fx-stroke: black;
+	-fx-stroke: #4da0ff;
+	-fx-stroke-width: 1px;
 }
 .chart-series-line {    
     -fx-stroke-width: 2px;
@@ -31,11 +50,6 @@ Button {
 }
 Button:hover {
 	-fx-background-color: #4da0ff;
-	-fx-border-color: white;
-    -fx-border-width: 2px;
-	-fx-font-family: "Avenir", Verdana;
-	-fx-font-weight: bold;
-	-fx-text-fill: white;
 }
 #maBox {
 	-fx-text-fill: white;

@@ -28,7 +28,7 @@
                <children>
                   <LineChart fx:id="stockChart" HBox.hgrow="ALWAYS">
                     <xAxis>
-                      <CategoryAxis label="Dates" side="BOTTOM" stylesheets="@style.css" />
+                      <CategoryAxis label="Dates" side="BOTTOM" startMargin="0.0" stylesheets="@style.css" tickMarkVisible="false" />
                     </xAxis>
                     <yAxis>
                       <NumberAxis label="Prices" side="LEFT" />

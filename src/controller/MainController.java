@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
@@ -31,19 +32,29 @@ public class MainController {
 		if (!isStockGenerated) {
 			currentStock = new Stock("Dummy Stock", "STOK", "C:\\Users\\Jacques\\workspace\\comp354_project\\src\\resources\\Sample data.csv");
 			
-			XYChart.Series<String, Number> stockSerie = currentStock.getPricesInRange(TimeInterval.TwoYears);
+			XYChart.Series<String, Number> stockSerie = currentStock.getPricesInRange(TimeInterval.OneYear);
+			stockSerie.setName("Closing Prices");
 			
 			XYChart.Series<String, Number> movingAverageSeries[] =  new XYChart.Series[4];
 			
-			movingAverageSeries[0] = currentStock.getMovingAverage(MovingAverageInterval.TwentyDay, TimeInterval.TwoYears);
-			movingAverageSeries[1] = currentStock.getMovingAverage(MovingAverageInterval.FiftyDay, TimeInterval.TwoYears);
-			movingAverageSeries[2] = currentStock.getMovingAverage(MovingAverageInterval.HundredDay, TimeInterval.TwoYears);
-			movingAverageSeries[3] = currentStock.getMovingAverage(MovingAverageInterval.TwoHundredDay, TimeInterval.TwoYears);
+			movingAverageSeries[0] = currentStock.getMovingAverage(MovingAverageInterval.TwentyDay, TimeInterval.OneYear);
+			movingAverageSeries[1] = currentStock.getMovingAverage(MovingAverageInterval.FiftyDay, TimeInterval.OneYear);
+			movingAverageSeries[2] = currentStock.getMovingAverage(MovingAverageInterval.HundredDay, TimeInterval.OneYear);
+			movingAverageSeries[3] = currentStock.getMovingAverage(MovingAverageInterval.TwoHundredDay, TimeInterval.OneYear);
+			
+			movingAverageSeries[0].setName("20 days MA");
+			movingAverageSeries[1].setName("50 days MA");
+			movingAverageSeries[2].setName("100 days MA");
+			movingAverageSeries[3].setName("200 days MA");
 			
 			stockChart.getData().add(stockSerie);
 			
 			for (XYChart.Series<String, Number> movingAverageSerie : movingAverageSeries)
 				stockChart.getData().add(movingAverageSerie);
+			
+			stockChart.setCreateSymbols(false);
+			stockChart.setTitle(currentStock.getName());
+			stockChart.setLegendSide(Side.TOP);
 			
 			isStockGenerated = true;
 		}
