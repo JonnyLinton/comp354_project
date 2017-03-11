@@ -30,7 +30,7 @@ public class MainController {
 		if (!isStockGenerated) {
 			
 			// Create stock object from model class
-			currentStock = new Stock("Dummy Stock", "STOK", "C:\\Users\\Jacques\\workspace\\comp354_project\\src\\resources\\Sample data.csv");
+			currentStock = new Stock("Dummy Stock", "STOK", "src/resources/Sample data.csv");
 			
 			// Create closing prices serie from stock object
 			XYChart.Series<String, Number> stockSerie = currentStock.getPricesInRange(TimeInterval.FiveYears);
