@@ -39,7 +39,7 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#login" prefHeight="27.0" prefWidth="230.0" text="Login" textFill="WHITE" GridPane.hgrow="ALWAYS">
+                                    <Button defaultButton="true" mnemonicParsing="false" onAction="#login" prefHeight="27.0" prefWidth="230.0" text="Login" textFill="WHITE" GridPane.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Verdana Bold" size="13.0" />
                                        </font>
