@@ -1,35 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #AAD1FF;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
-      <VBox layoutX="276.0" layoutY="200.0" prefHeight="114.0" prefWidth="250.0" spacing="10.0" AnchorPane.bottomAnchor="286.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="275.0" AnchorPane.topAnchor="200.0">
+      <AnchorPane layoutX="275.0" layoutY="130.0">
          <children>
-            <TextField fx:id="emailTextField" />
-            <PasswordField fx:id="passwordTextField" />
-            <AnchorPane prefHeight="29.0" prefWidth="249.0">
+            <AnchorPane>
                <children>
-                  <GridPane hgap="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                  <Label layoutX="36.0" text="in" textFill="WHITE">
+                     <font>
+                        <Font name="Avenir Heavy" size="96.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="117.0" layoutY="55.0" text="stock" textFill="#434343" underline="true">
+                     <font>
+                        <Font name="Avenir Heavy" size="39.0" />
+                     </font>
+                  </Label>
+                  <VBox layoutY="138.0" prefHeight="114.0" prefWidth="250.0" spacing="10.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#login" prefHeight="27.0" prefWidth="230.0" text="Login" GridPane.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" onAction="#register" prefHeight="27.0" prefWidth="164.0" text="Register" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                        <TextField fx:id="emailTextField" promptText="Email" />
+                        <PasswordField fx:id="passwordTextField" promptText="Password" />
+                        <AnchorPane prefHeight="29.0" prefWidth="249.0">
+                           <children>
+                              <GridPane hgap="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#login" prefHeight="27.0" prefWidth="230.0" text="Login" textFill="WHITE" GridPane.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="Verdana Bold" size="13.0" />
+                                       </font>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#register" prefHeight="27.0" prefWidth="164.0" text="Register" textFill="WHITE" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="Verdana Bold" size="13.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
                      </children>
-                  </GridPane>
+                  </VBox>
                </children>
             </AnchorPane>
          </children>
-      </VBox>
+      </AnchorPane>
    </children>
 </AnchorPane>

@@ -2,7 +2,22 @@
 	-fx-stroke-width: 2px;
 	-fx-effect: null;
 }
+AnchorPane {
+}
+Button {
+    -fx-background-color: #AAD1FF;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+		-fx-font-family: "Avenir", Verdana;
+		-fx-font-weight: Bold;
+}
 
+TextField, PasswordField {
+	-fx-border-color: white;
+	-fx-border-width: 2px;
+	/*-fx-border-insets: 2px;*/
+	-fx-font-family: "Avenir", Verdana;
+}
 
 
 
