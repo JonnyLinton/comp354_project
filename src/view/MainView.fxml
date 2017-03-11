@@ -12,26 +12,26 @@
    <children>
       <FlowPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="TOP_CENTER" prefWidth="800.0" spacing="10.0">
+            <HBox id="searchBox" alignment="TOP_CENTER" prefWidth="800.0" spacing="10.0">
                <padding>
                   <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
                </padding>
                <children>
-                  <TextField id="searchField" fx:id="searchTextField" prefHeight="25.0" prefWidth="287.0" promptText="Enter Stock Name" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="searchButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#showStock" styleClass="SearchButton" text="Search Stock">
+                  <TextField id="searchTextField" fx:id="searchTextField" prefHeight="25.0" prefWidth="287.0" promptText="Enter Stock Name" HBox.hgrow="ALWAYS" />
+                  <Button id="searchButton" fx:id="searchButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#showStock" text="Search Stock">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
                </children>
             </HBox>
-            <HBox prefHeight="489.0" prefWidth="800.0">
+            <HBox id="chartBox" prefHeight="489.0" prefWidth="800.0">
                <children>
-                  <LineChart fx:id="stockChart" HBox.hgrow="ALWAYS">
+                  <LineChart id="stockChart" fx:id="stockChart" HBox.hgrow="ALWAYS">
                     <xAxis>
-                      <CategoryAxis label="Dates" side="BOTTOM" startMargin="0.0" stylesheets="@style.css" tickMarkVisible="false" />
+                      <CategoryAxis id="datesAxis" label="Dates" side="BOTTOM" startMargin="0.0" stylesheets="@style.css" tickMarkVisible="false" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis label="Prices" side="LEFT" />
+                      <NumberAxis id="pricesAxis" label="Prices" side="LEFT" />
                     </yAxis>
                      <HBox.margin>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
@@ -41,21 +41,21 @@
             </HBox>
             <AnchorPane prefHeight="29.0" prefWidth="760.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" spacing="10.0" AnchorPane.leftAnchor="0.0">
+                  <HBox id="timelineBox" alignment="CENTER_LEFT" spacing="10.0" AnchorPane.leftAnchor="0.0">
                      <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="1 Year">
+                        <Button id="timeLineButton_1" fx:id="timeLineButton_1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="1 Year">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="2 Years">
+                        <Button id="timeLineButton_2" fx:id="timeLineButton_2" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="2 Years">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="5 Years">
+                        <Button id="timeLineButton_5" fx:id="timeLineButton_5" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="5 Years">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="All Time">
+                        <Button id="timeLineButton_all" fx:id="timeLineButton_all" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="All Time">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
@@ -64,19 +64,19 @@
                   <HBox id="maBox" alignment="CENTER_LEFT" prefHeight="1.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
                      <children>
                         <Label id="maLabel" prefHeight="25.0" text="Moving Averages" HBox.hgrow="ALWAYS" />
-                        <CheckBox alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="20 Days">
+                        <CheckBox id="maButton_20" fx:id="maButton_20" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="20 Days">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></CheckBox>
-                        <CheckBox alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="50 Days">
+                        <CheckBox id="maButton_50" fx:id="maButton_50" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="50 Days">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></CheckBox>
-                        <CheckBox alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="100 Days">
+                        <CheckBox id="maButton_100" fx:id="maButton_100" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="100 Days">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></CheckBox>
-                        <CheckBox alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="200 Days">
+                        <CheckBox id="maButton_200" fx:id="maButton_200" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="200 Days">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></CheckBox>
