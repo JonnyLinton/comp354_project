@@ -1,2 +1,1 @@
-test@test.com:password
-louisolivier:bob23
+test@email.com:password

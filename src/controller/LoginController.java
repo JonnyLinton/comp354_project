@@ -23,12 +23,10 @@ public class LoginController {
     private boolean userInfoValid(String email, String password) {
         String[] accountInfo = retrieveUserInfo(email);
 
-        if(accountInfo == null) {
+        if(accountInfo == null)
             return false;
-        }
-        else if(accountInfo[0].equals(email) && accountInfo[1].equals(password)) {
+        else if(accountInfo[0].equals(email) && accountInfo[1].equals(password))
             return true;
-        }
 
         return false;
     }
@@ -56,11 +54,10 @@ public class LoginController {
         String email = emailTextField.getText();
         String password = passwordTextField.getText();
 
-        if (!userInfoValid(email, password)) { // if user info is not valid, display error.
+        if (!userInfoValid(email, password)) // if user info is not valid, display error.
             displayError("Provided information is invalid.");
-        }
-
-        navigateToMain(loginButtonPressed);
+        else // if no error, login the user.
+            navigateToMain(loginButtonPressed);
     }
 
     @FXML
@@ -81,11 +78,8 @@ public class LoginController {
             displayError(e.getMessage());
         }
 
-        if (!userInfoValid(email, password)) { // if user info is not valid, display error.
-            displayError("Provided information is invalid.");
-        }
-
-        navigateToMain(registerButtonPressed);
+        //credentials are now saved, so automatically login the user
+        login(registerButtonPressed);
     }
 
     private void navigateToMain(ActionEvent event) {
