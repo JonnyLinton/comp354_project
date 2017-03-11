@@ -1,9 +1,2 @@
-test@email.com:password
-Simon Jacques:passTest
-Simon Jacques:mypass123
 Test:test
 test:test
-Anais Metivier Francis:ana77244
-Anais Metivier Francis:ana7244
-Test123:test123
-:

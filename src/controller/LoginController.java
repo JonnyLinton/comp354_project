@@ -89,7 +89,7 @@ public class LoginController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Scene mainScene = new Scene(mainView, 800, 600);
+        Scene mainScene = new Scene(mainView, 1280, 720);
         Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
         primaryStage.setScene(mainScene);
         primaryStage.show();

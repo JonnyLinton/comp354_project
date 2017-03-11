@@ -8,11 +8,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <children>
       <FlowPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox id="searchBox" alignment="TOP_CENTER" prefWidth="800.0" spacing="10.0">
+            <HBox id="searchBox" alignment="TOP_CENTER" prefWidth="1280.0" spacing="10.0">
                <padding>
                   <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
                </padding>
@@ -24,9 +24,9 @@
                      </cursor></Button>
                </children>
             </HBox>
-            <HBox id="chartBox" prefHeight="489.0" prefWidth="800.0">
+            <HBox id="chartBox" prefHeight="600.0" prefWidth="1280.0">
                <children>
-                  <LineChart id="stockChart" fx:id="stockChart" HBox.hgrow="ALWAYS">
+                  <LineChart id="stockChart" fx:id="stockChart" animated="false" legendSide="TOP" title="Stock Analysis" verticalGridLinesVisible="false" HBox.hgrow="ALWAYS">
                     <xAxis>
                       <CategoryAxis id="datesAxis" label="Dates" side="BOTTOM" startMargin="0.0" stylesheets="@style.css" tickMarkVisible="false" />
                     </xAxis>
@@ -39,7 +39,7 @@
                   </LineChart>
                </children>
             </HBox>
-            <AnchorPane prefHeight="29.0" prefWidth="760.0">
+            <AnchorPane prefHeight="29.0" prefWidth="1240.0">
                <children>
                   <HBox id="timelineBox" alignment="CENTER_LEFT" spacing="10.0" AnchorPane.leftAnchor="0.0">
                      <children>

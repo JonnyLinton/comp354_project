@@ -1,12 +1,10 @@
 package model;
 
 import javafx.scene.chart.XYChart;
-import sun.awt.image.ImageWatched;
 
 import java.io.File;
 
 import java.util.*;
-
 
 
 /**
@@ -160,9 +158,9 @@ public class Stock
      * @param timeInterval
      * @return series of closing prices
      */
-    public XYChart.Series getPricesInRange(TimeInterval timeInterval)
+    public XYChart.Series<String, Number> getPricesInRange(TimeInterval timeInterval)
     {
-        XYChart.Series series = new XYChart.Series();
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
         LinkedList<StockEntry> truncatedList = new LinkedList<StockEntry>();
 
         truncatedList = truncateList(this.data, timeInterval);
@@ -179,9 +177,9 @@ public class Stock
      * @param interval
      * @return Series of moving average over interval
      */
-    public XYChart.Series getMovingAverage(MovingAverageInterval interval, TimeInterval timeInterval)
+    public XYChart.Series<String, Number> getMovingAverage(MovingAverageInterval interval, TimeInterval timeInterval)
     {
-        XYChart.Series series = new XYChart.Series();
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
 
 
 
@@ -218,9 +216,9 @@ public class Stock
 
 
     // HELPER METHODS FOR OUTPUTING SERIES/TRUNCATING LISTS
-    public XYChart.Series listToSerie(LinkedList<StockEntry> list)
+    public XYChart.Series<String, Number> listToSerie(LinkedList<StockEntry> list)
     {
-        XYChart.Series series = new XYChart.Series();
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
 
 
         // THIS MIGHT OR MIGHT NOT BE NEEDED
@@ -229,7 +227,7 @@ public class Stock
 
         for(StockEntry entries : list)
         {
-            series.getData().add(new XYChart.Data(entries.getDate(), entries.getValue()));
+            series.getData().add(new XYChart.Data<String, Number>(entries.getDate(), entries.getValue()));
         }
 
         return series;
@@ -263,6 +261,8 @@ public class Stock
             case FiveYears:
                 TIMEFRAME = 1259;
                 break;
+            default:
+            	break;
         }
 
         int i = 0;
@@ -303,7 +303,6 @@ public class Stock
 
 
         double movingAverageTotal = 0;
-        int count = 0;
         int i = 0;
         StockEntry temp;
 
@@ -327,7 +326,6 @@ public class Stock
                     movingAverageTotal -= queueTemp.poll();
                     queueTemp.add(temp.getValue());
                     movingAverageTotal += temp.getValue();
-                    count++;
 
             }
 

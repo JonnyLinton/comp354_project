@@ -3,19 +3,19 @@ package controller;
 import model.Stock;
 import model.TimeInterval;
 import model.MovingAverageInterval;
+
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Side;
+import javafx.scene.Cursor;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
 
 public class MainController {
 	
-	Stock currentStock;
 	boolean isStockGenerated = false;
+	
+	Stock currentStock;
 	
 	@FXML
 	TextField searchTextField;
@@ -23,51 +23,63 @@ public class MainController {
 	@FXML
 	LineChart<String, Number> stockChart;
 	
-	//For Iteration 2
-	public void searchStock(String currentStock){	
-    }
-	
 	@FXML
 	public void showStock(ActionEvent searchButtonPressed) {
+		
+		// Checks if a stock has already been generated
 		if (!isStockGenerated) {
+			
+			// Create stock object from model class
 			currentStock = new Stock("Dummy Stock", "STOK", "C:\\Users\\Jacques\\workspace\\comp354_project\\src\\resources\\Sample data.csv");
 			
-			XYChart.Series<String, Number> stockSerie = currentStock.getPricesInRange(TimeInterval.OneYear);
+			// Create closing prices serie from stock object
+			XYChart.Series<String, Number> stockSerie = currentStock.getPricesInRange(TimeInterval.FiveYears);
 			stockSerie.setName("Closing Prices");
 			
-			XYChart.Series<String, Number> movingAverageSeries[] =  new XYChart.Series[4];
-			
-			movingAverageSeries[0] = currentStock.getMovingAverage(MovingAverageInterval.TwentyDay, TimeInterval.OneYear);
-			movingAverageSeries[1] = currentStock.getMovingAverage(MovingAverageInterval.FiftyDay, TimeInterval.OneYear);
-			movingAverageSeries[2] = currentStock.getMovingAverage(MovingAverageInterval.HundredDay, TimeInterval.OneYear);
-			movingAverageSeries[3] = currentStock.getMovingAverage(MovingAverageInterval.TwoHundredDay, TimeInterval.OneYear);
-			
-			movingAverageSeries[0].setName("20 days MA");
-			movingAverageSeries[1].setName("50 days MA");
-			movingAverageSeries[2].setName("100 days MA");
-			movingAverageSeries[3].setName("200 days MA");
-			
+			// Add closing price serie to the graph
 			stockChart.getData().add(stockSerie);
 			
-			for (XYChart.Series<String, Number> movingAverageSerie : movingAverageSeries)
-				stockChart.getData().add(movingAverageSerie);
+			/* Create moving average series array of size 4
+			 * Initiate every index with a new moving average serie from stock object
+			 * Give every serie a name
+			 */
+			XYChart.Series<String, Number> movingAverageSeries[] = new XYChart.Series[4];
+			movingAverageSeries[0] = currentStock.getMovingAverage(MovingAverageInterval.TwentyDay, TimeInterval.FiveYears);
+			movingAverageSeries[0].setName("20 days MA");
+			movingAverageSeries[1] = currentStock.getMovingAverage(MovingAverageInterval.FiftyDay, TimeInterval.FiveYears);
+			movingAverageSeries[1].setName("50 days MA");
+			movingAverageSeries[2] = currentStock.getMovingAverage(MovingAverageInterval.HundredDay, TimeInterval.FiveYears);
+			movingAverageSeries[2].setName("100 days MA");
+			movingAverageSeries[3] = currentStock.getMovingAverage(MovingAverageInterval.TwoHundredDay, TimeInterval.FiveYears);
+			movingAverageSeries[3].setName("200 days MA");
 			
+			// Add all moving average series to the graph
+			for (XYChart.Series<String, Number> movingAverageSerie : movingAverageSeries) {
+				stockChart.getData().add(movingAverageSerie);
+			}
+			
+			// Set graph's attributes
 			stockChart.setCreateSymbols(false);
 			stockChart.setTitle(currentStock.getName());
-			stockChart.setLegendSide(Side.TOP);
+			stockChart.setCursor(Cursor.CROSSHAIR);
 			
+			// Prevents creation of multiple stock series
 			isStockGenerated = true;
 		}
 	}
 	
-	public void showDefaultStock(Stock currentStock){
-		currentStock.getPricesInRange(TimeInterval.OneYear);
-	}
-	
-	private void graphTimeline(Stock currentStock, TimeInterval timeLength){
-		currentStock.getPricesInRange(timeLength);
-	}
-	
+//	public void searchStock(String currentStock) {
+//		
+//  }
+//	
+//	public void showDefaultStock(Stock currentStock) {
+//		currentStock.getPricesInRange(TimeInterval.OneYear);
+//	}
+//	
+//	private void graphTimeline(Stock currentStock, TimeInterval timeLength) {
+//		currentStock.getPricesInRange(timeLength);
+//	}
+//	
 //	private void graphMovingAverage(ActionEvent event) {
 //		//TBD
 //		switch(movingAverageButtonPressed.getEventType().getName()) {
@@ -95,12 +107,9 @@ public class MainController {
 //        	else
 //        		currentStock.getMovingAverage(null, null);
 //            break;
-//    }
-		
-		
-		
+//  }
+//
+//	private void getRecommendations(String recommendation) {
+//		
 //	}
-	private void getRecommendations(String recom){
-		
-	}
 }
