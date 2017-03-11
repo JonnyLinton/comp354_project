@@ -30,7 +30,7 @@
                         <PasswordField fx:id="passwordTextField" promptText="Password" />
                         <AnchorPane prefHeight="29.0" prefWidth="249.0">
                            <children>
-                              <GridPane hgap="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                              <GridPane alignment="CENTER" hgap="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -39,15 +39,21 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Button defaultButton="true" mnemonicParsing="false" onAction="#login" prefHeight="27.0" prefWidth="230.0" text="Login" textFill="WHITE" GridPane.hgrow="ALWAYS">
+                                    <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#login" prefHeight="27.0" prefWidth="230.0" text="Login" textFill="WHITE" GridPane.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Verdana Bold" size="13.0" />
                                        </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Button>
-                                    <Button mnemonicParsing="false" onAction="#register" prefHeight="27.0" prefWidth="164.0" text="Register" textFill="WHITE" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#register" prefHeight="27.0" prefWidth="164.0" text="Register" textFill="WHITE" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Verdana Bold" size="13.0" />
                                        </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Button>
                                  </children>
                               </GridPane>

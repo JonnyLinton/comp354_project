@@ -1,17 +1,56 @@
-.chart-series-line {
-	-fx-stroke-width: 2px;
-	-fx-effect: null;
+.chart {
+	-fx-background-color: white;
+}
+.axis {
+	-fx-tick-label-fill: black;
+}
+.axis-label {
+	-fx-text-fill: black;
+}
+.axis-tick-mark {
+	-fx-stroke: black;
+	-fx-stroke-width: 3;
+}
+.axis-minor-tick-mark {
+	-fx-stroke: black;
+}
+.chart-series-line {    
+    -fx-stroke-width: 2px;
+    -fx-effect: null;
 }
 AnchorPane {
+	-fx-background-color: #AAD1FF;
 }
 Button {
-    -fx-background-color: #AAD1FF;
+    -fx-background-color: #80bbff;
     -fx-border-color: white;
     -fx-border-width: 2px;
-		-fx-font-family: "Avenir", Verdana;
-		-fx-font-weight: Bold;
+	-fx-font-family: "Avenir", Verdana;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
 }
-
+Button:hover {
+	-fx-background-color: #4da0ff;
+	-fx-border-color: white;
+    -fx-border-width: 2px;
+	-fx-font-family: "Avenir", Verdana;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+}
+#maBox {
+	-fx-text-fill: white;
+	-fx-border-color: white;
+	-fx-border-width: 2px;
+	-fx-background-color: #78b6ff;
+}
+#maLabel {
+	-fx-text-fill: white;
+	-fx-font-weight: bold;
+}
+CheckBox {
+	-fx-text-fill: white;
+	-fx-font-weight: bold;
+}
 TextField, PasswordField {
 	-fx-border-color: white;
 	-fx-border-width: 2px;
@@ -19,6 +58,6 @@ TextField, PasswordField {
 	-fx-font-family: "Avenir", Verdana;
 }
 
-
-
-.default-color0.chart-series-line { -fx-stroke: black; }
+.default-color0.chart-series-line { -fx-stroke: #e9967a; }
+.default-color1.chart-series-line { -fx-stroke: #f0e68c; }
+.default-color2.chart-series-line { -fx-stroke: #dda0dd; }
