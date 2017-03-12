@@ -43,6 +43,7 @@ public class MainController {
 			 * Initiate every index with a new moving average serie from stock object
 			 * Give every serie a name
 			 */
+			@SuppressWarnings("unchecked")
 			XYChart.Series<String, Number> movingAverageSeries[] = new XYChart.Series[4];
 			movingAverageSeries[0] = currentStock.getMovingAverage(MovingAverageInterval.TwentyDay, TimeInterval.FiveYears);
 			movingAverageSeries[0].setName("20 days MA");

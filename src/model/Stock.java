@@ -1,19 +1,15 @@
 package model;
 
 import javafx.scene.chart.XYChart;
-
 import java.io.File;
-
 import java.util.*;
-
 
 /**
  * Created by Palmirouze on 2017-03-08.
  */
 public class Stock
 {
-
-    // INNER CLASS MOVING AVERAGE
+    // -- INNER CLASS MOVING AVERAGE --
     class MovingAverage
     {
         // enum type
@@ -61,7 +57,7 @@ public class Stock
                     break;
             }
         }
-
+        
         // getter/setter
         public MovingAverageInterval getInterval() {
             return interval;
@@ -83,7 +79,6 @@ public class Stock
     }
     // -- END OF INNER CLASS MOVING AVERAGE --
 
-
     // -- START OF STOCK CLASS --
 
     // holds name of stock
@@ -100,7 +95,13 @@ public class Stock
 
     // array of precomputed moving averages
     private MovingAverage[] movingAverages;
-
+    
+    // the amount the data points are being divided by for the 5 year data
+    public final int FIVEYEARDIVIDER = 2;
+    
+    // the number of total Data points for All time data list
+    public final int ALLTIMEDATAPOINTS = 500;
+    
     // CONSTRUCTORS
 
     /**
@@ -140,7 +141,7 @@ public class Stock
 
         // fills the list with all the values from the csv
         this.dataSize = populateList(data, filePath);
-
+        
         // initialize array of MAs
         movingAverages = new MovingAverage[4];
 //
@@ -149,6 +150,8 @@ public class Stock
         movingAverages[1] = new MovingAverage(MovingAverageInterval.FiftyDay);
         movingAverages[2] = new MovingAverage(MovingAverageInterval.HundredDay);
         movingAverages[3] = new MovingAverage(MovingAverageInterval.TwoHundredDay);
+        
+       
     }
 
 
@@ -160,10 +163,18 @@ public class Stock
      */
     public XYChart.Series<String, Number> getPricesInRange(TimeInterval timeInterval)
     {
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
+    	XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
         LinkedList<StockEntry> truncatedList = new LinkedList<StockEntry>();
 
         truncatedList = truncateList(this.data, timeInterval);
+        //*************************************************************
+        if (TimeInterval.AllTime == timeInterval)
+        	truncatedList = this.RemoveDataPoints(truncatedList);
+        if (TimeInterval.FiveYears == timeInterval)
+        	truncatedList = this.RemoveDataPoints5Year(truncatedList);
+        
+        	
+        //*************************************************************
 
         series = listToSerie(truncatedList);
 
@@ -179,34 +190,52 @@ public class Stock
      */
     public XYChart.Series<String, Number> getMovingAverage(MovingAverageInterval interval, TimeInterval timeInterval)
     {
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-
-
-
-
+        XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
         LinkedList<StockEntry> truncatedList;
-
-
-
+        
         switch(interval)
         {
             case TwentyDay:
                 truncatedList = truncateList(this.movingAverages[0].movingAverageDataList, timeInterval);
+              //*************************************************************
+                if (TimeInterval.AllTime == timeInterval)
+                	truncatedList = this.RemoveDataPoints(truncatedList);
+                if (TimeInterval.FiveYears == timeInterval)
+                	truncatedList = this.RemoveDataPoints5Year(truncatedList);
+              //*************************************************************
                 series = listToSerie(truncatedList);
                 break;
 
             case FiftyDay:
                 truncatedList = truncateList(this.movingAverages[1].movingAverageDataList, timeInterval);
+              //*************************************************************
+                if (TimeInterval.AllTime == timeInterval)
+                	truncatedList = this.RemoveDataPoints(truncatedList);
+                if (TimeInterval.FiveYears == timeInterval)
+                	truncatedList = this.RemoveDataPoints5Year(truncatedList);
+              //*************************************************************
                 series = listToSerie(truncatedList);
                 break;
 
             case HundredDay:
                 truncatedList = truncateList(this.movingAverages[2].movingAverageDataList, timeInterval);
+              //*************************************************************
+                if (TimeInterval.AllTime == timeInterval)
+                	truncatedList = this.RemoveDataPoints(truncatedList);
+                if (TimeInterval.FiveYears == timeInterval)
+                	truncatedList = this.RemoveDataPoints5Year(truncatedList);
+              //*************************************************************
                 series = listToSerie(truncatedList);
                 break;
 
             case TwoHundredDay:
                 truncatedList = truncateList(this.movingAverages[3].movingAverageDataList, timeInterval);
+              //*************************************************************
+                if (TimeInterval.AllTime == timeInterval)
+                	truncatedList = this.RemoveDataPoints(truncatedList);
+                if (TimeInterval.FiveYears == timeInterval)
+                	truncatedList = this.RemoveDataPoints5Year(truncatedList);
+              //*************************************************************
                 series = listToSerie(truncatedList);
                 break;
         }
@@ -218,18 +247,13 @@ public class Stock
     // HELPER METHODS FOR OUTPUTING SERIES/TRUNCATING LISTS
     public XYChart.Series<String, Number> listToSerie(LinkedList<StockEntry> list)
     {
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-
-
-        // THIS MIGHT OR MIGHT NOT BE NEEDED
-        // THIS MIGHT SLOW DOWN THE WHOLE THING A LOT
+        XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
         Collections.reverse(list);
 
         for(StockEntry entries : list)
         {
             series.getData().add(new XYChart.Data<String, Number>(entries.getDate(), entries.getValue()));
         }
-
         return series;
     }
 
@@ -243,8 +267,7 @@ public class Stock
         }
 
         LinkedList<StockEntry> tempList = new LinkedList<StockEntry>();
-        LinkedList<StockEntry> tempFullData = new LinkedList<StockEntry>();
-        tempFullData = list;
+        LinkedList<StockEntry> tempFullData = new LinkedList<StockEntry>(list);
 
         int TIMEFRAME = 0;
 
@@ -261,8 +284,9 @@ public class Stock
             case FiveYears:
                 TIMEFRAME = 1259;
                 break;
-            default:
+            case AllTime:
             	break;
+            
         }
 
         int i = 0;
@@ -282,10 +306,6 @@ public class Stock
         return tempList;
     }
 
-
-
-
-
     // HELPER METHODS FOR CREATING STOCK OBJECT
 
     /** HELPER FUNCTION FOR MOVING AVERAGE CLASS
@@ -293,63 +313,15 @@ public class Stock
      * @param interval
      * @return
      */
-    public LinkedList<StockEntry> computeMovingAveragesTemp(int interval)
-    {
-        LinkedList<StockEntry> tempList = data;
-        LinkedList<StockEntry> movingAverageList = new LinkedList<StockEntry>();
-        Queue<Double> queueTemp = new LinkedList<Double>();
-
-
-
-
-        double movingAverageTotal = 0;
-        int i = 0;
-        StockEntry temp;
-
-
-        while ( i < tempList.size())
-        {
-
-            temp = tempList.removeFirst();
-
-            if(queueTemp.size()< interval)
-            {
-                queueTemp.add(temp.getValue());
-                movingAverageTotal += temp.getValue();
-            }
-            else
-            {
-
-                    movingAverageList.add(new StockEntry(temp.getDate(), movingAverageTotal/interval));
-
-
-                    movingAverageTotal -= queueTemp.poll();
-                    queueTemp.add(temp.getValue());
-                    movingAverageTotal += temp.getValue();
-
-            }
-
-            i++;
-        }
-
-
-        return movingAverageList;
-    }
-
     public LinkedList<StockEntry> computeMovingAverages(int interval)
     {
-        LinkedList<StockEntry> tempList = data;
         LinkedList<StockEntry> movingAverageList = new LinkedList<StockEntry>();
         Queue<StockEntry> queueTemp = new LinkedList<StockEntry>();
 
         double movingAverage = 0;
         int count = 0;
-        int remaining = tempList.size();
-
-        System.out.println(remaining);
-
-
-        for(StockEntry entries : tempList)
+        int remaining = this.dataSize;
+        for(StockEntry entries : this.data)
         {
 
             if(remaining < interval)
@@ -478,36 +450,72 @@ public class Stock
         this.movingAverages = movingAverages;
     }
 
+    private LinkedList<StockEntry> RemoveDataPoints(LinkedList<StockEntry> list){
+    	
+    	if (this.dataSize> 1000){
+		    LinkedList<StockEntry> tempList = new LinkedList<StockEntry>(list);
+		    LinkedList<StockEntry> returningList = new LinkedList<StockEntry>();
+		    Queue<Double> queueTemp = new LinkedList<Double>();
+		    double total = 0;
+		    int count = 0;
+		    StockEntry temp;
+		    int dataPointDivider = this.dataSize/ALLTIMEDATAPOINTS;
 
-//    private LinkedList<StockEntry> SmoothSeries(LinkedList<StockEntry> series){
-//
-//        XYChart.Series<String, Number> smoothSeries = new XYChart.Series<String, Number>();
-//        LinkedList<StockEntry> tempList = series;
-//        LinkedList<StockEntry> smoothStockValues = new LinkedList<StockEntry>();
-//        Queue<Double> queueTemp = new LinkedList<Double>();
-//        double total = 0;
-//        int count = 0;
-//        StockEntry temp;
-//        int dataPointDivider = series.size()/300;  //Give's us the closest amount of data points to 300 for the graph
-//        for (int i = series.size() ; i > 0 ; i--){
-//
-//            temp = tempList.removeLast();
-//
-//            if(queueTemp.size()< dataPointDivider){
-//                queueTemp.add(temp.getValue());
-//                total += temp.getValue();
-//            }
-//            else{
-//
-//                if(count%dataPointDivider == 0)
-//                    smoothStockValues.add(new StockEntry(temp.getDate(), total/dataPointDivider));
-//
-//                total -= queueTemp.poll();
-//                queueTemp.add(temp.getValue());
-//                total += temp.getValue();
-//                count++;
-//            }
-//        }
-//        return smoothStockValues;
-//    }
+		    for (int i = tempList.size() ; i > 0 ; i--){
+		
+		        temp = tempList.removeFirst();
+		
+		        if(queueTemp.size()< dataPointDivider){
+		            queueTemp.add(temp.getValue());
+		            total += temp.getValue();
+		        }
+		        else{
+		
+		            if(count%dataPointDivider == 0)
+		                returningList.add(new StockEntry(temp.getDate(), total/dataPointDivider));
+		
+		            total -= queueTemp.poll();
+		            queueTemp.add(temp.getValue());
+		            total += temp.getValue();
+		            count++;
+		        }
+		    }
+		    return returningList;
+    	}
+    	else
+    		return list;
+    }
+    private LinkedList<StockEntry> RemoveDataPoints5Year(LinkedList<StockEntry> list){
+
+	    LinkedList<StockEntry> tempList = new LinkedList<StockEntry>(list);
+	    LinkedList<StockEntry> returningList = new LinkedList<StockEntry>();
+	    Queue<Double> queueTemp = new LinkedList<Double>();
+	    double total = 0;
+	    int count = 0;
+	    StockEntry temp;
+	    System.out.println(list.size());
+	    int dataPointDivider = FIVEYEARDIVIDER;  //Give's us the closest amount of data points to 300 for the graph
+
+	    for (int i = tempList.size() ; i > 0 ; i--){
+	
+	        temp = tempList.removeFirst();
+	
+	        if(queueTemp.size()< dataPointDivider){
+	            queueTemp.add(temp.getValue());
+	            total += temp.getValue();
+	        }
+	        else{
+	
+	            if(count%dataPointDivider == 0)
+	                returningList.add(new StockEntry(temp.getDate(), total/dataPointDivider));
+	
+	            total -= queueTemp.poll();
+	            queueTemp.add(temp.getValue());
+	            total += temp.getValue();
+	            count++;
+	        }
+	    }
+	    return returningList;
+    	
+    }
 }
