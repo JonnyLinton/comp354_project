@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import model.UserAccount;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ public class StocksRUs extends Application {
     public static void main(String args[]) {
         launch(args);
     }
+    
     public void start(Stage primaryStage) {
         primaryStage.setTitle("In Stock");
         Parent loginView = null;
@@ -27,5 +29,11 @@ public class StocksRUs extends Application {
         primaryStage.setScene(loginScene);
         primaryStage.setResizable(false);
         primaryStage.show();
+    }
+    
+    public boolean setCurrentUser(String email, String password, String favoriteStocks[]) {
+    	currentUser = new UserAccount(email, password, favoriteStocks);
+    	
+    	return currentUser != null;
     }
 }

@@ -77,7 +77,7 @@ public class LoginController {
         } catch (Exception e) {
             displayError(e.getMessage());
         }
-
+        
         //credentials are now saved, so automatically login the user
         login(registerButtonPressed);
     }
