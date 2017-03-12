@@ -4,6 +4,7 @@
 .chart-title {
 	-fx-text-fill: #4da0ff;
 	-fx-font-size: 1.6em;
+	-fx-font-weight: bold;
 }
 .chart-legend {
 	-fx-margin: 10px;
@@ -51,6 +52,16 @@ Button {
 Button:hover {
 	-fx-background-color: #4da0ff;
 }
+CheckBox {
+	-fx-text-fill: white;
+	-fx-font-weight: bold;
+}
+TextField, PasswordField {
+	-fx-border-color: white;
+	-fx-border-width: 2px;
+	/*-fx-border-insets: 2px;*/
+	-fx-font-family: "Avenir", Verdana;
+}
 #maBox {
 	-fx-text-fill: white;
 	-fx-border-color: white;
@@ -61,15 +72,8 @@ Button:hover {
 	-fx-text-fill: white;
 	-fx-font-weight: bold;
 }
-CheckBox {
-	-fx-text-fill: white;
-	-fx-font-weight: bold;
-}
-TextField, PasswordField {
-	-fx-border-color: white;
-	-fx-border-width: 2px;
-	/*-fx-border-insets: 2px;*/
-	-fx-font-family: "Avenir", Verdana;
+#userBox {
+	-fx-background-color: white;
 }
 
 .default-color0.chart-series-line { -fx-stroke: #e9967a; }
