@@ -1,2 +1,1 @@
-Test:test
-test:testusername:password
+test:test

@@ -11,12 +11,141 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <children>
-      <FlowPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox id="userBox" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="200.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox id="searchBox" alignment="TOP_CENTER" prefWidth="1280.0" spacing="10.0">
+            <Label text="Welcome" textFill="#4da0ff">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label text="Username" textFill="#4da0ff">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Favorite Stocks" textFill="#4da0ff">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
                <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+                  <Insets top="30.0" />
                </padding>
+            </Label>
+            <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 1">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 2">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 3">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 4">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 5">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 6">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 7">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 8">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 9">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 10">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label text="Recommendation" textFill="#4da0ff">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <padding>
+                  <Insets top="30.0" />
+               </padding>
+            </Label>
+            <Label text="Buy / Sell" textFill="#4da0ff">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </Label>
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" text="Log out">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets left="115.0" top="80.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+      </VBox>
+      <FlowPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox id="searchBox" alignment="TOP_CENTER" prefHeight="30.0" prefWidth="1020.0" spacing="10.0">
                <children>
                   <TextField id="searchTextField" fx:id="searchTextField" prefHeight="25.0" prefWidth="287.0" promptText="Enter Stock Name" HBox.hgrow="ALWAYS" />
                   <Button id="searchButton" fx:id="searchButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#showStock" text="Search Stock">
@@ -25,143 +154,8 @@
                      </cursor></Button>
                </children>
             </HBox>
-            <HBox id="chartBox" prefHeight="600.0" prefWidth="1280.0">
+            <HBox id="chartBox" prefHeight="580.0" prefWidth="1020.0">
                <children>
-                  <VBox id="userBox" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="200.0" spacing="5.0">
-                     <children>
-                        <Label text="Welcome" textFill="#4da0ff">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                        </Label>
-                        <Label text="Username" textFill="#4da0ff">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label text="Favorite Stocks" textFill="#4da0ff">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                           <padding>
-                              <Insets top="15.0" />
-                           </padding>
-                        </Label>
-                        <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 1">
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 2">
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 3">
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 4">
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 5">
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 6">
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 7">
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 8">
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 9">
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button mnemonicParsing="false" prefWidth="125.0" text="Favorite Stock 10">
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Label text="Recommendation" textFill="#4da0ff">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                           <padding>
-                              <Insets top="15.0" />
-                           </padding>
-                        </Label>
-                        <Label text="Buy / Sell" textFill="#4da0ff">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Button alignment="TOP_LEFT" mnemonicParsing="false" text="Log out">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <VBox.margin>
-                              <Insets left="116.0" top="15.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-                     </padding>
-                  </VBox>
                   <LineChart id="stockChart" fx:id="stockChart" animated="false" legendSide="TOP" title="Stock Analysis" verticalGridLinesVisible="false" HBox.hgrow="ALWAYS">
                     <xAxis>
                       <CategoryAxis id="datesAxis" label="Dates" side="BOTTOM" startMargin="0.0" stylesheets="@style.css" tickMarkVisible="false" />
@@ -170,12 +164,15 @@
                       <NumberAxis id="pricesAxis" label="Prices" side="LEFT" />
                     </yAxis>
                      <HBox.margin>
-                        <Insets bottom="10.0" right="20.0" top="10.0" />
+                        <Insets />
                      </HBox.margin>
                   </LineChart>
                </children>
+               <FlowPane.margin>
+                  <Insets top="20.0" />
+               </FlowPane.margin>
             </HBox>
-            <AnchorPane prefHeight="29.0" prefWidth="1240.0">
+            <AnchorPane prefHeight="29.0" prefWidth="1020.0">
                <children>
                   <HBox id="timelineBox" alignment="CENTER_LEFT" spacing="10.0" AnchorPane.leftAnchor="0.0">
                      <children>
@@ -223,10 +220,13 @@
                   </HBox>
                </children>
                <FlowPane.margin>
-                  <Insets bottom="10.0" left="20.0" top="10.0" />
+                  <Insets top="20.0" />
                </FlowPane.margin>
             </AnchorPane>
          </children>
       </FlowPane>
    </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
 </AnchorPane>
