@@ -244,33 +244,50 @@ public class Stock
     }
 
 
-    // HELPER METHODS FOR OUTPUTING SERIES/TRUNCATING LISTS
+    /**
+     * Takes a list and outputs a series containing the same data
+     * @param list
+     * @return A Series object to be plugged in the chart
+     */
     public XYChart.Series<String, Number> listToSerie(LinkedList<StockEntry> list)
     {
         XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+
+        // reverse the list because we read the csv from most recent to oldest prices
         Collections.reverse(list);
 
+        // iterates over the passed list and adds the data to the series
         for(StockEntry entries : list)
         {
             series.getData().add(new XYChart.Data<String, Number>(entries.getDate(), entries.getValue()));
         }
+
         return series;
     }
 
 
+    /**
+     * Reduces the size of a list to hold only the data relevant to the time interval
+     * @param list
+     * @param timeInterval
+     * @return A Linked List with the desired data over specified time
+     */
     private LinkedList<StockEntry> truncateList(LinkedList<StockEntry> list, TimeInterval timeInterval)
     {
 
+        // no need to truncate if all the data is needed
         if(timeInterval == TimeInterval.AllTime)
         {
             return list;
         }
+
 
         LinkedList<StockEntry> tempList = new LinkedList<StockEntry>();
         LinkedList<StockEntry> tempFullData = new LinkedList<StockEntry>(list);
 
         int TIMEFRAME = 0;
 
+        // this will be changed for the second iteration
         switch(timeInterval)
         {
             case OneYear:
@@ -306,21 +323,26 @@ public class Stock
         return tempList;
     }
 
-    // HELPER METHODS FOR CREATING STOCK OBJECT
 
-    /** HELPER FUNCTION FOR MOVING AVERAGE CLASS
-     * Computes the moving averages values
+    /**
+     * Calculates the moving averages over a time interval
      * @param interval
-     * @return
+     * @return A Linked List containing all the moving averages for the stock over the interval
      */
     public LinkedList<StockEntry> computeMovingAverages(int interval)
     {
         LinkedList<StockEntry> movingAverageList = new LinkedList<StockEntry>();
         Queue<StockEntry> queueTemp = new LinkedList<StockEntry>();
 
+        // holds the sum of the stock prices
         double movingAverage = 0;
+
         int count = 0;
+
+        // we use this to break when we don't have enough days to get a moving average
+        // (when we reach the end)
         int remaining = this.dataSize;
+
         for(StockEntry entries : this.data)
         {
 
@@ -334,8 +356,6 @@ public class Stock
                 queueTemp.add(entries);
                 movingAverage += entries.getValue();
                 count++;
-
-
             }
 
             if(count == interval)
@@ -451,14 +471,17 @@ public class Stock
     }
 
     private LinkedList<StockEntry> RemoveDataPoints(LinkedList<StockEntry> list){
-    	
+
+        // here data size is the size of the array holding all the values - maybe it should be size of the list passed ?
     	if (this.dataSize> 1000){
 		    LinkedList<StockEntry> tempList = new LinkedList<StockEntry>(list);
 		    LinkedList<StockEntry> returningList = new LinkedList<StockEntry>();
 		    Queue<Double> queueTemp = new LinkedList<Double>();
+
 		    double total = 0;
 		    int count = 0;
 		    StockEntry temp;
+
 		    int dataPointDivider = this.dataSize/ALLTIMEDATAPOINTS;
 
 		    for (int i = tempList.size() ; i > 0 ; i--){
@@ -493,7 +516,7 @@ public class Stock
 	    double total = 0;
 	    int count = 0;
 	    StockEntry temp;
-	    System.out.println(list.size());
+	    System.out.println(list.size()); // prob need to remove this
 	    int dataPointDivider = FIVEYEARDIVIDER;  //Give's us the closest amount of data points to 300 for the graph
 
 	    for (int i = tempList.size() ; i > 0 ; i--){
