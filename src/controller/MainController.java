@@ -65,7 +65,7 @@ public class MainController {
      */
 
     @FXML
-    private void showDefaultStock(ActionEvent searchButtonPressed) {
+    public void showDefaultStock(ActionEvent searchButtonPressed) {
 
         // Checks if a stock has already been generated
         if (!isStockGenerated) {
