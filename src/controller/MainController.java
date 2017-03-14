@@ -113,43 +113,60 @@ public class MainController {
             stockChart.getData().add(stockSerie);
             currentTimeLine = TimeInterval.OneYear;
 
-            setCheckBoxToNone();//Ensure Moving Averages are not displayed from previous Stock
+            //Ensure Moving Averages are not displayed from previous Stock
+            setCheckBoxToNone();
 
             //Generates the MovingAverages in an array.
             graphMovingAverages();
 
-            stockChart.setCreateSymbols(false);
+            //Displays title of timeline in header
             stockChart.setTitle(currentStock.getName());
-            stockChart.setCursor(Cursor.CROSSHAIR);
 
         }
         else if(timeLineButton_2.isArmed()) {
 
-            stockChart.getData().add(currentStock.getPricesInRange(TimeInterval.TwoYears));
+            stockSerie = currentStock.getPricesInRange(TimeInterval.TwoYears);
+            stockSerie.setName("Closing Prices: Two Years");
+
+            stockChart.getData().add(stockSerie);
             currentTimeLine = TimeInterval.TwoYears;
 
             setCheckBoxToNone();
 
             graphMovingAverages();
 
+            stockChart.setTitle(currentStock.getName());
+
         }
         else if(timeLineButton_5.isArmed()) {
 
-            stockChart.getData().add(currentStock.getPricesInRange(TimeInterval.FiveYears));
+            stockSerie = currentStock.getPricesInRange(TimeInterval.FiveYears);
+            stockSerie.setName("Closing Prices: Five Years");
+
+            stockChart.getData().add(stockSerie);
             currentTimeLine = TimeInterval.FiveYears;
 
             setCheckBoxToNone();
 
             graphMovingAverages();
+
+            stockChart.setTitle(currentStock.getName());
+
         }
         else if(timeLineButton_all.isArmed()) {
 
-            stockChart.getData().add(currentStock.getPricesInRange(TimeInterval.AllTime));
+            stockSerie = currentStock.getPricesInRange(TimeInterval.AllTime);
+            stockSerie.setName("Closing Prices: All Time");
+
+            stockChart.getData().add(stockSerie);
             currentTimeLine = TimeInterval.AllTime;
 
             setCheckBoxToNone();
 
             graphMovingAverages();
+
+            stockChart.setTitle(currentStock.getName());
+
         }
     }
 
