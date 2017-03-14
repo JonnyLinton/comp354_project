@@ -130,7 +130,7 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" text="Log out">
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" text="Log out">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

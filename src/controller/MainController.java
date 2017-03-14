@@ -5,12 +5,18 @@
             Full SearchStock method based on Yahoo Finance API for top 30 Stocks
             Recommendations method
             Favorite Stock based in user login
+            Logout method will save any stocks the user wishes to keep
  */
 
 package controller;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.stage.Stage;
 import model.Stock;
 import model.TimeInterval;
 import model.MovingAverageInterval;
@@ -23,6 +29,8 @@ import javafx.scene.Cursor;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
+
+import java.io.IOException;
 
 public class MainController {
 
@@ -104,8 +112,9 @@ public class MainController {
         //clear any previous graph data
         stockChart.getData().clear();
 
-
-        if(timeLineButton_1.isArmed()) {  //filter which timeline is picked
+        //filter which timeline is picked
+        if(timeLineButton_1.isArmed()) {
+            //Generates stock info and set up name for the title
             stockSerie = currentStock.getPricesInRange(TimeInterval.OneYear);
             stockSerie.setName("Closing Prices: One Year");
 
@@ -119,8 +128,6 @@ public class MainController {
             //Generates the MovingAverages in an array.
             graphMovingAverages();
 
-            //Displays title of timeline in header
-            stockChart.setTitle(currentStock.getName());
 
         }
         else if(timeLineButton_2.isArmed()) {
@@ -135,8 +142,6 @@ public class MainController {
 
             graphMovingAverages();
 
-            stockChart.setTitle(currentStock.getName());
-
         }
         else if(timeLineButton_5.isArmed()) {
 
@@ -150,8 +155,6 @@ public class MainController {
 
             graphMovingAverages();
 
-            stockChart.setTitle(currentStock.getName());
-
         }
         else if(timeLineButton_all.isArmed()) {
 
@@ -164,8 +167,6 @@ public class MainController {
             setCheckBoxToNone();
 
             graphMovingAverages();
-
-            stockChart.setTitle(currentStock.getName());
 
         }
     }
@@ -197,16 +198,18 @@ public class MainController {
 
     @FXML
     private void graphMovingAverageHundred(ActionEvent movingAverageIntervalHundredCheckboxPressed) {
-        if (maButton_100.isSelected())
+        if (maButton_100.isSelected()) {
             stockChart.getData().add(movingAverageSeries[2]);
+        }
         else if (!maButton_100.isSelected())
             stockChart.getData().remove(movingAverageSeries[2]);
     }
 
     @FXML
     private void graphMovingAverageTwoHundred(ActionEvent movingAverageIntervalTwoHundredCheckboxPressed) {
-        if (maButton_200.isSelected())
+        if (maButton_200.isSelected()) {
             stockChart.getData().add(movingAverageSeries[3]);
+        }
         else if (!maButton_200.isSelected())
             stockChart.getData().remove(movingAverageSeries[3]);
     }
@@ -239,5 +242,31 @@ public class MainController {
         maButton_200.setSelected(false);
     }
 
+    /*
+        1st Iteration function that will logout the current user and bring them back to the log in page.
+        @param logoutButtonPressed Action Event
+     */
+    @FXML
+    private void logout(ActionEvent logoutButtonPressed) {
+            navigateToLogin(logoutButtonPressed);
+        }
+
+    /*
+        Stage change method to support the logout method
+     */
+    private void navigateToLogin(ActionEvent event){
+        Parent loginView = null;
+        try {
+            loginView = FXMLLoader.load(getClass().getResource("../view/LoginView.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene loginScene = new Scene(loginView, 1280, 720);
+        Stage primaryStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        primaryStage.setScene(loginScene);
+        primaryStage.show();
+    }
 
 }
+
+
