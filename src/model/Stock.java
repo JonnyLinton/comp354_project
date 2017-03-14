@@ -4,6 +4,8 @@ import javafx.scene.chart.XYChart;
 import java.io.File;
 import java.util.*;
 
+//My First Commit - By Christopher
+
 /**
  * Created by Palmirouze on 2017-03-08.
  */
