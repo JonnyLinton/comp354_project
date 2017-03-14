@@ -8,10 +8,10 @@
 }
 .chart-legend {
 	-fx-padding: 10px;
+	-fx-text-alignment: center;
 }
-.chart-legeng-item {
-	-fx-margin: 0px;
-	-fx-padding: 0px;
+.chart-legend-item {
+	-fx-padding: 2px;
 }
 .chart-plot-background {
 	-fx-background-color: transparent;
@@ -83,6 +83,14 @@ TextField, PasswordField {
 	-fx-background-color: white;
 }
 
-.default-color0.chart-series-line { -fx-stroke: #e9967a; }
-.default-color1.chart-series-line { -fx-stroke: #f0e68c; }
-.default-color2.chart-series-line { -fx-stroke: #dda0dd; }
+.default-color0.chart-series-line { -fx-stroke: #e41a1c; }
+.default-color1.chart-series-line { -fx-stroke: #377eb8 }
+.default-color2.chart-series-line { -fx-stroke: #4daf4a; }
+.default-color3.chart-series-line { -fx-stroke: #984ea3; }
+.default-color4.chart-series-line { -fx-stroke: #ff7f00; }
+
+.default-color0.chart-line-symbol { -fx-background-color: #e41a1c; }
+.default-color1.chart-line-symbol { -fx-background-color: #377eb8; }
+.default-color2.chart-line-symbol { -fx-background-color: #4daf4a; }
+.default-color3.chart-line-symbol { -fx-background-color: #984ea3; }
+.default-color4.chart-line-symbol { -fx-background-color: #ff7f00; }
