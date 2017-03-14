@@ -516,7 +516,6 @@ public class Stock
 	    double total = 0;
 	    int count = 0;
 	    StockEntry temp;
-	    System.out.println(list.size()); // prob need to remove this
 	    int dataPointDivider = FIVEYEARDIVIDER;  //Give's us the closest amount of data points to 300 for the graph
 
 	    for (int i = tempList.size() ; i > 0 ; i--){
