@@ -73,10 +73,9 @@ public class MainController {
      */
 
     @FXML
-    public void showDefaultStock(ActionEvent searchButtonPressed) {
-
-        // Checks if a stock has already been generated
-        if (!isStockGenerated) {
+    public void initialize(){
+    	// Checks if a stock has already been generated
+    	if (!isStockGenerated) {
 
             // Create stock object from model class
             currentStock = new Stock("Dummy Stock", "STOK", "src/resources/Sample data.csv");
