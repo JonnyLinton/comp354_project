@@ -148,7 +148,7 @@
             <HBox id="searchBox" alignment="TOP_CENTER" prefHeight="30.0" prefWidth="1020.0" spacing="10.0">
                <children>
                   <TextField id="searchTextField" fx:id="searchTextField" prefHeight="25.0" prefWidth="287.0" promptText="Enter Stock Name" HBox.hgrow="ALWAYS" />
-                  <Button id="searchButton" fx:id="searchButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#showStock" text="Search Stock">
+                  <Button id="searchButton" fx:id="searchButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#showDefaultStock" text="Search Stock">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
