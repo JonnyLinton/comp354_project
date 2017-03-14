@@ -2,10 +2,11 @@
    Controller for the Main view of the inStock app for the first iteration
    Generates moving averages for a specific timeline of a stock and displays them according to user input
    To be fully implemented in the 2nd iteration:
-            Full SearchStock method based on Yahoo Finance API for top 30 Stocks
-            Recommendations method
-            Favorite Stock based in user login
-            Logout method will save any stocks the user wishes to keep
+            Full SearchStock() method based on Yahoo Finance API for top 30 Stocks
+            Recommendations() method
+            FavoriteStock() method based on user login preferences
+            Logout() method will be updated to save any stocks the user wishes to keep
+            DisplayError() added to ensure a timeline selected exits for stock selected.
  */
 
 package controller;
@@ -244,6 +245,7 @@ public class MainController {
 
     /*
         1st Iteration function that will logout the current user and bring them back to the log in page.
+        2nd Iteration will incl saving user information for their favorite stock.
         @param logoutButtonPressed Action Event
      */
     @FXML
