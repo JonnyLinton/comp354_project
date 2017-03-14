@@ -105,40 +105,68 @@ public class MainController {
 //	}
     @FXML
     private void graphTimeline(ActionEvent timeLineButtonPressed) {
+        System.out.println("test0");
         stockChart.getData().clear();
 
-        if(timeLineButton_1.isPressed())
+        if(timeLineButton_1.isPressed()) {
+            System.out.print("test1");
             stockChart.getData().add(currentStock.getPricesInRange(TimeInterval.OneYear));
-        else if(timeLineButton_2.isPressed())
+            currentTimeLine = TimeInterval.OneYear;
+        }
+        else if(timeLineButton_2.isPressed()) {
+            System.out.print("test2");
             stockChart.getData().add(currentStock.getPricesInRange(TimeInterval.TwoYears));
-        else if(timeLineButton_5.isPressed())
+            currentTimeLine = TimeInterval.TwoYears;
+        }
+        else if(timeLineButton_5.isPressed()) {
+            System.out.print("test3");
             stockChart.getData().add(currentStock.getPricesInRange(TimeInterval.FiveYears));
-        else if(timeLineButton_all.isPressed())
+            currentTimeLine = TimeInterval.FiveYears;
+        }
+        else if(timeLineButton_all.isPressed()) {
+            System.out.print("test4");
             stockChart.getData().add(currentStock.getPricesInRange(TimeInterval.AllTime));
+            currentTimeLine = TimeInterval.AllTime;
+        }
     }
 
 
 
     @FXML
-    private void graphMovingAverage(ActionEvent movingAverageIntervalCheckboxPressed) {
+    private void graphMovingAverageTwenty(ActionEvent movingAverageInterval20CheckboxPressed) {
 
-        if(maButton_20.isSelected())
+        if (maButton_20.isSelected())
             stockChart.getData().add(currentStock.getMovingAverage(MovingAverageInterval.TwentyDay, currentTimeLine));
-        else if(!maButton_20.isSelected())
-            stockChart.getData().clear();
-        if(maButton_50.isSelected())
-            stockChart.getData().add(currentStock.getMovingAverage(MovingAverageInterval.FiftyDay, currentTimeLine));
-        else if(!maButton_50.isSelected())
-            stockChart.getData().clear();
-        if(maButton_100.isSelected())
-            stockChart.getData().add(currentStock.getMovingAverage(MovingAverageInterval.HundredDay, currentTimeLine));
-        else if(!maButton_100.isSelected())
-            stockChart.getData().clear();
-        if(maButton_200.isSelected())
-            stockChart.getData().add(currentStock.getMovingAverage(MovingAverageInterval.TwoHundredDay, currentTimeLine));
-        else if(!maButton_200.isSelected())
-            stockChart.getData().clear();
+        else if (!maButton_20.isSelected()) {
+            System.out.println("test4");
+            stockChart.getData().remove(currentStock.getMovingAverage(MovingAverageInterval.TwentyDay, currentTimeLine));
+        }
     }
+
+    @FXML
+    private void graphMovingAverageFifty(ActionEvent movingAverageIntervalFiftyCheckboxPressed) {
+        if (maButton_50.isSelected())
+            stockChart.getData().add(currentStock.getMovingAverage(MovingAverageInterval.FiftyDay, currentTimeLine));
+        else if (!maButton_50.isSelected())
+            stockChart.getData().remove(currentStock.getMovingAverage(MovingAverageInterval.FiftyDay, currentTimeLine));
+    }
+
+    @FXML
+    private void graphMovingAverageHundred(ActionEvent movingAverageIntervalHundredCheckboxPressed) {
+        if (maButton_100.isSelected())
+            stockChart.getData().add(currentStock.getMovingAverage(MovingAverageInterval.HundredDay, currentTimeLine));
+        else if (!maButton_100.isSelected())
+            stockChart.getData().remove(currentStock.getMovingAverage(MovingAverageInterval.HundredDay, currentTimeLine));
+    }
+
+    @FXML
+    private void graphMovingAverageTwoHundred(ActionEvent movingAverageIntervalTwoHundredCheckboxPressed) {
+        if (maButton_200.isSelected())
+            stockChart.getData().add(currentStock.getMovingAverage(MovingAverageInterval.TwoHundredDay, currentTimeLine));
+        else if (!maButton_200.isSelected())
+            stockChart.getData().remove(currentStock.getMovingAverage(MovingAverageInterval.TwoHundredDay, currentTimeLine));
+    }
+
 
 }
 //	private void getRecommendations(String recommendation) {
