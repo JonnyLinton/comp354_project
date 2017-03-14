@@ -7,7 +7,11 @@
 	-fx-font-weight: bold;
 }
 .chart-legend {
-	-fx-margin: 10px;
+	-fx-padding: 10px;
+}
+.chart-legeng-item {
+	-fx-margin: 0px;
+	-fx-padding: 0px;
 }
 .chart-plot-background {
 	-fx-background-color: transparent;
@@ -61,6 +65,9 @@ TextField, PasswordField {
 	-fx-border-width: 2px;
 	/*-fx-border-insets: 2px;*/
 	-fx-font-family: "Avenir", Verdana;
+}
+#logoutPane {
+	-fx-background-color: white;
 }
 #maBox {
 	-fx-text-fill: white;

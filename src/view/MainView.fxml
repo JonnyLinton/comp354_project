@@ -122,7 +122,7 @@
                   <Insets top="30.0" />
                </padding>
             </Label>
-            <Label text="Buy / Sell" textFill="#4da0ff">
+            <Label text="Buy / Hold / Sell" textFill="#4da0ff">
                <font>
                   <Font size="14.0" />
                </font>
@@ -130,14 +130,15 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" text="Log out">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <VBox.margin>
-                  <Insets left="115.0" top="80.0" />
-               </VBox.margin>
-            </Button>
+            <AnchorPane id="logoutPane" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" text="Log out" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </AnchorPane>
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />

@@ -65,13 +65,11 @@ public class MainController {
     @FXML
     LineChart<String, Number> stockChart;
 
-
-
-    /*
-        For 1st Iteration, default stock will be outputted with a timeline of 5 years,
-        after the Search Button is launched.
-        @param = SearchButtonPressed Event
-        @return = Default stock with a timeline of 5 years.
+    /**
+     * For 1st Iteration, default stock will be outputted with a timeline of 5 years,
+     * after the Search Button is launched.
+     * @param = SearchButtonPressed Event
+     * @return = Default stock with a timeline of 5 years.
      */
 
     @FXML
@@ -104,9 +102,10 @@ public class MainController {
             isStockGenerated = true;
         }
     }
-    /*
-        Graph and display the stock according to the timeline chosen.
-        @Param = TimeLineButton Event
+    
+    /**
+     * Graph and display the stock according to the timeline chosen.
+     * @Param = TimeLineButton Event
      */
     @FXML
     private void graphTimeline(ActionEvent timeLineButtonPressed) {
