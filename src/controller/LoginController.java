@@ -69,17 +69,19 @@ public class LoginController {
         if (retrieveUserInfo(email) != null) {
             displayError("The email " +email +" is already used!");
         }
-        // user email DNE, create the account in the file.
-        String userInfo = email +":" +password +"\n";
+        else {
+            // user email DNE, create the account in the file.
+            String userInfo = email + ":" + password + "\n";
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/resources/accounts.txt", true))) {
-            bw.append(userInfo);
-        } catch (Exception e) {
-            displayError(e.getMessage());
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/resources/accounts.txt", true))) {
+                bw.append(userInfo);
+            } catch (Exception e) {
+                displayError(e.getMessage());
+            }
+
+            //credentials are now saved, so automatically login the user
+            login(registerButtonPressed);
         }
-        
-        //credentials are now saved, so automatically login the user
-        login(registerButtonPressed);
     }
 
     private void navigateToMain(ActionEvent event) {
