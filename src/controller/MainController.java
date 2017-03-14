@@ -26,10 +26,11 @@ import javafx.scene.control.TextField;
 
 public class MainController {
 
-    private boolean isStockGenerated = false;
-    private Stock currentStock;
-    private TimeInterval currentTimeLine;
-    private XYChart.Series<String, Number>[] movingAverageSeries;
+    boolean isStockGenerated = false;
+    Stock currentStock;
+    TimeInterval currentTimeLine;
+    XYChart.Series<String, Number> stockSerie;
+    XYChart.Series<String, Number>[] movingAverageSeries;
 
     @FXML
     TextField searchTextField;
@@ -74,16 +75,16 @@ public class MainController {
             currentStock = new Stock("Dummy Stock", "STOK", "src/resources/Sample data.csv");
 
             // Create closing prices serie from stock object
-            XYChart.Series<String, Number> stockSerie = currentStock.getPricesInRange(TimeInterval.FiveYears);
+            stockSerie = currentStock.getPricesInRange(TimeInterval.FiveYears);
             stockSerie.setName("Closing Prices: Five Years");
-
-            //Graphs all Moving Averages
-            graphMovingAverages();
 
             // Add closing price serie to the graph and initialize
             // correspondingTimeLine for computing Moving Averages.
             stockChart.getData().add(stockSerie);
             currentTimeLine = TimeInterval.FiveYears;
+
+            //Graphs all Moving Averages
+            graphMovingAverages();
 
             // Set graph's attributes
             stockChart.setCreateSymbols(false);
@@ -105,14 +106,21 @@ public class MainController {
 
 
         if(timeLineButton_1.isArmed()) {  //filter which timeline is picked
+            stockSerie = currentStock.getPricesInRange(TimeInterval.OneYear);
+            stockSerie.setName("Closing Prices: One Year");
+
             //Displays the corresponding Stock timeline
-            stockChart.getData().add(currentStock.getPricesInRange(TimeInterval.OneYear));
+            stockChart.getData().add(stockSerie);
             currentTimeLine = TimeInterval.OneYear;
 
             setCheckBoxToNone();//Ensure Moving Averages are not displayed from previous Stock
 
             //Generates the MovingAverages in an array.
             graphMovingAverages();
+
+            stockChart.setCreateSymbols(false);
+            stockChart.setTitle(currentStock.getName());
+            stockChart.setCursor(Cursor.CROSSHAIR);
 
         }
         else if(timeLineButton_2.isArmed()) {
