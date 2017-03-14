@@ -26,10 +26,10 @@ import javafx.scene.control.TextField;
 
 public class MainController {
 
-    boolean isStockGenerated = false;
-
-    Stock currentStock;
-    TimeInterval currentTimeLine;
+    private boolean isStockGenerated = false;
+    private Stock currentStock;
+    private TimeInterval currentTimeLine;
+    private XYChart.Series<String, Number>[] movingAverageSeries;
 
     @FXML
     TextField searchTextField;
@@ -52,10 +52,9 @@ public class MainController {
     @FXML
     CheckBox maButton_200;
 
-    XYChart.Series<String, Number> ma20;
-    XYChart.Series<String, Number>[] movingAverageSeries;
     @FXML
     LineChart<String, Number> stockChart;
+
 
 
     /*
@@ -66,7 +65,7 @@ public class MainController {
      */
 
     @FXML
-    public void showDefaultStock(ActionEvent searchButtonPressed) {
+    private void showDefaultStock(ActionEvent searchButtonPressed) {
 
         // Checks if a stock has already been generated
         if (!isStockGenerated) {
