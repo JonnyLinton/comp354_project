@@ -39,6 +39,7 @@ public class MainController {
     boolean isMaDisplayed[];
     Stock currentStock;
     TimeInterval currentTimeLine;
+    TimeInterval timeIntervals[];
     XYChart.Series<String, Number> stockSerie;
     XYChart.Series<String, Number>[] movingAverageSeries;
 
@@ -47,9 +48,13 @@ public class MainController {
 
     @FXML
     Button timeLineButton_1, timeLineButton_2, timeLineButton_5, timeLineButton_all;
+    
+    Button timeLineButtons[];
 
     @FXML
     CheckBox maButton_20, maButton_50, maButton_100, maButton_200;
+    
+    CheckBox maButtons[];
 
     @FXML
     LineChart<String, Number> stockChart;
@@ -72,7 +77,7 @@ public class MainController {
             stockSerie.setName("Closing Prices: Five Years");
 
             // Add closing price serie to the graph and initialize
-            // correspondingTimeLine for computing Moving Averages.
+            // corresponding TimeLine for computing Moving Averages.
             stockChart.getData().add(stockSerie);
             currentTimeLine = TimeInterval.FiveYears;
             
@@ -81,6 +86,23 @@ public class MainController {
             for (int i = 0; i < isMaDisplayed.length; i++) {
             	isMaDisplayed[i] = false;
             }
+            
+            // Add all buttons to their respective arrays and other arrays
+            timeLineButtons = new Button[4];
+            timeLineButtons[0] = timeLineButton_1;
+            timeLineButtons[1] = timeLineButton_2;
+            timeLineButtons[2] = timeLineButton_5;
+            timeLineButtons[3] = timeLineButton_all;
+            maButtons = new CheckBox[4];
+            maButtons[0] = maButton_20;
+            maButtons[1] = maButton_50;
+            maButtons[2] = maButton_100;
+            maButtons[3] = maButton_200;
+            timeIntervals = new TimeInterval[4];
+            timeIntervals[0] = TimeInterval.OneYear;
+            timeIntervals[1] = TimeInterval.TwoYears;
+            timeIntervals[2] = TimeInterval.FiveYears;
+            timeIntervals[3] = TimeInterval.AllTime;
 
             // Set graph's attributes
             stockChart.setCreateSymbols(false);
@@ -99,83 +121,43 @@ public class MainController {
     }
     
     /**
-     * Graph and display the stock according to the timeline chosen.
+     * Graph and display the stock according to current timeline
      * @Param = TimeLineButton Event
      */
     
     @FXML
     private void graphTimeline(ActionEvent timeLineButtonPressed) {
-    	
-        //clear any previous graph data
+        // Clear any previous graph data
         stockChart.getData().clear();
-
-        //filter which timeline is picked
-        if(timeLineButton_1.isArmed()) {
-        	
-            //Generates stock info and set up name for the title
-            stockSerie = currentStock.getPricesInRange(TimeInterval.OneYear);
-            stockSerie.setName("Closing Prices: One Year");
-
-            //Displays the corresponding Stock timeline
-            stockChart.getData().add(stockSerie);
-            currentTimeLine = TimeInterval.OneYear;
-
-            //Ensure Moving Averages are not displayed from previous Stock
-            resetMovingAverages();
-
-            //Generates the MovingAverages in an array.
-            generateMovingAverages();
-            
-            movingAveragesLoader();
-        }
-        else if(timeLineButton_2.isArmed()) {
-
-            stockSerie = currentStock.getPricesInRange(TimeInterval.TwoYears);
-            stockSerie.setName("Closing Prices: Two Years");
-
-            stockChart.getData().add(stockSerie);
-            currentTimeLine = TimeInterval.TwoYears;
-
-            resetMovingAverages();
-
-            generateMovingAverages();
-            
-            movingAveragesLoader();
-        }
-        else if(timeLineButton_5.isArmed()) {
-
-            stockSerie = currentStock.getPricesInRange(TimeInterval.FiveYears);
-            stockSerie.setName("Closing Prices: Five Years");
-
-            stockChart.getData().add(stockSerie);
-            currentTimeLine = TimeInterval.FiveYears;
-
-            resetMovingAverages();
-
-            generateMovingAverages();
-            
-            movingAveragesLoader();
-        }
-        else if(timeLineButton_all.isArmed()) {
-
-            stockSerie = currentStock.getPricesInRange(TimeInterval.AllTime);
-            stockSerie.setName("Closing Prices: All Time");
-
-            stockChart.getData().add(stockSerie);
-            currentTimeLine = TimeInterval.AllTime;
-
-            resetMovingAverages();
-
-            generateMovingAverages();
-            
-            movingAveragesLoader();
+        // Loop for all Timeline Buttons
+        for (int i = 0; i < timeLineButtons.length; i++) {
+		    // Filter which timeline is picked
+		    if(timeLineButtons[i].isArmed()) {
+		    	// Updates current Timeline
+		        currentTimeLine = timeIntervals[i];
+		        // Generates stock info and set up name for the title
+		        stockSerie = currentStock.getPricesInRange(currentTimeLine);
+		        switch (i) {
+			        case 0: stockSerie.setName("Closing Prices: One Year"); break;
+			        case 1: stockSerie.setName("Closing Prices: Two Years"); break;
+			        case 2: stockSerie.setName("Closing Prices: Five Years"); break;
+			        case 3: stockSerie.setName("Closing Prices: All Time"); break;
+		        }
+		        // Displays the corresponding Stock timeline
+		        stockChart.getData().add(stockSerie);
+		        // Ensure Moving Averages are not displayed from previous Stock
+		        resetMovingAverages();
+		        // Generates the MovingAverages in an array.
+		        generateMovingAverages();
+		        // Loads selected MAs
+		        movingAveragesLoader();
+		    }
         }
     }
-
     
     /**
-     * Helper and triggering function to load MAs to the graph
-     * @param movingAverageCheckboxSelected an ActionEvent
+     * Triggering & helper function to load MAs to the graph
+     * @param movingAverageCheckboxSelected an ActionEvent sent from MainView
      */
     
     @FXML
@@ -190,57 +172,27 @@ public class MainController {
     
     private void movingAveragesLoader() {
     	if (isStockGenerated) {
-			if (maButton_20.isSelected()) {  // Ensures checkbox is activated (checked)
-				if (!isMaDisplayed[0]) {  // Ensures MA isn't displayed
-					stockChart.getData().add(movingAverageSeries[0]); // Adds MA to chart
-					isMaDisplayed[0] = true; // Set MA to displayed
+    		// Loop for all MA buttons
+    		for (int i = 0; i < maButtons.length; i++) {
+				if (maButtons[i].isSelected()) {  // Ensures checkbox is activated (checked)
+					if (!isMaDisplayed[i]) {  // Ensures MA isn't displayed
+						stockChart.getData().add(movingAverageSeries[i]); // Adds MA to chart
+						isMaDisplayed[i] = true; // Set MA to displayed
+					}
 				}
-			}
-			else if (isMaDisplayed[0]) { // Ensures that MA isn't displayed
-				stockChart.getData().remove(movingAverageSeries[0]); // Removes MA from chart
-				isMaDisplayed[0] = false; // Set MA to not displayed
-			}
-		
-			if (maButton_50.isSelected()) {
-				if (!isMaDisplayed[1]) {
-					stockChart.getData().add(movingAverageSeries[1]);
-					isMaDisplayed[1] = true;
+				else if (isMaDisplayed[i]) { // Ensures that MA isn't displayed
+					stockChart.getData().remove(movingAverageSeries[i]); // Removes MA from chart
+					isMaDisplayed[i] = false; // Set MA to not displayed
 				}
-			}
-			else if (isMaDisplayed[1]) {
-				stockChart.getData().remove(movingAverageSeries[1]);
-				isMaDisplayed[1] = false;
-			}
-		
-			if (maButton_100.isSelected()) {
-				if (!isMaDisplayed[2]) {
-					stockChart.getData().add(movingAverageSeries[2]);
-					isMaDisplayed[2] = true;
-				}
-			}
-			else if (isMaDisplayed[2]) {
-				stockChart.getData().remove(movingAverageSeries[2]);
-				isMaDisplayed[2] = false;
-			}
-		
-			if (maButton_200.isSelected()) {
-				if (!isMaDisplayed[3]) {
-					stockChart.getData().add(movingAverageSeries[3]);
-					isMaDisplayed[3] = true;
-				}
-			}
-			else if (isMaDisplayed[3]) {
-				stockChart.getData().remove(movingAverageSeries[3]); 
-				isMaDisplayed[3] = false;
-			}
+    		}
     	}
     }
 
-
-    /*
-        The following 4 methods, displays the Ma based on the info generated by the graphMovingAverages() method.
-        @params = MovingAverageIntervalcheckbox(based on their values; 20, 50 , 100 , 200)
+    /**
+     *  The following 4 methods, displays MA based on the info generated by the generateMovingAverages() method.
+     *  @params = MovingAverageIntervalcheckbox an Action Event sent from MainView (based on their values; 20, 50 , 100 , 200)
      */
+    
     @FXML
     private void graphMovingAverageTwenty(ActionEvent movingAverageInterval20CheckboxPressed) {
 
@@ -279,8 +231,6 @@ public class MainController {
         else if (!maButton_200.isSelected())
             stockChart.getData().remove(movingAverageSeries[3]);
     }
-    // END OF GRAPHMOVINGAVERAGEINTERVAL METHODS //
-
 
     /**
      *  Generates the Moving Averages info from methods in Stock the class. Each MA is created and initialized
@@ -288,6 +238,8 @@ public class MainController {
      */
     
     private void generateMovingAverages(){
+    	
+    	// Initiate all MA for current timeline
         movingAverageSeries[0] = currentStock.getMovingAverage(MovingAverageInterval.TwentyDay, currentTimeLine);
         movingAverageSeries[1] = currentStock.getMovingAverage(MovingAverageInterval.FiftyDay, currentTimeLine);
         movingAverageSeries[2] = currentStock.getMovingAverage(MovingAverageInterval.HundredDay, currentTimeLine);
@@ -326,7 +278,7 @@ public class MainController {
      *  Stage change method to support the logout method
      */
     
-    private void navigateToLogin(ActionEvent event){
+    private void navigateToLogin(ActionEvent event) {
         Parent loginView = null;
         try {
             loginView = FXMLLoader.load(getClass().getResource("../view/LoginView.fxml"));
@@ -338,7 +290,4 @@ public class MainController {
         primaryStage.setScene(loginScene);
         primaryStage.show();
     }
-
 }
-
-
