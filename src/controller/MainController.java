@@ -63,7 +63,7 @@ public class MainController {
     	
     	// Checks if a stock has already been generated
     	if (!isStockGenerated) {
-
+    		
             // Create stock object from model class
             currentStock = new Stock("Dummy Stock", "STOK", "src/resources/Sample data.csv");
 
@@ -78,17 +78,20 @@ public class MainController {
             
             isMaDisplayed = new boolean[4];
             
-            for (boolean ma : isMaDisplayed) {
-            	ma = false;
+            for (int i = 0; i < isMaDisplayed.length; i++) {
+            	isMaDisplayed[i] = false;
             }
-
-            //Graphs all Moving Averages
-            generateMovingAverages();
 
             // Set graph's attributes
             stockChart.setCreateSymbols(false);
             stockChart.setTitle(currentStock.getName());
             stockChart.setCursor(Cursor.CROSSHAIR);
+            
+    		// Initiate the MA array
+        	movingAverageSeries = new XYChart.Series[4];
+        	            
+        	// Generates all moving averages
+        	generateMovingAverages();
 
             // Prevents creation of multiple stock series
             isStockGenerated = true;
@@ -118,10 +121,12 @@ public class MainController {
             currentTimeLine = TimeInterval.OneYear;
 
             //Ensure Moving Averages are not displayed from previous Stock
-            setCheckBoxToNone();
+            resetMovingAverages();
 
             //Generates the MovingAverages in an array.
             generateMovingAverages();
+            
+            movingAveragesLoader();
         }
         else if(timeLineButton_2.isArmed()) {
 
@@ -131,9 +136,11 @@ public class MainController {
             stockChart.getData().add(stockSerie);
             currentTimeLine = TimeInterval.TwoYears;
 
-            setCheckBoxToNone();
+            resetMovingAverages();
 
             generateMovingAverages();
+            
+            movingAveragesLoader();
         }
         else if(timeLineButton_5.isArmed()) {
 
@@ -143,9 +150,11 @@ public class MainController {
             stockChart.getData().add(stockSerie);
             currentTimeLine = TimeInterval.FiveYears;
 
-            setCheckBoxToNone();
+            resetMovingAverages();
 
             generateMovingAverages();
+            
+            movingAveragesLoader();
         }
         else if(timeLineButton_all.isArmed()) {
 
@@ -155,9 +164,11 @@ public class MainController {
             stockChart.getData().add(stockSerie);
             currentTimeLine = TimeInterval.AllTime;
 
-            setCheckBoxToNone();
+            resetMovingAverages();
 
             generateMovingAverages();
+            
+            movingAveragesLoader();
         }
     }
 
@@ -277,26 +288,27 @@ public class MainController {
      */
     
     private void generateMovingAverages(){
-        movingAverageSeries = new XYChart.Series[4];
         movingAverageSeries[0] = currentStock.getMovingAverage(MovingAverageInterval.TwentyDay, currentTimeLine);
-        movingAverageSeries[0].setName("Moving Average: 20 Days");
         movingAverageSeries[1] = currentStock.getMovingAverage(MovingAverageInterval.FiftyDay, currentTimeLine);
-        movingAverageSeries[1].setName("Moving Average: 50 Days");
         movingAverageSeries[2] = currentStock.getMovingAverage(MovingAverageInterval.HundredDay, currentTimeLine);
-        movingAverageSeries[2].setName("Moving Average: 100 Days");
         movingAverageSeries[3] = currentStock.getMovingAverage(MovingAverageInterval.TwoHundredDay, currentTimeLine);
-        movingAverageSeries[3].setName("Moving Average: 200 Days");
+        
+    	// Initiate all MA names
+    	movingAverageSeries[0].setName("Moving Average: 20 Days");
+    	movingAverageSeries[1].setName("Moving Average: 50 Days");
+    	movingAverageSeries[2].setName("Moving Average: 100 Days");
+    	movingAverageSeries[3].setName("Moving Average: 200 Days");
     }
 
     /**
-     *  Reverts all checkboxes to de-selected, for a new timeline stock view.
+     *  Reverts all the moving averages
      */
     
-    private void setCheckBoxToNone(){
-        maButton_20.setSelected(false);
-        maButton_50.setSelected(false);
-        maButton_100.setSelected(false);
-        maButton_200.setSelected(false);
+    private void resetMovingAverages(){
+    	
+        for (int i = 0; i < isMaDisplayed.length; i++) {
+        	isMaDisplayed[i] = false;
+        }
     }
 
     /**
