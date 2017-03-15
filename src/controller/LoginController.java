@@ -13,13 +13,30 @@ import javafx.stage.Stage;
 
 import java.io.*;
 
+/**
+ * Receives information from the LoginView, and relays it to the database. Controls the navigation to the MainView.
+ */
 public class LoginController {
 
+    /**
+     * The Email Text Field from the LoginView
+     */
     @FXML
     TextField emailTextField;
+    /**
+     * The Password Text Field from the LoginView
+     */
     @FXML
     PasswordField passwordTextField;
 
+    /**
+     * Checks if the given email exists, and verifies that the password
+     * matches the one in the database.
+     *
+     * @param email - user email to check
+     * @param password - user password entered
+     * @return True if valid, False if not
+     */
     private boolean userInfoValid(String email, String password) {
         String[] accountInfo = retrieveUserInfo(email);
 
@@ -31,6 +48,10 @@ public class LoginController {
         return false;
     }
 
+    /**
+     * @param email - the email of the user
+     * @return A two element array containing the user's email ([0]) and password ([1]) in the database
+     */
     private String[] retrieveUserInfo(String email) {
         String[] accountInfo;
 
@@ -49,6 +70,12 @@ public class LoginController {
         return null;
     }
 
+    /**
+     * Gets the text from the email and password fields in the LoginView.
+     * If this info is valid, it navigates to the MainView, else displays an error.
+     *
+     * @param loginButtonPressed - the ActionEvent from the login button.
+     */
     @FXML
     public void login(ActionEvent loginButtonPressed) {
         String email = emailTextField.getText();
@@ -60,6 +87,13 @@ public class LoginController {
             navigateToMain(loginButtonPressed);
     }
 
+    /**
+     * Gets the text from the email and password fields in the LoginView.
+     * Checks if the email is already used in the system, and displays an error if it is.
+     * For new emails, it writes to the database, and logs in the user.
+     *
+     * @param registerButtonPressed - the ActionEvent from the register button
+     */
     @FXML
     public void register(ActionEvent registerButtonPressed) {
         String email = emailTextField.getText();
@@ -84,6 +118,11 @@ public class LoginController {
         }
     }
 
+    /**
+     * Loads an instance of the MainView, sets the size, and displays it to the user.
+     *
+     * @param event - ActionEvent passed to it from the login() method
+     */
     private void navigateToMain(ActionEvent event) {
         Parent mainView = null;
         try {
@@ -97,6 +136,11 @@ public class LoginController {
         primaryStage.show();
     }
 
+    /**
+     * Displays an Alert to the user containing the specified content.
+     *
+     * @param content - string that will be displayed
+     */
     private void displayError(String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Dialog");
