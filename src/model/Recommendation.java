@@ -1,8 +1,7 @@
 package model;
 
-public enum MovingAverageInterval {
-    TwentyDay,
-    FiftyDay,
-    HundredDay,
-    TwoHundredDay
+public enum Recommendation {
+	BUY,
+	SELL,
+	HOLD
 }
