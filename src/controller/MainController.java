@@ -70,8 +70,9 @@ public class MainController {
     	if (!isStockGenerated) {
     		
             // Create stock object from model class
-            currentStock = new Stock("Dummy Stock", "STOK", "src/resources/Sample data.csv");
+            currentStock = new Stock("Google", "AAPL");
 
+            
             // Create closing prices serie from stock object
             stockSerie = currentStock.getPricesInRange(TimeInterval.FiveYears);
             stockSerie.setName("Closing Prices: Five Years");
@@ -127,6 +128,10 @@ public class MainController {
     
     @FXML
     private void graphTimeline(ActionEvent timeLineButtonPressed) {
+       
+    	//****************TESTING TIME********************
+    	long startTime = System.currentTimeMillis();
+    	
         // Clear any previous graph data
         stockChart.getData().clear();
         // Loop for all Timeline Buttons
@@ -135,8 +140,10 @@ public class MainController {
 		    if(timeLineButtons[i].isArmed()) {
 		    	// Updates current Timeline
 		        currentTimeLine = timeIntervals[i];
+		        
 		        // Generates stock info and set up name for the title
-		        stockSerie = currentStock.getPricesInRange(currentTimeLine);
+		        stockSerie = currentStock.getPricesInRange(currentTimeLine);	            
+	            
 		        switch (i) {
 			        case 0: stockSerie.setName("Closing Prices: One Year"); break;
 			        case 1: stockSerie.setName("Closing Prices: Two Years"); break;
@@ -145,6 +152,7 @@ public class MainController {
 		        }
 		        // Displays the corresponding Stock timeline
 		        stockChart.getData().add(stockSerie);
+		        
 		        // Ensure Moving Averages are not displayed from previous Stock
 		        resetMovingAverages();
 		        // Generates the MovingAverages in an array.
@@ -153,6 +161,9 @@ public class MainController {
 		        movingAveragesLoader();
 		    }
         }
+        //****************TIME TESTING**********************
+        long endTime = System.currentTimeMillis();
+        System.out.println("The Time of the entire GraphTimeline Method " + ((endTime-startTime)/1000.0) + "\n");
     }
     
     /**
