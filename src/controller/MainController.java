@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.stage.Stage;
 import model.Stock;
+import model.StockSeries;
 import model.TimeInterval;
 import model.MovingAverageInterval;
 
@@ -37,7 +38,7 @@ public class MainController {
 
     boolean isStockGenerated = false;
     boolean isMaDisplayed[];
-    Stock currentStock;
+    StockSeries currentStock;
     TimeInterval currentTimeLine;
     TimeInterval timeIntervals[];
     XYChart.Series<String, Number> stockSerie;
@@ -70,7 +71,7 @@ public class MainController {
     	if (!isStockGenerated) {
     		
             // Create stock object from model class
-            currentStock = new Stock("Google", "AAPL");
+            currentStock = new StockSeries("Google", "IBM");
 
             
             // Create closing prices serie from stock object
