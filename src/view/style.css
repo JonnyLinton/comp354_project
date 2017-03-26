@@ -102,6 +102,7 @@ TextField, PasswordField {
 .default-color2.chart-series-line { -fx-stroke: #4daf4a; }
 .default-color3.chart-series-line { -fx-stroke: #984ea3; }
 .default-color4.chart-series-line { -fx-stroke: #ff7f00; }
+.default-color5.chart-series-line { -fx-stroke: transparent; }
 
 .default-color0.chart-line-symbol { -fx-background-color: #e41a1c; }
 .default-color1.chart-line-symbol { -fx-background-color: #377eb8; }

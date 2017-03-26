@@ -12,6 +12,7 @@
 package controller;
 
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,10 +32,13 @@ import javafx.scene.Cursor;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
-import java.util.List;
 
 public class MainController {
 
@@ -43,7 +47,9 @@ public class MainController {
     StockSeries currentStock;
     TimeInterval currentTimeLine;
     TimeInterval timeIntervals[];
+    MovingAverageInterval maIntervals[];
     XYChart.Series<String, Number> stockSerie;
+    XYChart.Series<String, Number> intersectionSerie;
     XYChart.Series<String, Number>[] movingAverageSeries;
 
     @FXML
@@ -66,16 +72,16 @@ public class MainController {
      * For 1st Iteration, default stock will be outputted with a timeline of 5 years,
      */
 
-    @FXML
-    public void initialize(){
+    @SuppressWarnings("unchecked")
+	@FXML
+    public void initialize() {
     	
     	// Checks if a stock has already been generated
     	if (!isStockGenerated) {
     		
             // Create stock object from model class
-            currentStock = new StockSeries("Apple", "TWTR");
+            currentStock = new StockSeries("IBM", "IBM");
 
-            
             // Create closing prices serie from stock object
             stockSerie = currentStock.getPricesInRange(TimeInterval.FiveYears);
             stockSerie.setName("Closing Prices: Five Years");
@@ -107,6 +113,11 @@ public class MainController {
             timeIntervals[1] = TimeInterval.TwoYears;
             timeIntervals[2] = TimeInterval.FiveYears;
             timeIntervals[3] = TimeInterval.AllTime;
+            maIntervals = new MovingAverageInterval[4];
+            maIntervals[0] = MovingAverageInterval.TwentyDay;
+            maIntervals[1] = MovingAverageInterval.FiftyDay;
+            maIntervals[2] = MovingAverageInterval.HundredDay;
+            maIntervals[3] = MovingAverageInterval.TwoHundredDay;
 
             // Set graph's attributes
             stockChart.setCreateSymbols(false);
@@ -191,49 +202,67 @@ public class MainController {
     		for (int i = 0; i < maButtons.length; i++) {
 				if (maButtons[i].isSelected()) {  // Ensures checkbox is activated (checked)
 					if (!isMaDisplayed[i]) {  // Ensures MA isn't displayed
-						stockChart.getData().add(movingAverageSeries[i]); // Adds MA to chart
+						movingAverageSeries[i].getData().addAll(currentStock.getMovingAverage(maIntervals[i], currentTimeLine).getData()); // Adds MA to chart
 						isMaDisplayed[i] = true; // Set MA to displayed
 					}
 				}
 				else if (isMaDisplayed[i]) { // Ensures that MA isn't displayed
-					stockChart.getData().remove(movingAverageSeries[i]); // Removes MA from chart
+					movingAverageSeries[i].getData().remove(0, movingAverageSeries[i].getData().size() - 1); // Removes MA from chart
 					isMaDisplayed[i] = false; // Set MA to not displayed
 				}
     		}
     		
     		if (maButtons[0].isSelected() && maButtons[3].isSelected()) {
     			XYChart.Series<String, Number> tempSerie = currentStock.getIntersectionsList(currentTimeLine);
+    			//boolean test[] = current.getIntersectValue();
     			
-    			List<XYChart.Data<String, Number>> tempData = tempSerie.getData();
-    			
-    			for (XYChart.Data<String, Number> data : tempData) {
+    			for (int i = 0 ; i < tempSerie.getData().size(); i++) {
         			StackPane tempPane = new StackPane();
-        			tempPane.setPrefWidth(15);
-        			tempPane.setPrefHeight(15);
+        			tempPane.setPrefWidth(10);
+        			tempPane.setPrefHeight(10);
+        			BackgroundFill temp = new BackgroundFill(Color.GREEN, new CornerRadii(5), Insets.EMPTY);
+//        			if (test[i])
+//        				temp = new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY);
+//        			else
+//        				temp = new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY);
+        			tempPane.setBackground(new Background(temp));
         			
-    				data.setNode(
+    				tempSerie.getData().get(i).setNode(
     						tempPane
     				);
     			}
     			
-    			stockChart.getData().add(tempSerie);
+    			intersectionSerie.getData().addAll(tempSerie.getData());
+    		}
+    		else {
+    			intersectionSerie.getData().remove(0, intersectionSerie.getData().size());
     		}
     	}
     }
 
-    private void generateMovingAverages(){
+	@SuppressWarnings("unchecked")
+	private void generateMovingAverages(){
     	
     	// Initiate all MA for current timeline
-        movingAverageSeries[0] = currentStock.getMovingAverage(MovingAverageInterval.TwentyDay, currentTimeLine);
-        movingAverageSeries[1] = currentStock.getMovingAverage(MovingAverageInterval.FiftyDay, currentTimeLine);
-        movingAverageSeries[2] = currentStock.getMovingAverage(MovingAverageInterval.HundredDay, currentTimeLine);
-        movingAverageSeries[3] = currentStock.getMovingAverage(MovingAverageInterval.TwoHundredDay, currentTimeLine);
+    	movingAverageSeries[0] = new XYChart.Series<String, Number>();
+    	movingAverageSeries[1] = new XYChart.Series<String, Number>();
+    	movingAverageSeries[2] = new XYChart.Series<String, Number>();
+    	movingAverageSeries[3] = new XYChart.Series<String, Number>();
+    	intersectionSerie = new XYChart.Series<String, Number>();
         
     	// Initiate all MA names
     	movingAverageSeries[0].setName("Moving Average: 20 Days");
     	movingAverageSeries[1].setName("Moving Average: 50 Days");
     	movingAverageSeries[2].setName("Moving Average: 100 Days");
     	movingAverageSeries[3].setName("Moving Average: 200 Days");
+    	intersectionSerie.setName("Moving Average Intersections");
+    	
+    	stockChart.getData().addAll(movingAverageSeries[0],
+    			movingAverageSeries[1],
+    			movingAverageSeries[2],
+    			movingAverageSeries[3],
+    			intersectionSerie
+    	);
     }
 
     /**
