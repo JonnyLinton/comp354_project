@@ -53,7 +53,7 @@ Button {
 	-fx-font-weight: bold;
 	-fx-text-fill: white;
 }
-Button:hover {
+Button:hover, #dowButton:hover {
 	-fx-background-color: #4da0ff;
 }
 CheckBox {
@@ -82,9 +82,23 @@ TextField, PasswordField {
 #userBox {
 	-fx-background-color: white;
 }
+#dowPane {
+	-fx-background-color: #efefef;
+}
+#dowButton {
+    -fx-background-color: transparent;
+    -fx-border-width: 0px;
+	-fx-font-family: "Avenir", Verdana;
+	-fx-font-weight: bold;
+	-fx-text-fill: black;
+}
+#dowButton {
+    -fx-background-color: transparent;
+	-fx-border-radius: 0 0 0 0;
+}
 
 .default-color0.chart-series-line { -fx-stroke: #e41a1c; }
-.default-color1.chart-series-line { -fx-stroke: #377eb8 }
+.default-color1.chart-series-line { -fx-stroke: #377eb8; }
 .default-color2.chart-series-line { -fx-stroke: #4daf4a; }
 .default-color3.chart-series-line { -fx-stroke: #984ea3; }
 .default-color4.chart-series-line { -fx-stroke: #ff7f00; }
