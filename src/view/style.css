@@ -66,6 +66,7 @@ Button {
 }
 Button:hover, #dowPane Button:hover, #mainButton:hover, #timeLineButton_1:hover, #timeLineButton_2:hover, #timeLineButton_5:hover, #timeLineButton_all:hover {
 	-fx-background-color: #4da0ff;
+	-fx-text-fill: white;
 }
 CheckBox {
 	-fx-text-fill: black;
