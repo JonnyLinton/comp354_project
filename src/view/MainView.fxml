@@ -36,156 +36,156 @@
             </Label>
             <ScrollPane prefHeight="537.0" prefWidth="180.0">
               <content>
-                <AnchorPane id="dowPane" minHeight="0.0" minWidth="0.0" prefHeight="629.0" prefWidth="167.0">
+                <AnchorPane id="dowPane" minHeight="0.0" minWidth="0.0" prefHeight="751.0" prefWidth="167.0">
                      <children>
-                        <VBox prefHeight="631.0" prefWidth="167.0">
+                        <VBox prefHeight="753.0" prefWidth="167.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="American Express">
+                              <Button id="AXP" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="American Express">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="AAPL" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Apple">
+                              <Button id="AAPL" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Apple">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Boeing">
+                              <Button id="BA" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Boeing">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Caterpillar">
+                              <Button id="CAT" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Caterpillar">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Chevron">
+                              <Button id="CVX" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Chevron">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Cisco">
+                              <Button id="CSCO" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Cisco">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Coca-Cola">
+                              <Button id="KO" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Coca-Cola">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Disney">
+                              <Button id="DD" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Disney">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Pont de Nemours and Co">
+                              <Button id="DD" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Pont de Nemours and Co">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Exxon Mobil">
+                              <Button id="XOM" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Exxon Mobil">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="General Electric">
+                              <Button id="GE" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="General Electric">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Goldman Sachs">
+                              <Button id="GS" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Goldman Sachs">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Home Depot">
+                              <Button id="HD" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Home Depot">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="IBM">
+                              <Button id="IBM" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="IBM">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Intel">
+                              <Button id="INTC" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Intel">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Johnson &amp; Johnson">
+                              <Button id="JNJ" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Johnson &amp; Johnson">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="JPMorgan Chase">
+                              <Button id="JPM" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="JPMorgan Chase">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="McDonald's">
+                              <Button id="MCD" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="McDonald's">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="3M">
+                              <Button id="MMM" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="3M">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Merck">
+                              <Button id="MRK" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Merck">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Microsoft">
+                              <Button id="MSFT" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Microsoft">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Nike">
+                              <Button id="NKE" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Nike">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Pfizer">
+                              <Button id="PFE" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Pfizer">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Procter &amp; Gamble">
+                              <Button id="PG" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Procter &amp; Gamble">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Travelers Companies Inc">
+                              <Button id="TRV" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Travelers Companies Inc">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="United Technologies">
+                              <Button id="UTX" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="United Technologies">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="UnitedHealth">
+                              <Button id="UNH" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="UnitedHealth">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Verizon">
+                              <Button id="VZ" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Verizon">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Visa">
+                              <Button id="V" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Visa">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="dowButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="167.0" text="Wal-Mart">
+                              <Button id="WMT" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Wal-Mart">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
