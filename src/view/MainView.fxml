@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.chart.*?>
@@ -18,6 +19,11 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
+            <Line endX="78.0" startX="-100.0">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Line>
             <ScrollPane hbarPolicy="NEVER" prefHeight="452.0">
               <content>
                 <AnchorPane id="dowPane" minHeight="0.0" minWidth="0.0" prefHeight="751.0" prefWidth="167.0">
@@ -188,13 +194,17 @@
                   <Insets top="30.0" />
                </padding>
             </Label>
-            <Label alignment="CENTER" prefHeight="18.0" prefWidth="154.0" text="Buy / Hold / Sell">
+            <Line endX="78.0" startX="-100.0" />
+            <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="154.0" text="Buy / Hold / Sell">
                <font>
                   <Font size="14.0" />
                </font>
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>
+               <padding>
+                  <Insets left="-9.0" top="5.0" />
+               </padding>
             </Label>
             <Label fx:id="userNameLabel" text="Logged in as" textFill="#797979">
                <font>
