@@ -16,9 +16,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.StockSeries;
 import model.TimeInterval;
@@ -29,7 +27,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -78,7 +75,8 @@ public class MainController {
         stockChart.setCreateSymbols(false);
         stockChart.setCursor(Cursor.CROSSHAIR);
 
-		userNameLabel.setText(StocksRUs.getCurrentUser().getEmail());
+		userNameLabel.setText("Logged in as " + StocksRUs.getCurrentUser().getEmail());
+
         
         // Initialize all arrays
     	initializeArrays();

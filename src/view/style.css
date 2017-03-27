@@ -1,8 +1,11 @@
+* {
+    -fx-font-family: "Avenir", Verdana;
+}
 .chart {
 	-fx-background-color: white;
 }
 .chart-title {
-	-fx-text-fill: #4da0ff;
+	-fx-text-fill: black;
 	-fx-font-size: 1.6em;
 	-fx-font-weight: bold;
 }
@@ -23,7 +26,7 @@
 	-fx-stroke: gray;
 }
 .axis {
-	-fx-tick-label-fill: #4da0ff;
+	-fx-tick-label-fill: black;
 	-fx-tick-length: 10;
 	-fx-minor-tick-length: 5;
 }
@@ -31,11 +34,11 @@
 	-fx-text-fill: black;
 }
 .axis-tick-mark {
-	-fx-stroke: #4da0ff;
+	-fx-stroke: #797979;
 	-fx-stroke-width: 1px;
 }
 .axis-minor-tick-mark {
-	-fx-stroke: #4da0ff;
+	-fx-stroke: #797979;
 	-fx-stroke-width: 1px;
 }
 .chart-series-line {    
@@ -43,7 +46,7 @@
     -fx-effect: null;
 }
 AnchorPane {
-	-fx-background-color: #AAD1FF;
+	 /* -fx-background-color: #AAD1FF; */
 }
 Button {
     -fx-background-color: #80bbff;
@@ -53,11 +56,16 @@ Button {
 	-fx-font-weight: bold;
 	-fx-text-fill: white;
 }
-Button:hover, #dowPane Button:hover {
+
+#mainButton, #timeLineButton_1, #timeLineButton_2, #timeLineButton_5, #timeLineButton_all {
+    -fx-background-color: #efefef;
+    -fx-text-fill: black;
+}
+Button:hover, #dowPane Button:hover, #mainButton:hover, #timeLineButton_1:hover, #timeLineButton_2:hover, #timeLineButton_5:hover, #timeLineButton_all:hover {
 	-fx-background-color: #4da0ff;
 }
 CheckBox {
-	-fx-text-fill: white;
+	-fx-text-fill: black;
 	-fx-font-weight: bold;
 }
 TextField, PasswordField {
@@ -70,13 +78,13 @@ TextField, PasswordField {
 	-fx-background-color: white;
 }
 #maBox {
-	-fx-text-fill: white;
+	-fx-text-fill: black;
 	-fx-border-color: white;
 	-fx-border-width: 2px;
-	-fx-background-color: #78b6ff;
+	/* -fx-background-color: #78b6ff; */
 }
 #maLabel {
-	-fx-text-fill: white;
+	-fx-text-fill: black;
 	-fx-font-weight: bold;
 }
 #userBox {
@@ -92,7 +100,13 @@ TextField, PasswordField {
 	-fx-font-weight: bold;
 	-fx-text-fill: black;
 }
-
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+.scroll-bar:vertical .thumb {
+    /* -fx-background-color: #80bbff; */
+    -fx-background-color: #efefef;
+}
 .default-color0.chart-series-line { -fx-stroke: #e41a1c; }
 .default-color1.chart-series-line { -fx-stroke: #377eb8; }
 .default-color2.chart-series-line { -fx-stroke: #4daf4a; }

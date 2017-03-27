@@ -11,36 +11,20 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <children>
-      <VBox id="userBox" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="200.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox id="userBox" layoutX="40.0" layoutY="40.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="704.0" prefWidth="200.0" spacing="5.0" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
-            <Label text="Logged in as" textFill="#4da0ff">
+            <Label text="Dow 30" textFill="#797979">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="userNameLabel" text="Username" textFill="#4da0ff">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="10.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Dow 30" textFill="#4da0ff">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-               <padding>
-                  <Insets top="30.0" />
-               </padding>
-            </Label>
-            <ScrollPane prefHeight="537.0" prefWidth="180.0">
+            <ScrollPane hbarPolicy="NEVER" prefHeight="452.0">
               <content>
                 <AnchorPane id="dowPane" minHeight="0.0" minWidth="0.0" prefHeight="751.0" prefWidth="167.0">
                      <children>
                         <VBox prefHeight="753.0" prefWidth="167.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Button id="AXP" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="American Express">
+                              <Button id="AXP" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="American Express" textFill="WHITE">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -196,7 +180,7 @@
                   </AnchorPane>
               </content>
             </ScrollPane>
-            <Label text="Recommendation" textFill="#4da0ff">
+            <Label text="Recommendation">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -204,7 +188,7 @@
                   <Insets top="30.0" />
                </padding>
             </Label>
-            <Label text="Buy / Hold / Sell" textFill="#4da0ff">
+            <Label alignment="CENTER" prefHeight="18.0" prefWidth="154.0" text="Buy / Hold / Sell">
                <font>
                   <Font size="14.0" />
                </font>
@@ -212,9 +196,20 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <AnchorPane id="logoutPane" prefHeight="200.0" prefWidth="200.0">
+            <Label fx:id="userNameLabel" text="Logged in as" textFill="#797979">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="36.0" />
+               </VBox.margin>
+            </Label>
+            <AnchorPane id="logoutPane">
                <children>
-                  <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" text="Log out" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <Button id="mainButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" prefHeight="33.0" prefWidth="180.0" text="Log out" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -223,7 +218,7 @@
             </AnchorPane>
          </children>
          <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+            <Insets left="10.0" right="10.0" top="5.0" />
          </padding>
       </VBox>
       <FlowPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -270,20 +265,20 @@
                   </HBox>
                   <HBox id="maBox" alignment="CENTER_LEFT" prefHeight="1.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <Label id="maLabel" prefHeight="25.0" text="Moving Averages" HBox.hgrow="ALWAYS" />
-                        <CheckBox id="maButton_20" fx:id="maButton_20" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="20 Days">
+                        <Label id="maLabel" prefHeight="25.0" text="Moving Averages" textFill="#797979" HBox.hgrow="ALWAYS" />
+                        <CheckBox id="maButton_20" fx:id="maButton_20" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="20 Days" textFill="#797979">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></CheckBox>
-                        <CheckBox id="maButton_50" fx:id="maButton_50" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="50 Days">
+                        <CheckBox id="maButton_50" fx:id="maButton_50" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="50 Days" textFill="#797979">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></CheckBox>
-                        <CheckBox id="maButton_100" fx:id="maButton_100" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="100 Days">
+                        <CheckBox id="maButton_100" fx:id="maButton_100" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="100 Days" textFill="#797979">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></CheckBox>
-                        <CheckBox id="maButton_200" fx:id="maButton_200" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="200 Days">
+                        <CheckBox id="maButton_200" fx:id="maButton_200" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="200 Days" textFill="#797979">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></CheckBox>
