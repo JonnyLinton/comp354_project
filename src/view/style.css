@@ -62,6 +62,7 @@ Button {
     -fx-background-color: transparent;
 }
 #mainButton, #timeLineButton_1, #timeLineButton_2, #timeLineButton_5, #timeLineButton_all {
+    -fx-border-color: transparent;
     -fx-background-color: #efefef;
     -fx-text-fill: black;
 }
