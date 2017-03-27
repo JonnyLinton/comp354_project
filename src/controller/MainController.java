@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import model.StockSeries;
 import model.TimeInterval;
@@ -34,6 +35,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import view.StocksRUs;
 
 import java.io.IOException;
 
@@ -55,6 +57,9 @@ public class MainController {
     TextField searchTextField;
 
     @FXML
+	Label userNameLabel;
+
+    @FXML
     Button timeLineButton_1, timeLineButton_2, timeLineButton_5, timeLineButton_all;
 
     @FXML
@@ -72,6 +77,8 @@ public class MainController {
         // Set graph's attributes
         stockChart.setCreateSymbols(false);
         stockChart.setCursor(Cursor.CROSSHAIR);
+
+		userNameLabel.setText(StocksRUs.getCurrentUser().getEmail());
         
         // Initialize all arrays
     	initializeArrays();

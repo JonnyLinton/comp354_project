@@ -31,6 +31,10 @@ public class StocksRUs extends Application {
         primaryStage.show();
     }
 
+    public static UserAccount getCurrentUser() {
+        return currentUser;
+    }
+
     public static boolean setCurrentUser(String email, String password) {
         currentUser = new UserAccount(email, password);
 

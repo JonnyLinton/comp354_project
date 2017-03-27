@@ -18,7 +18,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label text="Username" textFill="#4da0ff">
+            <Label fx:id="userNameLabel" text="Username" textFill="#4da0ff">
                <font>
                   <Font size="14.0" />
                </font>
