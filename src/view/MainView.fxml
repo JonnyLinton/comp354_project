@@ -12,170 +12,166 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <children>
-      <VBox id="userBox" layoutX="40.0" layoutY="40.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="704.0" prefWidth="200.0" spacing="5.0" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <VBox id="userBox" layoutX="40.0" layoutY="40.0" nodeOrientation="LEFT_TO_RIGHT" prefWidth="200.0" spacing="5.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label text="Dow 30" textFill="#797979">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Line endX="78.0" startX="-100.0">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Line>
-            <ScrollPane hbarPolicy="NEVER" prefHeight="452.0">
+            <Line endX="100.0" startX="-100.0" />
+            <ScrollPane hbarPolicy="NEVER" prefHeight="446.0" prefWidth="201.0">
               <content>
-                <AnchorPane id="dowPane" minHeight="0.0" minWidth="0.0" prefHeight="751.0" prefWidth="167.0">
+                <AnchorPane id="dowPane" minHeight="0.0" minWidth="0.0" prefHeight="751.0" prefWidth="199.0">
                      <children>
-                        <VBox prefHeight="753.0" prefWidth="167.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox prefHeight="751.0" prefWidth="201.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Button id="AXP" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="American Express" textFill="WHITE">
+                              <Button id="AXP" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="American Express" textFill="WHITE">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="AAPL" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Apple">
+                              <Button id="AAPL" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Apple">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="BA" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Boeing">
+                              <Button id="BA" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Boeing">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="CAT" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Caterpillar">
+                              <Button id="CAT" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Caterpillar">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="CVX" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Chevron">
+                              <Button id="CVX" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Chevron">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="CSCO" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Cisco">
+                              <Button id="CSCO" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Cisco">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="KO" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Coca-Cola">
+                              <Button id="KO" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Coca-Cola">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="DD" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Disney">
+                              <Button id="DD" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Disney">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="DD" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Pont de Nemours and Co">
+                              <Button id="DD" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Pont de Nemours and Co">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="XOM" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Exxon Mobil">
+                              <Button id="XOM" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Exxon Mobil">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="GE" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="General Electric">
+                              <Button id="GE" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="General Electric">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="GS" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Goldman Sachs">
+                              <Button id="GS" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Goldman Sachs">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="HD" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Home Depot">
+                              <Button id="HD" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Home Depot">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="IBM" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="IBM">
+                              <Button id="IBM" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="IBM">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="INTC" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Intel">
+                              <Button id="INTC" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Intel">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="JNJ" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Johnson &amp; Johnson">
+                              <Button id="JNJ" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Johnson &amp; Johnson">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="JPM" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="JPMorgan Chase">
+                              <Button id="JPM" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="JPMorgan Chase">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="MCD" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="McDonald's">
+                              <Button id="MCD" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="McDonald's">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="MMM" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="3M">
+                              <Button id="MMM" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="3M">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="MRK" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Merck">
+                              <Button id="MRK" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Merck">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="MSFT" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Microsoft">
+                              <Button id="MSFT" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Microsoft">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="NKE" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Nike">
+                              <Button id="NKE" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Nike">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="PFE" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Pfizer">
+                              <Button id="PFE" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Pfizer">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="PG" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Procter &amp; Gamble">
+                              <Button id="PG" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Procter &amp; Gamble">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="TRV" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Travelers Companies Inc">
+                              <Button id="TRV" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Travelers Companies Inc">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="UTX" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="United Technologies">
+                              <Button id="UTX" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="United Technologies">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="UNH" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="UnitedHealth">
+                              <Button id="UNH" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="UnitedHealth">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="VZ" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Verizon">
+                              <Button id="VZ" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Verizon">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="V" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Visa">
+                              <Button id="V" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Visa">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button id="WMT" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="165.0" text="Wal-Mart">
+                              <Button id="WMT" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="185.0" text="Wal-Mart">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -185,6 +181,9 @@
                      </children>
                   </AnchorPane>
               </content>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </ScrollPane>
             <Label text="Recommendation">
                <font>
@@ -194,116 +193,107 @@
                   <Insets top="30.0" />
                </padding>
             </Label>
-            <Line endX="78.0" startX="-100.0" />
-            <Label alignment="TOP_LEFT" prefHeight="18.0" prefWidth="154.0" text="Buy / Hold / Sell">
+            <Line endX="100.0" startX="-100.0" />
+            <Label alignment="BASELINE_LEFT" prefHeight="18.0" prefWidth="154.0" text="Buy / Hold / Sell">
                <font>
                   <Font size="14.0" />
                </font>
                <VBox.margin>
-                  <Insets left="10.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets left="-9.0" top="5.0" />
-               </padding>
-            </Label>
-            <Label fx:id="userNameLabel" text="Logged in as" textFill="#797979">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-               <opaqueInsets>
                   <Insets />
-               </opaqueInsets>
-               <VBox.margin>
-                  <Insets top="36.0" />
                </VBox.margin>
             </Label>
-            <AnchorPane id="logoutPane">
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <Label fx:id="userNameLabel" layoutX="40.0" prefHeight="17.0" prefWidth="1229.0" text="Logged in as" textFill="#797979" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Label>
+      <AnchorPane layoutX="40.0" prefHeight="29.0" prefWidth="1222.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <HBox id="timelineBox" alignment="CENTER_LEFT" spacing="10.0" AnchorPane.leftAnchor="0.0">
                <children>
-                  <Button id="mainButton" alignment="CENTER" mnemonicParsing="false" onAction="#logout" prefHeight="33.0" prefWidth="180.0" text="Log out" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <Button id="mainButton" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#logout" prefWidth="180.0" text="Log out" textAlignment="CENTER">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets right="60.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button id="timeLineButton_1" fx:id="timeLineButton_1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphTimeline" text="1 Year">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button id="timeLineButton_2" fx:id="timeLineButton_2" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphTimeline" text="2 Years">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button id="timeLineButton_5" fx:id="timeLineButton_5" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphTimeline" text="5 Years">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button id="timeLineButton_all" fx:id="timeLineButton_all" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphTimeline" text="All Time">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
                </children>
-            </AnchorPane>
-         </children>
-         <padding>
-            <Insets left="10.0" right="10.0" top="5.0" />
-         </padding>
-      </VBox>
-      <FlowPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <HBox id="chartBox" prefHeight="631.0" prefWidth="1020.0">
-               <children>
-                  <LineChart id="stockChart" fx:id="stockChart" animated="false" legendSide="TOP" prefHeight="800.0" prefWidth="1020.0" title="Stock Analysis" verticalGridLinesVisible="false" HBox.hgrow="ALWAYS">
-                    <xAxis>
-                      <CategoryAxis id="datesAxis" label="Dates" side="BOTTOM" startMargin="0.0" stylesheets="@style.css" tickMarkVisible="false" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis id="pricesAxis" label="Prices" side="LEFT" />
-                    </yAxis>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </LineChart>
-               </children>
-               <FlowPane.margin>
-                  <Insets />
-               </FlowPane.margin>
             </HBox>
-            <AnchorPane prefHeight="29.0" prefWidth="1020.0">
+            <HBox id="maBox" alignment="CENTER_LEFT" prefHeight="1.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <HBox id="timelineBox" alignment="CENTER_LEFT" layoutX="52.0" spacing="10.0" AnchorPane.leftAnchor="52.0">
-                     <children>
-                        <Button id="timeLineButton_1" fx:id="timeLineButton_1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphTimeline" text="1 Year">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor></Button>
-                        <Button id="timeLineButton_2" fx:id="timeLineButton_2" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphTimeline" text="2 Years">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor></Button>
-                        <Button id="timeLineButton_5" fx:id="timeLineButton_5" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphTimeline" text="5 Years">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor></Button>
-                        <Button id="timeLineButton_all" fx:id="timeLineButton_all" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphTimeline" text="All Time">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor></Button>
-                     </children>
-                  </HBox>
-                  <HBox id="maBox" alignment="CENTER_LEFT" prefHeight="1.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
-                     <children>
-                        <Label id="maLabel" prefHeight="25.0" text="Moving Averages" textFill="#797979" HBox.hgrow="ALWAYS" />
-                        <CheckBox id="maButton_20" fx:id="maButton_20" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="20 Days" textFill="#797979">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor></CheckBox>
-                        <CheckBox id="maButton_50" fx:id="maButton_50" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="50 Days" textFill="#797979">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor></CheckBox>
-                        <CheckBox id="maButton_100" fx:id="maButton_100" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="100 Days" textFill="#797979">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor></CheckBox>
-                        <CheckBox id="maButton_200" fx:id="maButton_200" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="200 Days" textFill="#797979">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor></CheckBox>
-                     </children>
-                     <padding>
-                        <Insets bottom="4.0" left="5.0" right="5.0" top="4.0" />
-                     </padding>
-                  </HBox>
+                  <Label id="maLabel" prefHeight="25.0" text="Moving Averages" textFill="#797979" HBox.hgrow="ALWAYS" />
+                  <CheckBox id="maButton_20" fx:id="maButton_20" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="20 Days" textFill="#797979">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </CheckBox>
+                  <CheckBox id="maButton_50" fx:id="maButton_50" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="50 Days" textFill="#797979">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </CheckBox>
+                  <CheckBox id="maButton_100" fx:id="maButton_100" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="100 Days" textFill="#797979">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </CheckBox>
+                  <CheckBox id="maButton_200" fx:id="maButton_200" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="200 Days" textFill="#797979">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </CheckBox>
                </children>
-               <FlowPane.margin>
-                  <Insets top="20.0" />
-               </FlowPane.margin>
-            </AnchorPane>
+               <padding>
+                  <Insets bottom="4.0" left="5.0" right="5.0" top="4.0" />
+               </padding>
+            </HBox>
          </children>
-      </FlowPane>
+      </AnchorPane>
+      <HBox id="chartBox" prefHeight="631.0" prefWidth="1020.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <LineChart id="stockChart" fx:id="stockChart" animated="false" legendSide="TOP" prefHeight="631.0" prefWidth="1079.0" title="Stock Analysis" verticalGridLinesVisible="false" HBox.hgrow="ALWAYS">
+              <xAxis>
+                <CategoryAxis id="datesAxis" label="Dates" side="BOTTOM" startMargin="0.0" stylesheets="@style.css" tickMarkVisible="false" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis id="pricesAxis" label="Prices" side="LEFT" />
+              </yAxis>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </LineChart>
+         </children>
+      </HBox>
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

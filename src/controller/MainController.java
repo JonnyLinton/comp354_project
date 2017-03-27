@@ -89,7 +89,8 @@ public class MainController {
     
     @FXML
     private void graphTimeline(ActionEvent event) {
-    	graphTimeLineHelper();
+    	if (isStockGenerated)
+    		graphTimeLineHelper();
     }
     
     /**
@@ -99,7 +100,8 @@ public class MainController {
     
     @FXML
     private void graphMovingAverage(ActionEvent event) {
-    	graphMovingAverageHelper();
+    	if (isStockGenerated)
+    		graphMovingAverageHelper();
     }
     
     /**
@@ -199,61 +201,58 @@ public class MainController {
      */
     
     private void graphMovingAverageHelper() {
-    	if (isStockGenerated) {
-    		
-    		/*******************DISPLAY MAs*******************/
-    		
-    		// Loop for all MA buttons
-    		for (int i = 0; i < maButtons.length; i++) {
-				if (maButtons[i].isSelected()) {  // Ensures checkbox is activated (checked)
-					if (!isMaDisplayed[i]) {  // Ensures MA isn't displayed
-						movingAverageSeries[i].getData().addAll(currentStock.getMovingAverage(maIntervals[i], currentTimeLine).getData()); // Adds MA to chart
-						isMaDisplayed[i] = true; // Set MA to displayed
-					}
+		/*******************DISPLAY MAs*******************/
+		
+		// Loop for all MA buttons
+		for (int i = 0; i < maButtons.length; i++) {
+			if (maButtons[i].isSelected()) {  // Ensures checkbox is activated (checked)
+				if (!isMaDisplayed[i]) {  // Ensures MA isn't displayed
+					movingAverageSeries[i].getData().addAll(currentStock.getMovingAverage(maIntervals[i], currentTimeLine).getData()); // Adds MA to chart
+					isMaDisplayed[i] = true; // Set MA to displayed
 				}
-				else if (isMaDisplayed[i]) { // Ensures that MA isn't displayed
-					movingAverageSeries[i].getData().remove(0, movingAverageSeries[i].getData().size()); // Removes MA from chart
-					isMaDisplayed[i] = false; // Set MA to not displayed
-				}
-    		}
-    		
-    		/*******************DISPLAY INTERSECTIONS*******************/
-    		
-    		// Checks if both 20 days and 200 days MAs are selected to display recommendations
-    		if (maButtons[0].isSelected() && maButtons[3].isSelected()) {
-    			// Create a new series for intersections of both MAs
-    			XYChart.Series<String, Number> tempSerie = currentStock.getIntersectionsList(currentTimeLine);			
+			}
+			else if (isMaDisplayed[i]) { // Ensures that MA isn't displayed
+				movingAverageSeries[i].getData().remove(0, movingAverageSeries[i].getData().size()); // Removes MA from chart
+				isMaDisplayed[i] = false; // Set MA to not displayed
+			}
+		}
+		
+		/*******************DISPLAY INTERSECTIONS*******************/
+		
+		// Checks if both 20 days and 200 days MAs are selected to display recommendations
+		if (maButtons[0].isSelected() && maButtons[3].isSelected()) {
+			// Create a new series for intersections of both MAs
+			XYChart.Series<String, Number> tempSerie = currentStock.getIntersectionsList(currentTimeLine);			
 // TO BE ADDED
 //				boolean test[] = current.getIntersectValue();
-    			
-    			// Loops for all data points in the intersections
-    			for (int i = 0 ; i < tempSerie.getData().size(); i++) {
-    				// Creates a new pane at each intersection
-        			StackPane tempPane = new StackPane();
-        			tempPane.setPrefWidth(10);
-        			tempPane.setPrefHeight(10);
-        			// Create a background fill
-        			BackgroundFill fill = new BackgroundFill(Color.GREEN, new CornerRadii(5), Insets.EMPTY);
+			
+			// Loops for all data points in the intersections
+			for (int i = 0 ; i < tempSerie.getData().size(); i++) {
+				// Creates a new pane at each intersection
+    			StackPane tempPane = new StackPane();
+    			tempPane.setPrefWidth(10);
+    			tempPane.setPrefHeight(10);
+    			// Create a background fill
+    			BackgroundFill fill = new BackgroundFill(Color.GREEN, new CornerRadii(5), Insets.EMPTY);
 // TO BE ADDED
 //        			if (test[i])
 //        				fill = new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY);
 //        			else
 //        				fill = new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY);
-        			
-        			// Set pane color
-        			tempPane.setBackground(new Background(fill));
-        			// Overwrite symbols in the graph
-    				tempSerie.getData().get(i).setNode(tempPane);
-    			}
     			
-    			// Add all intersections with their panes to the graph
-    			intersectionSerie.getData().addAll(tempSerie.getData());
-    		}
-    		else {
-    			// Remove all intersections from the graph if both MAs aren't selected
-    			intersectionSerie.getData().remove(0, intersectionSerie.getData().size());
-    		}
-    	}
+    			// Set pane color
+    			tempPane.setBackground(new Background(fill));
+    			// Overwrite symbols in the graph
+				tempSerie.getData().get(i).setNode(tempPane);
+			}
+			
+			// Add all intersections with their panes to the graph
+			intersectionSerie.getData().addAll(tempSerie.getData());
+		}
+		else {
+			// Remove all intersections from the graph if both MAs aren't selected
+			intersectionSerie.getData().remove(0, intersectionSerie.getData().size());
+		}
     }
     
     /**
