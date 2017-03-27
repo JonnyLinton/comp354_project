@@ -12,6 +12,8 @@
 .chart-legend {
 	-fx-padding: 10px;
 	-fx-text-alignment: center;
+	-fx-border-color: transparent;
+	-fx-effect: none;
 }
 .chart-legend-item {
 	-fx-padding: 2px;
@@ -46,7 +48,7 @@
     -fx-effect: null;
 }
 AnchorPane {
-	 /* -fx-background-color: #AAD1FF; */
+	 -fx-background-color: transparent;
 }
 Button {
     -fx-background-color: #80bbff;
@@ -56,7 +58,9 @@ Button {
 	-fx-font-weight: bold;
 	-fx-text-fill: white;
 }
-
+#timeLineBox {
+    -fx-background-color: transparent;
+}
 #mainButton, #timeLineButton_1, #timeLineButton_2, #timeLineButton_5, #timeLineButton_all {
     -fx-background-color: #efefef;
     -fx-text-fill: black;
