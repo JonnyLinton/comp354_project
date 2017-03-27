@@ -68,6 +68,11 @@ Button:hover, #dowPane Button:hover, #mainButton:hover, #timeLineButton_1:hover,
 	-fx-background-color: #4da0ff;
 	-fx-text-fill: white;
 }
+Button:focused, #dowPane Button:focused, #mainButton:focused, #timeLineButton_1:focused, #timeLineButton_2:focused, #timeLineButton_5:focused, #timeLineButton_all:focused {
+	-fx-background-color: gray;
+	-fx-text-fill: white;
+}
+
 CheckBox {
 	-fx-text-fill: black;
 	-fx-font-weight: bold;
