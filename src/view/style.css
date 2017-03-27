@@ -26,12 +26,12 @@
 	-fx-stroke: gray;
 }
 .axis {
-	-fx-tick-label-fill: black;
+	-fx-tick-label-fill: #797979;
 	-fx-tick-length: 10;
 	-fx-minor-tick-length: 5;
 }
 .axis-label {
-	-fx-text-fill: black;
+	-fx-text-fill: #797979;
 }
 .axis-tick-mark {
 	-fx-stroke: #797979;
