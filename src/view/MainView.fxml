@@ -209,7 +209,7 @@
             </Label>
             <AnchorPane id="logoutPane">
                <children>
-                  <Button id="mainButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" prefHeight="33.0" prefWidth="180.0" text="Log out" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <Button id="mainButton" alignment="CENTER" mnemonicParsing="false" onAction="#logout" prefHeight="33.0" prefWidth="180.0" text="Log out" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -243,7 +243,7 @@
             </HBox>
             <AnchorPane prefHeight="29.0" prefWidth="1020.0">
                <children>
-                  <HBox id="timelineBox" alignment="CENTER_LEFT" spacing="10.0" AnchorPane.leftAnchor="0.0">
+                  <HBox id="timelineBox" alignment="CENTER_LEFT" layoutX="52.0" spacing="10.0" AnchorPane.leftAnchor="52.0">
                      <children>
                         <Button id="timeLineButton_1" fx:id="timeLineButton_1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphTimeline" text="1 Year">
                            <cursor>
