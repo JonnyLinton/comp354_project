@@ -51,12 +51,10 @@ AnchorPane {
 	 -fx-background-color: transparent;
 }
 Button {
-    -fx-background-color: #80bbff;
-    -fx-border-color: white;
-    -fx-border-width: 2px;
+    -fx-background-color: #efefef;
 	-fx-font-family: "Avenir", Verdana;
 	-fx-font-weight: bold;
-	-fx-text-fill: white;
+	-fx-text-fill: black;
 }
 #timeLineBox {
     -fx-background-color: transparent;
@@ -74,7 +72,7 @@ CheckBox {
 	-fx-font-weight: bold;
 }
 TextField, PasswordField {
-	-fx-border-color: white;
+	-fx-border-color: #efefef;
 	-fx-border-width: 2px;
 	/*-fx-border-insets: 2px;*/
 	-fx-font-family: "Avenir", Verdana;

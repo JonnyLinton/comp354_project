@@ -8,18 +8,18 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #AAD1FF;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
       <AnchorPane layoutX="515.0" layoutY="234.0" AnchorPane.bottomAnchor="234.0" AnchorPane.leftAnchor="515.0" AnchorPane.rightAnchor="515.0" AnchorPane.topAnchor="234.0">
          <children>
             <AnchorPane>
                <children>
-                  <Label layoutX="36.0" text="in" textFill="WHITE">
+                  <Label layoutX="36.0" text="in">
                      <font>
                         <Font name="Avenir Heavy" size="96.0" />
                      </font>
                   </Label>
-                  <Label layoutX="117.0" layoutY="55.0" text="stock" textFill="#434343" underline="true">
+                  <Label layoutX="117.0" layoutY="55.0" text="stock" textFill="#aeaeae" underline="true">
                      <font>
                         <Font name="Avenir Heavy" size="39.0" />
                      </font>
