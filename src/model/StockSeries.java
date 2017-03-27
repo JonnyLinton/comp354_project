@@ -23,7 +23,12 @@ public class StockSeries
     // the amount the data points are being divided by for the 5 year data
     public final int FIVEYEARDIVIDER = 2;
     
+    // stores the all-time adjusted closing prices of the selected stock into a linkedlist
     private LinkedList<StockEntry> data;
+    
+    // stores an array of booleans of whether the itersection is at a positive or negative
+    private ArrayList<Boolean> intersectionDirection;
+    
 //------------------------------STOCK CONTRUCTORS-----------------------------------
     
     /**
@@ -94,8 +99,8 @@ public class StockSeries
     	XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
     	
     	LinkedList<StockEntry> intersectionList = new LinkedList<StockEntry>();
-    	LinkedList<StockEntry> shortList = new LinkedList<StockEntry>(computeMovingAverages(MovingAverageInterval.TwentyDay,fetchStockData(interval)));
-    	LinkedList<StockEntry> longList = new LinkedList<StockEntry>(computeMovingAverages(MovingAverageInterval.TwoHundredDay,fetchStockData(interval)));
+    	LinkedList<StockEntry> shortList = new LinkedList<StockEntry>(computeMovingAverages(MovingAverageInterval.TwentyDay,truncateList(data, interval)));
+    	LinkedList<StockEntry> longList = new LinkedList<StockEntry>(computeMovingAverages(MovingAverageInterval.TwoHundredDay,truncateList(data, interval)));
     	
     	if(interval == TimeInterval.AllTime)
     	{
