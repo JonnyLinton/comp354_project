@@ -11,7 +11,7 @@ import model.UserAccount;
 import java.io.IOException;
 
 public class StocksRUs extends Application {
-    private UserAccount currentUser;
+    private static UserAccount currentUser;
 
     public static void main(String args[]) {
         launch(args);
@@ -30,8 +30,14 @@ public class StocksRUs extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
     }
-    
-    public boolean setCurrentUser(String email, String password, String favoriteStocks[]) {
+
+    public static boolean setCurrentUser(String email, String password) {
+        currentUser = new UserAccount(email, password);
+
+        return currentUser != null;
+    }
+
+    public static boolean setCurrentUser(String email, String password, String favoriteStocks[]) {
     	currentUser = new UserAccount(email, password, favoriteStocks);
     	
     	return currentUser != null;
