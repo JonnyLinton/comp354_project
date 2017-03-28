@@ -154,6 +154,72 @@ public class StockSeries
          return series;
     }
     
+    public XYChart.Series<String, Number> getIntersectionsList(MovingAverageInterval shortMA, MovingAverageInterval longMA, TimeInterval interval)
+  
+    {
+    	Boolean shortOnTop;
+    	StockEntry shortTermStock;
+    	StockEntry longTermStock;
+    	double shortTermPrice;
+    	double longTermPrice;
+    	XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+    	
+    	LinkedList<StockEntry> intersectionList = new LinkedList<StockEntry>();
+    	LinkedList<StockEntry> shortList = new LinkedList<StockEntry>(computeMovingAverages(shortMA,data));
+    	shortList = truncateList(shortList, interval);
+    	LinkedList<StockEntry> longList = new LinkedList<StockEntry>(computeMovingAverages(longMA,data));
+    	longList = truncateList(longList, interval);
+    	if(interval == TimeInterval.AllTime)
+    	{
+    		shortList = RemoveDataPoints(shortList);
+    		longList = RemoveDataPoints(longList);
+    	}
+    	if(interval == TimeInterval.FiveYears)
+    	{
+    		shortList = RemoveDataPoints5Year(shortList);
+    		longList = RemoveDataPoints5Year(longList);
+    	}
+    	
+    	//intersectionDirection = new ArrayList<Boolean>();
+    	
+    	//Starts removing stocks from today and moves backwards
+    	shortTermStock = shortList.remove();
+    	longTermStock = longList.remove();
+    	
+    	shortTermPrice = shortTermStock.getValue();
+    	longTermPrice = longTermStock.getValue();
+    	
+    	if(shortTermPrice > longTermPrice)
+    		shortOnTop = true;
+    	else
+    		shortOnTop = false;
+    	
+    	while(!longList.isEmpty())
+    	{
+    		shortTermStock = shortList.remove();
+        	longTermStock = longList.remove();
+        	
+        	shortTermPrice = shortTermStock.getValue();
+        	longTermPrice = longTermStock.getValue();
+        	
+        	if(shortOnTop && shortTermPrice < longTermPrice)
+        	{
+        		intersectionList.add(shortTermStock);
+        		//intersectionDirection.add(true);
+        		shortOnTop = false;
+        	}
+        	if(!shortOnTop && shortTermPrice > longTermPrice)
+        	{
+        		intersectionList.add(shortTermStock);
+        		//intersectionDirection.add(false);
+        		shortOnTop = true;
+        	}	
+    	}
+    	 series = listToSerie(intersectionList);
+         
+         return series;
+    }
+    
     /** OUTPUT SERIES OF MA
      * Prob need to adapt to selected timeline of graph (return 254 MAs if timeline is one year for stock)
      * Get moving average serie based on interval
