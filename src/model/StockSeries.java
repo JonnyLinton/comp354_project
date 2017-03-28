@@ -87,8 +87,12 @@ public class StockSeries
        	
         return series;
     }
-    
-    //WORK IN PROGRESSSSSS*************************************************
+   
+    /**
+     * Outputs the intersection Series of two given Moving Averages
+     * @param interval
+     * @return
+     */
     public XYChart.Series<String, Number> getIntersectionsList(TimeInterval interval)
     {
     	Boolean shortOnTop;
@@ -154,6 +158,13 @@ public class StockSeries
          return series;
     }
     
+    /**
+     * Outputs the intersection Series of two given Moving Averages
+     * @param shortMA
+     * @param longMA
+     * @param interval
+     * @return
+     */
     public XYChart.Series<String, Number> getIntersectionsList(MovingAverageInterval shortMA, MovingAverageInterval longMA, TimeInterval interval)
   
     {
@@ -264,6 +275,11 @@ public class StockSeries
         return series;
     }
 
+    public Recommendation getRecommendation()
+    {
+    	
+    	return Recommendation.BUY;
+    }
 //------------------------------PRIVATE STOCK METHODS-----------------------------------
 
     /**
