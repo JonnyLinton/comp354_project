@@ -99,9 +99,10 @@ public class StockSeries
     	XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
     	
     	LinkedList<StockEntry> intersectionList = new LinkedList<StockEntry>();
-    	LinkedList<StockEntry> shortList = new LinkedList<StockEntry>(computeMovingAverages(MovingAverageInterval.TwentyDay,truncateList(data, interval)));
-    	LinkedList<StockEntry> longList = new LinkedList<StockEntry>(computeMovingAverages(MovingAverageInterval.TwoHundredDay,truncateList(data, interval)));
-    	
+    	LinkedList<StockEntry> shortList = new LinkedList<StockEntry>(computeMovingAverages(MovingAverageInterval.TwentyDay,data));
+    	shortList = truncateList(shortList, interval);
+    	LinkedList<StockEntry> longList = new LinkedList<StockEntry>(computeMovingAverages(MovingAverageInterval.TwoHundredDay,data));
+    	longList = truncateList(longList, interval);
     	if(interval == TimeInterval.AllTime)
     	{
     		shortList = RemoveDataPoints(shortList);
