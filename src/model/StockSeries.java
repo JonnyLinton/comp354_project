@@ -162,9 +162,7 @@ public class StockSeries
     public XYChart.Series<String, Number> getMovingAverage(MovingAverageInterval interval, TimeInterval timeInterval)
     {
         XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-        LinkedList<StockEntry> list;
-
-        list = new LinkedList<StockEntry>(truncateList(data, timeInterval));
+        LinkedList<StockEntry> list = new LinkedList<StockEntry>(data);
         
         switch(interval)
         {
@@ -174,7 +172,6 @@ public class StockSeries
                 	list = this.RemoveDataPoints(list);
                 if (TimeInterval.FiveYears == timeInterval)
                 	list = this.RemoveDataPoints5Year(list);
-                series = listToSerie(list);
                 break;
 
             case FiftyDay:
@@ -183,7 +180,6 @@ public class StockSeries
                 	list = this.RemoveDataPoints(list);
                 if (TimeInterval.FiveYears == timeInterval)
                 	list = this.RemoveDataPoints5Year(list);
-                series = listToSerie(list);
                 break;
 
             case HundredDay:
@@ -192,7 +188,6 @@ public class StockSeries
                 	list = this.RemoveDataPoints(list);
                 if (TimeInterval.FiveYears == timeInterval)
                 	list = this.RemoveDataPoints5Year(list);
-                series = listToSerie(list);
                 break;
 
             case TwoHundredDay:
@@ -201,9 +196,11 @@ public class StockSeries
                 	list = this.RemoveDataPoints(list);
                 if (TimeInterval.FiveYears == timeInterval)
                 	list = this.RemoveDataPoints5Year(list);
-                series = listToSerie(list);
+                
                 break;
         }
+        list = new LinkedList<StockEntry>(truncateList(list, timeInterval));
+        series = listToSerie(list);
 
         return series;
     }
@@ -262,6 +259,7 @@ public class StockSeries
     {
     	//Change from movingAverageInterval to an integer of days
     	int interval;
+    	long startTime = System.currentTimeMillis();
         switch(movingAverageInterval)
         {
             case TwentyDay:
@@ -310,6 +308,8 @@ public class StockSeries
                 count--;
             }
         }
+        long endTime = System.currentTimeMillis();
+        System.out.println("totla time = " + (endTime - startTime));
         return movingAverageList;
     }
     /**
