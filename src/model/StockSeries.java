@@ -168,38 +168,30 @@ public class StockSeries
         {
             case TwentyDay:
             	list = computeMovingAverages(interval, list);
-                if (TimeInterval.AllTime == timeInterval)
-                	list = this.RemoveDataPoints(list);
-                if (TimeInterval.FiveYears == timeInterval)
-                	list = this.RemoveDataPoints5Year(list);
+          
                 break;
 
             case FiftyDay:
             	list = computeMovingAverages(interval, list);
-                if (TimeInterval.AllTime == timeInterval)
-                	list = this.RemoveDataPoints(list);
-                if (TimeInterval.FiveYears == timeInterval)
-                	list = this.RemoveDataPoints5Year(list);
+
                 break;
 
             case HundredDay:
             	list = computeMovingAverages(interval, list);
-                if (TimeInterval.AllTime == timeInterval)
-                	list = this.RemoveDataPoints(list);
-                if (TimeInterval.FiveYears == timeInterval)
-                	list = this.RemoveDataPoints5Year(list);
+             
                 break;
 
             case TwoHundredDay:
             	list = computeMovingAverages(interval, list);
-                if (TimeInterval.AllTime == timeInterval)
-                	list = this.RemoveDataPoints(list);
-                if (TimeInterval.FiveYears == timeInterval)
-                	list = this.RemoveDataPoints5Year(list);
+         
                 
                 break;
         }
         list = new LinkedList<StockEntry>(truncateList(list, timeInterval));
+        if (TimeInterval.AllTime == timeInterval)
+        	list = this.RemoveDataPoints(list);
+        if (TimeInterval.FiveYears == timeInterval)
+        	list = this.RemoveDataPoints5Year(list);
         series = listToSerie(list);
 
         return series;
