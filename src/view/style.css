@@ -8,6 +8,7 @@
 	-fx-text-fill: black;
 	-fx-font-size: 1.6em;
 	-fx-font-weight: bold;
+	-fx-padding: 5px;
 }
 .chart-legend {
 	-fx-padding: 10px;
@@ -116,15 +117,29 @@ TextField, PasswordField {
     /* -fx-background-color: #80bbff; */
     -fx-background-color: #efefef;
 }
-.default-color0.chart-series-line { -fx-stroke: #e41a1c; }
-.default-color1.chart-series-line { -fx-stroke: #377eb8; }
-.default-color2.chart-series-line { -fx-stroke: #4daf4a; }
-.default-color3.chart-series-line { -fx-stroke: #984ea3; }
-.default-color4.chart-series-line { -fx-stroke: #ff7f00; }
-.default-color5.chart-series-line { -fx-stroke: transparent; }
 
-.default-color0.chart-line-symbol { -fx-background-color: #e41a1c; }
-.default-color1.chart-line-symbol { -fx-background-color: #377eb8; }
-.default-color2.chart-line-symbol { -fx-background-color: #4daf4a; }
-.default-color3.chart-line-symbol { -fx-background-color: #984ea3; }
-.default-color4.chart-line-symbol { -fx-background-color: #ff7f00; }
+/* COLOR LIST
+
+#377eb8 - BLUE
+#984ea3 - PURPLE
+#ff7f00 - ORANGE
+#ffff33 - YELLOW
+#f781bf - PINK
+
+*/
+
+.default-color0.chart-series-line { -fx-stroke: #377eb8; } /* Closing Prices */
+.default-color1.chart-series-line { -fx-stroke: #984ea3; } /* 20 Days MA */
+.default-color2.chart-series-line { -fx-stroke: #ff7f00; } /* 50 Days MA */
+.default-color3.chart-series-line { -fx-stroke: #ffff33; } /* 100 Days MA */
+.default-color4.chart-series-line { -fx-stroke: #f781bf; } /* 200 Days MA */
+.default-color5.chart-series-line { -fx-stroke: transparent; } /* Buy */
+.default-color5.chart-series-line { -fx-stroke: transparent; } /* Sell */
+
+.default-color0.chart-line-symbol { -fx-background-color: #377eb8; } /* Closing Prices */
+.default-color1.chart-line-symbol { -fx-background-color: #984ea3; } /* 20 Days MA */
+.default-color2.chart-line-symbol { -fx-background-color: #ff7f00; } /* 50 Days MA */
+.default-color3.chart-line-symbol { -fx-background-color: #ffff33; } /* 100 Days MA */
+.default-color4.chart-line-symbol { -fx-background-color: #f781bf; } /* 200 Days MA */
+.default-color5.chart-line-symbol { -fx-background-color: green; } /* Buy */
+.default-color6.chart-line-symbol { -fx-background-color: red; } /* Sell */

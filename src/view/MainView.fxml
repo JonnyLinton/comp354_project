@@ -20,7 +20,7 @@
                </font>
             </Label>
             <Line endX="100.0" startX="-100.0" />
-            <ScrollPane hbarPolicy="NEVER" prefHeight="446.0" prefWidth="201.0">
+            <ScrollPane hbarPolicy="NEVER" prefHeight="202.0" prefWidth="201.0">
               <content>
                 <AnchorPane id="dowPane" minHeight="0.0" minWidth="0.0" prefHeight="751.0" prefWidth="199.0">
                      <children>
@@ -185,7 +185,48 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </ScrollPane>
-            <Label text="Recommendation">
+            <Label text="Favorites" textFill="#797979">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </Label>
+            <Line endX="100.0" startX="-100.0" />
+            <VBox prefWidth="201.0">
+               <children>
+                  <Button id="CVX" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="200.0" text="Favorite 1">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button id="CAT" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="200.0" text="Favorite 2">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button id="BA" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="200.0" text="Favorite 3">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button id="AAPL" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="200.0" text="Favorite 4">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button id="AXP" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="200.0" text="Favorite 5" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </VBox>
+            <Label text="Recommendation" textFill="#797979">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -199,7 +240,7 @@
                   <Font size="14.0" />
                </font>
                <VBox.margin>
-                  <Insets />
+                  <Insets top="10.0" />
                </VBox.margin>
             </Label>
          </children>
@@ -252,26 +293,8 @@
             <HBox id="maBox" alignment="CENTER_LEFT" prefHeight="1.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <Label id="maLabel" prefHeight="25.0" text="Moving Averages" textFill="#797979" HBox.hgrow="ALWAYS" />
-                  <CheckBox id="maButton_20" fx:id="maButton_20" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#movingAverageSelected" text="20 Days" textFill="#797979">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </CheckBox>
-                  <CheckBox id="maButton_50" fx:id="maButton_50" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#movingAverageSelected" text="50 Days" textFill="#797979">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </CheckBox>
-                  <CheckBox id="maButton_100" fx:id="maButton_100" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#movingAverageSelected" text="100 Days" textFill="#797979">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </CheckBox>
-                  <CheckBox id="maButton_200" fx:id="maButton_200" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#movingAverageSelected" text="200 Days" textFill="#797979">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </CheckBox>
+                  <ComboBox fx:id="maDropDown_1" onAction="#movingAverageSelected" prefWidth="150.0" />
+                  <ComboBox fx:id="maDropDown_2" onAction="#movingAverageSelected" prefWidth="150.0" />
                </children>
                <padding>
                   <Insets bottom="4.0" left="5.0" right="5.0" top="4.0" />
