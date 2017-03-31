@@ -218,11 +218,11 @@ public class Stock
      * @param allTimeDataList
      * @return
      */
-    private LinkedList<StockEntry> removeDataPoints(LinkedList<StockEntry> allTimeDataList){
+    private LinkedList<StockEntry> removeDataPoints(LinkedList<StockEntry> allDataPoints){
 
         // here data size is the size of the array holding all the values - maybe it should be size of the list passed ?
-    	if (allTimeDataList.size() > MAX_DATA_POINTS){
-		    LinkedList<StockEntry> tempData = new LinkedList<>(allTimeDataList);
+    	if (allDataPoints.size() > MAX_DATA_POINTS){
+		    LinkedList<StockEntry> tempData = new LinkedList<>(allDataPoints);
 		    LinkedList<StockEntry> truncatedDataPoints = new LinkedList<>();
 		    Queue<Double> window = new LinkedList<>();
 
@@ -260,7 +260,7 @@ public class Stock
 		    return truncatedDataPoints;
     	}
     	else
-    		return allTimeDataList;
+    		return allDataPoints;
     }
 
     /**
