@@ -18,7 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.StockSeries;
+import model.Stock;
 import model.TimeInterval;
 import model.MovingAverageInterval;
 
@@ -40,7 +40,7 @@ public class MainController {
 
     boolean isStockGenerated = false;
     boolean isMaDisplayed[], isTimeLineDisplayed[];
-    StockSeries currentStock;
+    Stock currentStock;
     TimeInterval currentTimeLine;
     TimeInterval timeIntervals[];
     MovingAverageInterval maIntervals[];
@@ -119,7 +119,7 @@ public class MainController {
     	if (currentStock == null || currentStock.getName().compareTo(clickedButton.getText()) != 0) {
     		
     		// Change current stock
-	    	currentStock = new StockSeries(clickedButton.getText(), clickedButton.getId());
+	    	currentStock = new Stock(clickedButton.getText(), clickedButton.getId());
 	    	
 			clearData();
 	

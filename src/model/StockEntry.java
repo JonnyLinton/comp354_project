@@ -1,8 +1,5 @@
 package model;
 
-/**
- * Created by Palmirouze on 2017-03-09.
- */
 public class StockEntry {
 
     private String date;
