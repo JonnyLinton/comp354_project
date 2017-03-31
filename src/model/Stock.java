@@ -27,6 +27,10 @@ public class Stock
     // stores an array of booleans of whether the intersection is at a positive or negative
     private ArrayList<Boolean> intersectionDirection;
     
+    // stores the current timeline of the stock being graphed
+    private TimeInterval currentTimeline;
+
+    
 //------------------------------STOCK CONTRUCTORS-----------------------------------
     
     /**
@@ -37,6 +41,7 @@ public class Stock
     {
         this.name = "";
         this.ticker = "";
+        this.currentTimeline = TimeInterval.AllTime;
     }
 
     /**
@@ -51,109 +56,40 @@ public class Stock
     {
         this.name = name;
         this.ticker = ticker;
-
-        data = new LinkedList<>(this.fetchStockData(TimeInterval.AllTime));
+        this.currentTimeline = TimeInterval.OneYear;
+        data = new LinkedList<>(this.fetchStockData());
     }
+
 
 //------------------------------PUBLIC STOCK METHODS-----------------------------------
     
+	public void setTimeline(TimeInterval currentTimeline)
+	{
+		this.currentTimeline = currentTimeline;
+	}
+	public TimeInterval getCurrentTimeline()
+	{
+		return currentTimeline;
+	}
+	
     /**
      * OUTPUT SERIES OF PRICES
      * Cuts the data and outputs a list
-     * @param timeInterval
+     * @param this.currentTimeline
      * @return series of closing prices
      */
-    public XYChart.Series<String, Number> getPricesInRange(TimeInterval timeInterval)
+    public XYChart.Series<String, Number> getPricesInRange()
     {
    
     	XYChart.Series<String, Number> series = new XYChart.Series<>();
         LinkedList<StockEntry> list = new LinkedList<>(data);
-        list = truncateList(list, timeInterval);
-       
-        if (TimeInterval.AllTime == timeInterval)
-        	list = this.removeDataPoints(list);
-       
-        if (TimeInterval.FiveYears == timeInterval)
-        {
-        	list = this.removeDataPoints5Year(list);
-        }
-        
+        list = truncateList(list);
+       	list = this.removeDataPoints(list);
        	series = listToSeries(list);
        	
         return series;
     }
    
-    /**
-     * TODO: TO BE REMOVED
-     *
-     * Outputs the intersection Series of two given Moving Averages
-     * @param interval
-     * @return
-     */
-    public XYChart.Series<String, Number> getIntersectionsList(TimeInterval interval)
-    {
-    	Boolean shortOnTop;
-    	StockEntry shortTermStock;
-    	StockEntry longTermStock;
-    	double shortTermPrice;
-    	double longTermPrice;
-    	XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-    	
-    	LinkedList<StockEntry> intersectionList = new LinkedList<StockEntry>();
-    	LinkedList<StockEntry> shortList = new LinkedList<StockEntry>(computeMovingAverages(MovingAverageInterval.TwentyDay,data));
-    	shortList = truncateList(shortList, interval);
-    	LinkedList<StockEntry> longList = new LinkedList<StockEntry>(computeMovingAverages(MovingAverageInterval.TwoHundredDay,data));
-    	longList = truncateList(longList, interval);
-    	if(interval == TimeInterval.AllTime)
-    	{
-    		shortList = removeDataPoints(shortList);
-    		longList = removeDataPoints(longList);
-    	}
-    	if(interval == TimeInterval.FiveYears)
-    	{
-    		shortList = removeDataPoints5Year(shortList);
-    		longList = removeDataPoints5Year(longList);
-    	}
-    	
-    	//intersectionDirection = new ArrayList<Boolean>();
-    	
-    	//Starts removing stocks from today and moves backwards
-    	shortTermStock = shortList.remove();
-    	longTermStock = longList.remove();
-    	
-    	shortTermPrice = shortTermStock.getValue();
-    	longTermPrice = longTermStock.getValue();
-    	
-    	if(shortTermPrice > longTermPrice)
-    		shortOnTop = true;
-    	else
-    		shortOnTop = false;
-    	
-    	while(!longList.isEmpty())
-    	{
-    		shortTermStock = shortList.remove();
-        	longTermStock = longList.remove();
-        	
-        	shortTermPrice = shortTermStock.getValue();
-        	longTermPrice = longTermStock.getValue();
-        	
-        	if(shortOnTop && shortTermPrice < longTermPrice)
-        	{
-        		intersectionList.add(shortTermStock);
-        		//intersectionDirection.add(true);
-        		shortOnTop = false;
-        	}
-        	if(!shortOnTop && shortTermPrice > longTermPrice)
-        	{
-        		intersectionList.add(shortTermStock);
-        		//intersectionDirection.add(false);
-        		shortOnTop = true;
-        	}	
-    	}
-    	 series = listToSeries(intersectionList);
-         
-         return series;
-    }
     
     /**
      * Outputs the intersection Series of two given Moving Averages
@@ -162,7 +98,7 @@ public class Stock
      * @param interval
      * @return
      */
-    public XYChart.Series<String, Number> getIntersectionsList(MovingAverageInterval shortMA, MovingAverageInterval longMA, TimeInterval interval)
+    public XYChart.Series<String, Number> getIntersectionsList(MovingAverageInterval shortMA, MovingAverageInterval longMA)
   
     {
     	Boolean shortOnTop;
@@ -174,21 +110,13 @@ public class Stock
     	
     	LinkedList<StockEntry> intersectionList = new LinkedList<>();
     	LinkedList<StockEntry> shortList = new LinkedList<>(computeMovingAverages(shortMA, data));
-    	shortList = truncateList(shortList, interval);
+    	shortList = truncateList(shortList);
     	LinkedList<StockEntry> longList = new LinkedList<>(computeMovingAverages(longMA, data));
-    	longList = truncateList(longList, interval);
-    	if(interval == TimeInterval.AllTime)
-    	{
-    		shortList = removeDataPoints(shortList);
-    		longList = removeDataPoints(longList);
-    	}
-    	if(interval == TimeInterval.FiveYears)
-    	{
-    		shortList = removeDataPoints5Year(shortList);
-    		longList = removeDataPoints5Year(longList);
-    	}
+    	longList = truncateList(longList);
+    	shortList = removeDataPoints(shortList);
+    	longList = removeDataPoints(longList);
     	
-    	//intersectionDirection = new ArrayList<Boolean>();
+    	intersectionDirection = new ArrayList<Boolean>();
     	
     	//Starts removing stocks from today and moves backwards
     	shortTermStock = shortList.remove();
@@ -234,7 +162,7 @@ public class Stock
      * @param interval
      * @return Series of moving average over interval
      */
-    public XYChart.Series<String, Number> getMovingAverage(MovingAverageInterval interval, TimeInterval timeInterval)
+    public XYChart.Series<String, Number> getMovingAverage(MovingAverageInterval interval)
     {
         XYChart.Series<String, Number> series;
         LinkedList<StockEntry> list = new LinkedList<>(data);
@@ -262,11 +190,8 @@ public class Stock
                 
                 break;
         }
-        list = new LinkedList<StockEntry>(truncateList(list, timeInterval));
-        if (TimeInterval.AllTime == timeInterval)
-        	list = this.removeDataPoints(list);
-        if (TimeInterval.FiveYears == timeInterval)
-        	list = this.removeDataPoints5Year(list);
+        list = new LinkedList<StockEntry>(truncateList(list));
+        list = this.removeDataPoints(list);
         series = listToSeries(list);
 
         return series;
@@ -297,13 +222,12 @@ public class Stock
 		    StockEntry currentStockEntry;
             int dataPointDivider = this.data.size() / ALL_TIME_DATA_POINTS;
 
-//		   TODO: pass the timeline through somehow, and combine removeDataPoints5Year and this method together with the following
-//            if (all time) {
-//                dataPointDivider = this.data.size() / ALL_TIME_DATA_POINTS;
-//            }
-//            else {
-//                dataPointDivider = FIVE_YEAR_DIVIDER;
-//            }
+            if (TimeInterval.AllTime == currentTimeline) {
+                dataPointDivider = this.data.size() / ALL_TIME_DATA_POINTS;
+            }
+            else {
+                dataPointDivider = FIVE_YEAR_DIVIDER;
+            }
 
 		    for (int i = tempData.size() ; i > 0 ; i--){
 
@@ -328,40 +252,6 @@ public class Stock
     	}
     	else
     		return allTimeDataList;
-    }
-
-    // TODO: REMOVE THIS, once the removeDataPoints is fixed
-    private LinkedList<StockEntry> removeDataPoints5Year(LinkedList<StockEntry> list){
-
-        LinkedList<StockEntry> tempList = new LinkedList<>(list);
-        LinkedList<StockEntry> returningList = new LinkedList<>();
-        Queue<Double> queueTemp = new LinkedList<>();
-        double total = 0;
-        int count = 0;
-        StockEntry temp;
-        int dataPointDivider = FIVE_YEAR_DIVIDER;  //Give's us the closest amount of data points to 300 for the graph
-
-        for (int i = tempList.size() ; i > 0 ; i--){
-
-            temp = tempList.removeFirst();
-
-            if(queueTemp.size()< dataPointDivider){
-                queueTemp.add(temp.getValue());
-                total += temp.getValue();
-            }
-            else{
-
-                if(count%dataPointDivider == 0)
-                    returningList.add(new StockEntry(temp.getDate(), total/dataPointDivider));
-
-                total -= queueTemp.poll();
-                queueTemp.add(temp.getValue());
-                total += temp.getValue();
-                count++;
-            }
-        }
-        return returningList;
-
     }
 
     /**
@@ -447,14 +337,14 @@ public class Stock
      * Populates the list from the CSV file
      * @return Size of the list
      */
-    private LinkedList<StockEntry> fetchStockData(TimeInterval interval)
+    private LinkedList<StockEntry> fetchStockData()
     {
     	LinkedList<StockEntry> allTimeDataPoints = new LinkedList<>();
         Scanner csvScanner = null;
 
         try
         {
-            csvScanner = new Scanner(new URL(seriesURLBuilder(interval)).openStream());
+            csvScanner = new Scanner(new URL("http://chart.finance.yahoo.com/table.csv?s=" + this.ticker + "&ignore=.csv").openStream());
 
             csvScanner.nextLine(); // skip first line
 
@@ -480,56 +370,16 @@ public class Stock
 
         return allTimeDataPoints;
     }
-
-    /**
-     * Builds the url used to collect data from yahoo finance
-     * @param interval
-     * @return
-     */
-    private String seriesURLBuilder(TimeInterval interval)
-    {
-    	Calendar cal = Calendar.getInstance();
-    	StringBuilder url = new StringBuilder("http://chart.finance.yahoo.com/table.csv?s=");
-    	url.append(this.ticker);
-    	// TODO: We only get the alltime data -- please refactor
-    	if(interval == TimeInterval.AllTime)
-    	{
-    		url.append("&ignore=.csv");
-    	}
-    	if(interval == TimeInterval.FiveYears)
-    	{
-    		url.append("&a=" + cal.get(Calendar.MONTH));
-    		url.append("&b=" + cal.get(Calendar.DAY_OF_MONTH));
-    		url.append("&c=" + (cal.get(Calendar.YEAR)-5));
-    		url.append("&ignore=.csv");
-    	}
-    	if(interval == TimeInterval.TwoYears)
-    	{
-    		url.append("&a=" + cal.get(Calendar.MONTH));
-    		url.append("&b=" + cal.get(Calendar.DAY_OF_MONTH));
-    		url.append("&c=" + (cal.get(Calendar.YEAR)-2));
-    		url.append("&ignore=.csv");
-    	}
-    	if(interval == TimeInterval.OneYear)
-    	{
-    		url.append("&a=" + cal.get(Calendar.MONTH));
-    		url.append("&b=" + cal.get(Calendar.DAY_OF_MONTH));
-    		url.append("&c=" + (cal.get(Calendar.YEAR)-1));
-    		url.append("&ignore=.csv");
-    	}
-    	return url.toString();
-    }
-
     /**
      * Reduces the size of a list to hold only the data relevant to the time interval
      * @param allTimeDataPoints
-     * @param timeInterval
+     * @param this.currentTimeline
      * @return A Linked List with the desired data over specified time
      */
-    private LinkedList<StockEntry> truncateList(LinkedList<StockEntry> allTimeDataPoints, TimeInterval timeInterval)
+    private LinkedList<StockEntry> truncateList(LinkedList<StockEntry> allTimeDataPoints)
     {
         // no need to truncate if all the data is needed
-        if(timeInterval == TimeInterval.AllTime)
+        if(this.currentTimeline == TimeInterval.AllTime)
         {
             return allTimeDataPoints;
         }
@@ -542,7 +392,7 @@ public class Stock
         int timeFrame = 0;
 
         // this will be changed for the second iteration
-        switch(timeInterval)
+        switch(this.currentTimeline)
         {
             case OneYear:
                 timeFrame = 254;

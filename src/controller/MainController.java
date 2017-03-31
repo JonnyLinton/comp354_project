@@ -40,7 +40,6 @@ public class MainController {
 	private boolean isStockGenerated = false;
 	private boolean isMovingAverageDisplayed[], isTimeLineDisplayed[];
     private Stock currentStock;
-    private TimeInterval currentTimeLine; // TODO: won't be needed once it is added to the Stock object
 	private TimeInterval timeIntervals[];
 	private MovingAverageInterval movingAverageIntervals[];
 	private XYChart.Series<String, Number> stockSeries;
@@ -147,10 +146,10 @@ public class MainController {
 		    // Filter which timeline is picked
 		    if(timelineButtons[i].isArmed() && !isTimeLineDisplayed[i]) {
 		    	// Updates current Timeline
-		        currentTimeLine = timeIntervals[i];
+		        currentStock.setTimeline(timeIntervals[i]);
 
 		        // Generates stock info and set up name for the title
-		        stockSeries.getData().addAll(currentStock.getPricesInRange(currentTimeLine).getData());
+		        stockSeries.getData().addAll(currentStock.getPricesInRange().getData());
 	            
 		        // Add the correct timeline name to legend
 		        switch (i) {
@@ -186,7 +185,7 @@ public class MainController {
 		for (int i = 0; i < movingAverageButtons.length; i++) {
 			if (movingAverageButtons[i].isSelected()) {  // Ensures checkbox is activated (checked)
 				if (!isMovingAverageDisplayed[i]) {  // Ensures MA isn't displayed
-					movingAverageSeries[i].getData().addAll(currentStock.getMovingAverage(movingAverageIntervals[i], currentTimeLine).getData()); // Adds MA to chart
+					movingAverageSeries[i].getData().addAll(currentStock.getMovingAverage(movingAverageIntervals[i]).getData()); // Adds MA to chart
 					isMovingAverageDisplayed[i] = true; // Set MA to displayed
 				}
 			}
@@ -197,7 +196,7 @@ public class MainController {
 		}
 		
 		/*******************DISPLAY INTERSECTIONS*******************/
-		
+		/*
 		// Checks if both 20 days and 200 days MAs are selected to display recommendations
 		// TODO: change to accommodate any 2 MAs
 		if (movingAverageButtons[0].isSelected() && movingAverageButtons[3].isSelected()) {
@@ -233,6 +232,7 @@ public class MainController {
 			// Remove all intersections from the graph if both MAs aren't selected
 			intersectionSeries.getData().remove(0, intersectionSeries.getData().size());
 		}
+		*/
     }
     
     /**
