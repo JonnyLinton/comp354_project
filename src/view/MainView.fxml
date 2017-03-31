@@ -227,22 +227,22 @@
                         <Insets right="60.0" />
                      </HBox.margin>
                   </Button>
-                  <Button id="timeLineButton_1" fx:id="timeLineButton_1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphTimeline" text="1 Year">
+                  <Button id="timeLineButton_1" fx:id="timeLineButton_1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#timelineSelected" text="1 Year">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button id="timeLineButton_2" fx:id="timeLineButton_2" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphTimeline" text="2 Years">
+                  <Button id="timeLineButton_2" fx:id="timeLineButton_2" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#timelineSelected" text="2 Years">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button id="timeLineButton_5" fx:id="timeLineButton_5" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphTimeline" text="5 Years">
+                  <Button id="timeLineButton_5" fx:id="timeLineButton_5" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#timelineSelected" text="5 Years">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button id="timeLineButton_all" fx:id="timeLineButton_all" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphTimeline" text="All Time">
+                  <Button id="timeLineButton_all" fx:id="timeLineButton_all" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#timelineSelected" text="All Time">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -252,22 +252,22 @@
             <HBox id="maBox" alignment="CENTER_LEFT" prefHeight="1.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <Label id="maLabel" prefHeight="25.0" text="Moving Averages" textFill="#797979" HBox.hgrow="ALWAYS" />
-                  <CheckBox id="maButton_20" fx:id="maButton_20" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="20 Days" textFill="#797979">
+                  <CheckBox id="maButton_20" fx:id="maButton_20" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#movingAverageSelected" text="20 Days" textFill="#797979">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </CheckBox>
-                  <CheckBox id="maButton_50" fx:id="maButton_50" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="50 Days" textFill="#797979">
+                  <CheckBox id="maButton_50" fx:id="maButton_50" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#movingAverageSelected" text="50 Days" textFill="#797979">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </CheckBox>
-                  <CheckBox id="maButton_100" fx:id="maButton_100" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="100 Days" textFill="#797979">
+                  <CheckBox id="maButton_100" fx:id="maButton_100" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#movingAverageSelected" text="100 Days" textFill="#797979">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </CheckBox>
-                  <CheckBox id="maButton_200" fx:id="maButton_200" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#graphMovingAverage" text="200 Days" textFill="#797979">
+                  <CheckBox id="maButton_200" fx:id="maButton_200" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#movingAverageSelected" text="200 Days" textFill="#797979">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
