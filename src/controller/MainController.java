@@ -196,12 +196,12 @@ public class MainController {
 		}
 		
 		/*******************DISPLAY INTERSECTIONS*******************/
-		/*
+		
 		// Checks if both 20 days and 200 days MAs are selected to display recommendations
 		// TODO: change to accommodate any 2 MAs
 		if (movingAverageButtons[0].isSelected() && movingAverageButtons[3].isSelected()) {
 			// Create a new series for intersections of both MAs
-			XYChart.Series<String, Number> tempIntersectionsSeries = currentStock.getIntersectionsList(currentTimeLine);
+			XYChart.Series<String, Number> tempIntersectionsSeries = currentStock.getIntersectionsList(MovingAverageInterval.TwentyDay,MovingAverageInterval.TwoHundredDay);
 // TO BE ADDED
 //				boolean test[] = current.getIntersectValue();
 			
@@ -232,7 +232,7 @@ public class MainController {
 			// Remove all intersections from the graph if both MAs aren't selected
 			intersectionSeries.getData().remove(0, intersectionSeries.getData().size());
 		}
-		*/
+		
     }
     
     /**

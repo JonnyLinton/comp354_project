@@ -14,9 +14,21 @@ public class Stock
 
     // holds ticker of stock
     private String ticker;
+    
+    // DOW 30 trading days in the past year
+    private final int NUM_TRADING_DAYS_ONE_YEAR = 254;
+    
+    // DOW 30 trading days in the past 2 years
+    private final int NUM_TRADING_DAYS_TWO_YEAR = 505;
+    
+    // DOW 30 trading days in the past 5 years
+    private final int NUM_TRADING_DAYS_FIVE_YEAR = 1259;
 
     // the number of total Data points for All time data list
     private final int ALL_TIME_DATA_POINTS = 500;
+    
+    // the maximum number of all time data points before it gets smoothed
+    private final int MAX_DATA_POINTS = 1000;
 
     // the amount the data points are being divided by for the 5 year data
     private final int FIVE_YEAR_DIVIDER = 2;
@@ -51,6 +63,7 @@ public class Stock
      * Initializes array of MA and computes the data
      * @param name
      * @param ticker
+     * @param currentTimeline
      */
 	public Stock(String name, String ticker)
     {
@@ -62,16 +75,7 @@ public class Stock
 
 
 //------------------------------PUBLIC STOCK METHODS-----------------------------------
-    
-	public void setTimeline(TimeInterval currentTimeline)
-	{
-		this.currentTimeline = currentTimeline;
-	}
-	public TimeInterval getCurrentTimeline()
-	{
-		return currentTimeline;
-	}
-	
+  
     /**
      * OUTPUT SERIES OF PRICES
      * Cuts the data and outputs a list
@@ -80,12 +84,12 @@ public class Stock
      */
     public XYChart.Series<String, Number> getPricesInRange()
     {
-   
     	XYChart.Series<String, Number> series = new XYChart.Series<>();
-        LinkedList<StockEntry> list = new LinkedList<>(data);
-        list = truncateList(list);
-       	list = this.removeDataPoints(list);
-       	series = listToSeries(list);
+        LinkedList<StockEntry> tempData = new LinkedList<>(data);
+       
+        tempData = truncateList(tempData);
+        tempData = this.removeDataPoints(tempData);
+       	series = listToSeries(tempData);
        	
         return series;
     }
@@ -96,7 +100,7 @@ public class Stock
      * @param shortMA
      * @param longMA
      * @param interval
-     * @return
+     * @return a series of intersection points of the two moving averages parameters
      */
     public XYChart.Series<String, Number> getIntersectionsList(MovingAverageInterval shortMA, MovingAverageInterval longMA)
   
@@ -120,6 +124,7 @@ public class Stock
     	
     	//Starts removing stocks from today and moves backwards
     	shortTermStock = shortList.remove();
+    	System.out.println(shortTermStock.getDate());
     	longTermStock = longList.remove();
     	
     	shortTermPrice = shortTermStock.getValue();
@@ -140,14 +145,16 @@ public class Stock
         	
         	if(shortOnTop && shortTermPrice < longTermPrice)
         	{
+        		System.out.println(shortTermStock.getDate() + " <--- DATE, Value ---> " + shortTermStock.getValue());
         		intersectionList.add(shortTermStock);
-        		//intersectionDirection.add(true);
+        		intersectionDirection.add(true);
         		shortOnTop = false;
         	}
         	if(!shortOnTop && shortTermPrice > longTermPrice)
         	{
+        		System.out.println(shortTermStock.getDate() + " <--- DATE, Value ---> " + shortTermStock.getValue());
         		intersectionList.add(shortTermStock);
-        		//intersectionDirection.add(false);
+        		intersectionDirection.add(false);
         		shortOnTop = true;
         	}	
     	}
@@ -165,42 +172,44 @@ public class Stock
     public XYChart.Series<String, Number> getMovingAverage(MovingAverageInterval interval)
     {
         XYChart.Series<String, Number> series;
-        LinkedList<StockEntry> list = new LinkedList<>(data);
+        LinkedList<StockEntry> tempData = new LinkedList<>(data);
         
         switch(interval)
         {
             case TwentyDay:
-            	list = computeMovingAverages(interval, list);
+            	tempData = computeMovingAverages(interval, tempData);
           
                 break;
 
             case FiftyDay:
-            	list = computeMovingAverages(interval, list);
+            	tempData = computeMovingAverages(interval, tempData);
 
                 break;
 
             case HundredDay:
-            	list = computeMovingAverages(interval, list);
+            	tempData = computeMovingAverages(interval, tempData);
              
                 break;
 
             case TwoHundredDay:
-            	list = computeMovingAverages(interval, list);
+            	tempData = computeMovingAverages(interval, tempData);
          
                 
                 break;
         }
-        list = new LinkedList<StockEntry>(truncateList(list));
-        list = this.removeDataPoints(list);
-        series = listToSeries(list);
+        tempData = new LinkedList<StockEntry>(truncateList(tempData));
+        tempData = this.removeDataPoints(tempData);
+        series = listToSeries(tempData);
 
         return series;
     }
 
     public Recommendation getRecommendation()
     {
-    	
-    	return Recommendation.BUY;
+    	if(intersectionDirection.get(0))
+    		return Recommendation.BUY;
+    	else
+    		return Recommendation.SELL;
     }
 //------------------------------PRIVATE STOCK METHODS-----------------------------------
 
@@ -212,7 +221,7 @@ public class Stock
     private LinkedList<StockEntry> removeDataPoints(LinkedList<StockEntry> allTimeDataList){
 
         // here data size is the size of the array holding all the values - maybe it should be size of the list passed ?
-    	if (allTimeDataList.size() > 1000){
+    	if (allTimeDataList.size() > MAX_DATA_POINTS){
 		    LinkedList<StockEntry> tempData = new LinkedList<>(allTimeDataList);
 		    LinkedList<StockEntry> truncatedDataPoints = new LinkedList<>();
 		    Queue<Double> window = new LinkedList<>();
@@ -395,15 +404,15 @@ public class Stock
         switch(this.currentTimeline)
         {
             case OneYear:
-                timeFrame = 254;
+                timeFrame = NUM_TRADING_DAYS_ONE_YEAR;
                 break;
 
             case TwoYears:
-                timeFrame = 505;
+                timeFrame = NUM_TRADING_DAYS_TWO_YEAR;
                 break;
 
             case FiveYears:
-                timeFrame = 1259;
+                timeFrame = NUM_TRADING_DAYS_FIVE_YEAR;
                 break;
             case AllTime:
             	break;
@@ -428,9 +437,33 @@ public class Stock
     }
 
 //------------------------------GETTERS AND SETTERS-----------------------------------
+    
+    /**
+     * Accessor that returns the name of the current stock
+     * @return the name of the current stock
+     */
     public String getName()
     {
         return this.name;
     }
+    
+    /**
+     * Mutator to set the timeline of the current stock
+     * @param currentTimeline
+     */
+	public void setTimeline(TimeInterval currentTimeline)
+	{
+		this.currentTimeline = currentTimeline;
+	}
+	
+	/**
+	 * Accessor for the timeline of the current stock
+	 * @return the current timeline
+	 */
+	public TimeInterval getCurrentTimeline()
+	{
+		return currentTimeline;
+	}
+	
 
 }
