@@ -38,7 +38,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import view.StocksRUs;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EventListener;
@@ -46,7 +45,7 @@ import java.util.EventListener;
 public class MainController {
 
 	private boolean isStockGenerated = false;
-	private boolean isMovingAverageDisplayed[], isTimeLineDisplayed[];
+	private boolean isMovingAverageSelected[], isTimeLineDisplayed[];
     private Stock currentStock;
 	private TimeInterval timeIntervals[];
 	private MovingAverageInterval movingAverageIntervals[];
@@ -63,7 +62,7 @@ public class MainController {
 	private Button timeLineButton_1, timeLineButton_2, timeLineButton_5, timeLineButton_all;
     
     @FXML
-    private ComboBox maDropDown_1, maDropDown_2;
+    private ComboBox<String> maDropDown_1, maDropDown_2;
 
     @FXML
 	private LineChart<String, Number> stockChart;
@@ -96,52 +95,103 @@ public class MainController {
      * Triggering & helper function to load MAs to the graph
      * @param event an ActionEvent sent from MainView
      */
-    @FXML
+    @SuppressWarnings("unchecked")
+	@FXML
     private void movingAverageSelected(ActionEvent event) {
-        ObservableList<Node> contentsOfHBox = ((Node)event.getSource()).getParent().getChildrenUnmodifiable();
-        ComboBox selectedMovingAverageDropdown = (ComboBox)event.getSource();
-        ComboBox otherMovingAverageDropdown = null;
-        Class labelClass = new Label().getClass();
-        String selectedMovingAverage = (String)selectedMovingAverageDropdown.getValue();
-        for (int i=0; i < contentsOfHBox.size(); i++) {
-            if (!contentsOfHBox.get(i).equals(selectedMovingAverageDropdown) && !contentsOfHBox.get(i).getClass().equals(labelClass)) {
-                otherMovingAverageDropdown = (ComboBox)contentsOfHBox.get(i);
-            }
-        }
-        EventHandler<ActionEvent> mainController = selectedMovingAverageDropdown.getOnAction();
-        selectedMovingAverageDropdown.setOnAction(null);
-        otherMovingAverageDropdown.setOnAction(null);
-        otherMovingAverageDropdown.getItems().remove(selectedMovingAverage);
-
-        // graphMovingAverage();
-        if (otherMovingAverageDropdown.getItems().size() < 3) {
-            Platform.runLater(() -> {
-                resetMovingAverageDropdowns();
-            });
-
-        }
-        selectedMovingAverageDropdown.setOnAction(mainController);
-        otherMovingAverageDropdown.setOnAction(mainController);
-
-        switch ((String)selectedMovingAverageDropdown.getValue()) {
-            case "20 Days":
-                graphMovingAverage(MovingAverageInterval.TwentyDay);
-                break;
-            case "50 Days":
-                graphMovingAverage(MovingAverageInterval.FiftyDay);
-                break;
-            case "100 Days":
-                graphMovingAverage(MovingAverageInterval.HundredDay);
-                break;
-            case "200 Days":
-                graphMovingAverage(MovingAverageInterval.TwoHundredDay);
-                break;
+    	
+    	if (isStockGenerated) {
+	        ObservableList<Node> contentsOfHBox = ((Node)event.getSource()).getParent().getChildrenUnmodifiable();
+	        ComboBox<String> selectedMovingAverageDropdown = (ComboBox<String>)event.getSource();
+	        ComboBox<String> otherMovingAverageDropdown = null;
+	        Class<? extends Label> labelClass = new Label().getClass();
+	        Class<? extends Button> buttonClass = new Button().getClass();
+	        String selectedMovingAverage = (String)selectedMovingAverageDropdown.getValue();
+	        for (int i=0; i < contentsOfHBox.size(); i++) {
+	            if (!contentsOfHBox.get(i).equals(selectedMovingAverageDropdown)
+	            		&& !contentsOfHBox.get(i).getClass().equals(labelClass)
+	            		&& !contentsOfHBox.get(i).getClass().equals(buttonClass)) {
+	                otherMovingAverageDropdown = (ComboBox<String>)contentsOfHBox.get(i);
+	            }
+	        }
+	        EventHandler<ActionEvent> mainController = selectedMovingAverageDropdown.getOnAction();
+	        selectedMovingAverageDropdown.setOnAction(null);
+	        otherMovingAverageDropdown.setOnAction(null);
+	        otherMovingAverageDropdown.getItems().remove(selectedMovingAverage);
+	
+	        // graphMovingAverage();
+	        if (otherMovingAverageDropdown.getItems().size() < 3) {
+	            Platform.runLater(() -> {
+	                resetMovingAverageDropdowns();
+	            });
+	
+	        }
+	        selectedMovingAverageDropdown.setOnAction(mainController);
+	        otherMovingAverageDropdown.setOnAction(mainController);
+	
+	        switch ((String)selectedMovingAverageDropdown.getValue()) {
+	            case "20 Days":
+	                isMovingAverageSelected[0] = true;
+	                isMovingAverageSelected[1] = false;
+	                isMovingAverageSelected[2] = false;
+	                isMovingAverageSelected[3] = false;
+	                break;
+	            case "50 Days":
+	                isMovingAverageSelected[1] = true;
+	                isMovingAverageSelected[2] = false;
+	                isMovingAverageSelected[3] = false;
+	                isMovingAverageSelected[0] = false;
+	                break;
+	            case "100 Days":
+	            	isMovingAverageSelected[2] = true;
+	            	isMovingAverageSelected[3] = false;
+	            	isMovingAverageSelected[0] = false;
+	            	isMovingAverageSelected[1] = false;
+	                break;
+	            case "200 Days":
+	            	isMovingAverageSelected[3] = true;
+	            	isMovingAverageSelected[0] = false;
+	            	isMovingAverageSelected[1] = false;
+	            	isMovingAverageSelected[2] = false;
+	                break;
+	        }
+	        
+	        if (otherMovingAverageDropdown.getValue() != null) {
+	        	 switch ((String)otherMovingAverageDropdown.getValue()) {
+		             case "20 Days":
+		                 isMovingAverageSelected[0] = true;
+		                 break;
+		             case "50 Days":
+		                 isMovingAverageSelected[1] = true;
+		                 break;
+		             case "100 Days":
+		             	isMovingAverageSelected[2] = true;
+		                 break;
+		             case "200 Days":
+		             	isMovingAverageSelected[3] = true;
+		                 break;
+		         }
+	        }
         }
     }
     private void resetMovingAverageDropdowns() {
         ObservableList<String> dropdownContents = FXCollections.observableArrayList("20 Days", "50 Days", "100 Days", "200 Days");
         maDropDown_1.getItems().setAll(dropdownContents);
         maDropDown_2.getItems().setAll(dropdownContents);
+    }
+    
+    private void resetMovingAverageDropdownsSelection() {
+    	EventHandler<ActionEvent> maController_1 = maDropDown_1.getOnAction();
+    	EventHandler<ActionEvent> maController_2 = maDropDown_2.getOnAction();
+        maDropDown_1.setOnAction(null);
+        maDropDown_2.setOnAction(null);
+    	
+    	maDropDown_1.getSelectionModel().clearSelection();
+    	maDropDown_2.getSelectionModel().clearSelection();
+    	
+    	resetMovingAverageDropdowns();
+    	
+        maDropDown_1.setOnAction(maController_1);
+        maDropDown_2.setOnAction(maController_2);
     }
     
     /**
@@ -170,6 +220,8 @@ public class MainController {
 	    		generateSeries();
 	    	
 	    	graphClosingPrices();
+	    	
+	    	resetMovingAverageDropdownsSelection();
     	}
     }
     
@@ -226,9 +278,25 @@ public class MainController {
      * Checks for all 4 checkboxes at once
      */
 
-    private void graphMovingAverage(MovingAverageInterval timeInterval) {
-        
+    @FXML
+    private void graphMovingAverage(ActionEvent event) {
+    	
+    	if (isStockGenerated) {
+	    	for (int i = 0; i < 4; i++) {
+	    		if (isMovingAverageSelected[i]) {
+	    			movingAverageSeries[i].getData().addAll(currentStock.getMovingAverage(movingAverageIntervals[i]).getData());
+	    		}
+	    		else
+	    			movingAverageSeries[i].getData().removeAll(movingAverageSeries[i].getData());
+	    	}
+	    	
+	    	
+	    	for (int i = 0; i < 4; i++) {
+	    		isMovingAverageSelected[i] = false;
+	    	}
+    	}
     }
+    
 //    private void graphMovingAverage() {
 //		/*******************DISPLAY MAs*******************/
 //		
@@ -369,7 +437,7 @@ public class MainController {
         isTimeLineDisplayed = new boolean[4];
         
         // Instantiate display check array for MAs
-        isMovingAverageDisplayed = new boolean[4];
+        isMovingAverageSelected = new boolean[4];
         
 		// Initialize MAs array
     	movingAverageSeries = new XYChart.Series[4];
@@ -396,8 +464,8 @@ public class MainController {
     		isTimeLineDisplayed[i] = false;
     	
     	// Resets MAs display checks
-        for (int i = 0; i < isMovingAverageDisplayed.length; i++)
-        	isMovingAverageDisplayed[i] = false;
+        for (int i = 0; i < isMovingAverageSelected.length; i++)
+        	isMovingAverageSelected[i] = false;
         
         // Removes current intersections
         if (buyIntersectionSeries != null && buyIntersectionSeries.getData().size() > 0)
