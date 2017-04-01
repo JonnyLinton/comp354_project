@@ -79,6 +79,21 @@ public class MainController {
 
         // Initialize all arrays
     	initializeButtons();
+    	
+    	//Default DOW30 index stock
+    	currentStock = new Stock("DOW Jones 30", "^DJI");
+
+        // Set graph's name
+        stockChart.setTitle(currentStock.getName());
+    	     
+        // Arm default timeline
+    	timelineButtons[3].arm();
+    	
+		recommendation.setText("Select moving averages");
+		recommendation.setTextFill(Color.BLACK);
+
+    	generateSeries();
+    	graphClosingPrices();
     }
     
     /**
@@ -306,7 +321,6 @@ public class MainController {
 	    			if (i != j && isMovingAverageSelected[i] && isMovingAverageSelected[j]) {
 	    				currentStock.getIntersectionsList(movingAverageIntervals[i], movingAverageIntervals[j]);
 	    				ifTwoMAsAreSelected = true;
-	    				System.out.println(" i = " + i + "\n" + movingAverageIntervals[i] + ", " + " j = " + j + "\n" + movingAverageIntervals[j]);
 	    				break;
 	    			}
 	    		}
@@ -318,7 +332,6 @@ public class MainController {
 	    			if (isMovingAverageSelected[i]) 
 	    			{
 	    				currentStock.getIntersectionsList(movingAverageIntervals[i], movingAverageIntervals[i]);
-	    				System.out.println("#2 - One MA Selected");
 	    			}
 	    		}
 	    	}

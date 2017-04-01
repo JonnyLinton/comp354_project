@@ -105,7 +105,6 @@ public class Stock
     public XYChart.Series<String, Number> getIntersectionsList(MovingAverageInterval shortMA, MovingAverageInterval longMA)
   
     {
-    	System.out.println("Short MA = " + shortMA + "\nLong MA = " + longMA); 
     	Boolean shortOnTop;
     	StockEntry shortTermStock;
     	StockEntry longTermStock;
@@ -118,7 +117,6 @@ public class Stock
     	if(shortMA.equals(longMA))
     	{
     		shortList = new LinkedList<>(data);
-    		System.out.println("#1 - One MA Selected");
     	}
     	else
     		shortList = new LinkedList<>(computeMovingAverages(shortMA, data));
@@ -133,7 +131,6 @@ public class Stock
     	
     	//Starts removing stocks from today and moves backwards
     	shortTermStock = shortList.remove();
-    	//System.out.println(shortTermStock.getDate());
     	longTermStock = longList.remove();
     	
     	shortTermPrice = shortTermStock.getValue();
@@ -154,14 +151,12 @@ public class Stock
         	
         	if(shortOnTop && shortTermPrice < longTermPrice)
         	{
-        		//System.out.println(shortTermStock.getDate() + " <--- DATE, Value ---> " + shortTermStock.getValue());
         		intersectionList.add(shortTermStock);
         		intersectionDirection.add(true);
         		shortOnTop = false;
         	}
         	if(!shortOnTop && shortTermPrice > longTermPrice)
         	{
-        		//System.out.println(shortTermStock.getDate() + " <--- DATE, Value ---> " + shortTermStock.getValue());
         		intersectionList.add(shortTermStock);
         		intersectionDirection.add(false);
         		shortOnTop = true;
@@ -214,14 +209,7 @@ public class Stock
     }
 
     public int getRecommendation()
-    {
-    	if (intersectionDirection != null) {
-    		System.out.println(intersectionDirection);
-	    	
-	    	if (intersectionDirection.size() > 0)
-	    		System.out.println(intersectionDirection.get(0));
-    	}
-    	
+    {	
     	if (intersectionDirection == null || intersectionDirection.size() <= 0) {
     		return 0;
     	}
