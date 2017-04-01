@@ -105,6 +105,7 @@ public class Stock
     public XYChart.Series<String, Number> getIntersectionsList(MovingAverageInterval shortMA, MovingAverageInterval longMA)
   
     {
+    	System.out.println("Short MA = " + shortMA + "\nLong MA = " + longMA); 
     	Boolean shortOnTop;
     	StockEntry shortTermStock;
     	StockEntry longTermStock;
@@ -113,7 +114,15 @@ public class Stock
     	XYChart.Series<String, Number> series;
     	
     	LinkedList<StockEntry> intersectionList = new LinkedList<>();
-    	LinkedList<StockEntry> shortList = new LinkedList<>(computeMovingAverages(shortMA, data));
+    	LinkedList<StockEntry> shortList;
+    	if(shortMA.equals(longMA))
+    	{
+    		shortList = new LinkedList<>(data);
+    		System.out.println("#1 - One MA Selected");
+    	}
+    	else
+    		shortList = new LinkedList<>(computeMovingAverages(shortMA, data));
+    		
     	shortList = truncateList(shortList);
     	LinkedList<StockEntry> longList = new LinkedList<>(computeMovingAverages(longMA, data));
     	longList = truncateList(longList);
@@ -124,7 +133,7 @@ public class Stock
     	
     	//Starts removing stocks from today and moves backwards
     	shortTermStock = shortList.remove();
-    	System.out.println(shortTermStock.getDate());
+    	//System.out.println(shortTermStock.getDate());
     	longTermStock = longList.remove();
     	
     	shortTermPrice = shortTermStock.getValue();
@@ -145,16 +154,16 @@ public class Stock
         	
         	if(shortOnTop && shortTermPrice < longTermPrice)
         	{
-        		System.out.println(shortTermStock.getDate() + " <--- DATE, Value ---> " + shortTermStock.getValue());
+        		//System.out.println(shortTermStock.getDate() + " <--- DATE, Value ---> " + shortTermStock.getValue());
         		intersectionList.add(shortTermStock);
-        		intersectionDirection.add(false);
+        		intersectionDirection.add(true);
         		shortOnTop = false;
         	}
         	if(!shortOnTop && shortTermPrice > longTermPrice)
         	{
-        		System.out.println(shortTermStock.getDate() + " <--- DATE, Value ---> " + shortTermStock.getValue());
+        		//System.out.println(shortTermStock.getDate() + " <--- DATE, Value ---> " + shortTermStock.getValue());
         		intersectionList.add(shortTermStock);
-        		intersectionDirection.add(true);
+        		intersectionDirection.add(false);
         		shortOnTop = true;
         	}	
     	}

@@ -297,15 +297,32 @@ public class MainController {
 	    			movingAverageSeries[i].getData().removeAll(movingAverageSeries[i].getData());
 	    	}
 	    	
+	    	boolean ifTwoMAsAreSelected = false;
+	    	
 	    	for (int i = 0; i < 4; i++) {
+	    		if (ifTwoMAsAreSelected)
+	    			break;
 	    		for (int j = 0; j < 4; j++) {
 	    			if (i != j && isMovingAverageSelected[i] && isMovingAverageSelected[j]) {
 	    				currentStock.getIntersectionsList(movingAverageIntervals[i], movingAverageIntervals[j]);
-	    				
-	    				System.out.println(movingAverageIntervals[i] + ", " + movingAverageIntervals[j]);
+	    				ifTwoMAsAreSelected = true;
+	    				System.out.println(" i = " + i + "\n" + movingAverageIntervals[i] + ", " + " j = " + j + "\n" + movingAverageIntervals[j]);
+	    				break;
 	    			}
 	    		}
 	    	}
+	    	if (!ifTwoMAsAreSelected)
+	    	{
+	    		for (int i = 0; i < 4; i++) 
+	    		{
+	    			if (isMovingAverageSelected[i]) 
+	    			{
+	    				currentStock.getIntersectionsList(movingAverageIntervals[i], movingAverageIntervals[i]);
+	    				System.out.println("#2 - One MA Selected");
+	    			}
+	    		}
+	    	}
+				
 	    	
 	    	switch(currentStock.getRecommendation()) {
 		    	case 0:
