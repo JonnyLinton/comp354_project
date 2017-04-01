@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import model.UserAccount;
 
 import java.io.IOException;
+import java.util.PriorityQueue;
 
 public class StocksRUs extends Application {
     private static UserAccount currentUser;
@@ -41,7 +42,7 @@ public class StocksRUs extends Application {
         return currentUser != null;
     }
 
-    public static boolean setCurrentUser(String email, String password, String favoriteStocks[]) {
+    public static boolean setCurrentUser(String email, String password, PriorityQueue<String> favoriteStocks) {
     	currentUser = new UserAccount(email, password, favoriteStocks);
     	
     	return currentUser != null;

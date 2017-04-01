@@ -1,23 +1,25 @@
 package model;
 
+import java.util.PriorityQueue;
+
 public class UserAccount {
     private String email;
     private String password;
-    private String favoriteStocks[];
+    private PriorityQueue<String> favoriteStocks;
 
     public UserAccount() {
         email = null;
         password = null;
-        favoriteStocks = new String[10];
+        favoriteStocks = new PriorityQueue<>();
     }
     
     public UserAccount(String email, String password) {
     	this.email = email;
     	this.password = password;
-    	this.favoriteStocks = new String[10];
+    	this.favoriteStocks = new PriorityQueue<>();
     }
     
-    public UserAccount(String email, String password, String favoriteStocks[]) {
+    public UserAccount(String email, String password, PriorityQueue favoriteStocks) {
         this.email = email;
         this.password = password;
         this.favoriteStocks = favoriteStocks;
@@ -39,11 +41,11 @@ public class UserAccount {
         this.password = password;
     }
     
-    public String[] getFavoriteStocks() {
+    public PriorityQueue<String> getFavoriteStocks() {
     	return favoriteStocks;
     }
     
-    public void setFavoriteStocks(String[] favoriteStocks) {
+    public void setFavoriteStocks(PriorityQueue<String> favoriteStocks) {
     	this.favoriteStocks = favoriteStocks;
     }
 }
