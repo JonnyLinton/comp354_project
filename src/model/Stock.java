@@ -135,7 +135,7 @@ public class Stock
     	else
     		shortOnTop = false;
     	
-    	while(!longList.isEmpty() || !shortList.isEmpty())
+    	while(!longList.isEmpty() && !shortList.isEmpty())
     	{
     		shortTermStock = shortList.remove();
         	longTermStock = longList.remove();
