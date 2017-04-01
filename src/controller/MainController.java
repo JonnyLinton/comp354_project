@@ -21,6 +21,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+import model.Stock;
+import model.TimeInterval;
+import model.MovingAverageInterval;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
@@ -63,7 +72,10 @@ public class MainController {
 
     @FXML
 	private LineChart<String, Number> stockChart;
-    
+
+    @FXML
+    private VBox favoritesContainer;
+
     /**
      * Function called when the view is created
      */
@@ -88,6 +100,20 @@ public class MainController {
     	
 		recommendation.setText("Select moving averages");
 		recommendation.setTextFill(Color.BLACK);
+
+		// Generate favorites buttons
+        // If there are no recently viewed stocks:
+        if (StocksRUs.getCurrentUser().getFavoriteStocks().isEmpty()) {
+            Label noFavorites = new Label("No Recently Viewed Stocks");
+            noFavorites.setStyle("-fx-font-size: 14px;");
+            favoritesContainer.getChildren().add(noFavorites);
+        }
+        else {
+            for (String stock:StocksRUs.getCurrentUser().getFavoriteStocks()) {
+                Button favoriteStock = new Button(stock);
+                favoritesContainer.getChildren().add(favoriteStock);
+            }
+        }
 
     	generateSeries();
     	graphClosingPrices();

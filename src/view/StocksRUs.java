@@ -11,6 +11,7 @@ import model.Stock;
 import model.UserAccount;
 
 import java.io.IOException;
+import java.util.PriorityQueue;
 
 public class StocksRUs extends Application {
     private static UserAccount currentUser;

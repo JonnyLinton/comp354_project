@@ -194,34 +194,7 @@
                </VBox.margin>
             </Label>
             <Line endX="100.0" startX="-100.0" />
-            <VBox prefWidth="201.0">
-               <children>
-                  <Button id="CVX" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="200.0" text="Favorite 1">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button id="CAT" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="200.0" text="Favorite 2">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button id="BA" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="200.0" text="Favorite 3">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button id="AAPL" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="200.0" text="Favorite 4">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button id="AXP" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#selectStock" prefWidth="200.0" text="Favorite 5" textFill="WHITE">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-               </children>
+            <VBox id="favoritesContainer" fx:id="favoritesContainer" prefWidth="201.0">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
