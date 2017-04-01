@@ -63,7 +63,6 @@ public class Stock
      * Initializes array of MA and computes the data
      * @param name
      * @param ticker
-     * @param currentTimeline
      */
 	public Stock(String name, String ticker)
     {
@@ -79,7 +78,6 @@ public class Stock
     /**
      * OUTPUT SERIES OF PRICES
      * Cuts the data and outputs a list
-     * @param this.currentTimeline
      * @return series of closing prices
      */
     public XYChart.Series<String, Number> getPricesInRange()
@@ -99,7 +97,6 @@ public class Stock
      * Outputs the intersection Series of two given Moving Averages
      * @param shortMA
      * @param longMA
-     * @param interval
      * @return a series of intersection points of the two moving averages parameters
      */
     public XYChart.Series<String, Number> getIntersectionsList(MovingAverageInterval shortMA, MovingAverageInterval longMA)
@@ -223,7 +220,7 @@ public class Stock
 
     /**
      * Removes Data points for all time Data
-     * @param allTimeDataList
+     * @param allDataPoints
      * @return
      */
     private LinkedList<StockEntry> removeDataPoints(LinkedList<StockEntry> allDataPoints){
@@ -390,7 +387,6 @@ public class Stock
     /**
      * Reduces the size of a list to hold only the data relevant to the time interval
      * @param allTimeDataPoints
-     * @param this.currentTimeline
      * @return A Linked List with the desired data over specified time
      */
     private LinkedList<StockEntry> truncateList(LinkedList<StockEntry> allTimeDataPoints)
@@ -472,6 +468,8 @@ public class Stock
 	{
 		return currentTimeline;
 	}
-	
 
+    public String getTicker() {
+        return ticker;
+    }
 }

@@ -12,35 +12,32 @@
 package controller;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
-import model.Stock;
-import model.TimeInterval;
-import model.MovingAverageInterval;
-
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import model.LimitedSizeQueue;
+import model.MovingAverageInterval;
+import model.Stock;
+import model.TimeInterval;
 import view.StocksRUs;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.EventListener;
 
 public class MainController {
 
@@ -229,6 +226,9 @@ public class MainController {
     		// Change current stock
 	    	currentStock = new Stock(clickedButton.getText(), clickedButton.getId());
 
+	    	// add this stock to user's recently viewed
+			StocksRUs.getCurrentUser().getRecentlyViewedStocks().add(currentStock.getTicker());
+
 	        // Set graph's name
 	        stockChart.setTitle(currentStock.getName());
 	    	     
@@ -242,7 +242,7 @@ public class MainController {
 	    		generateSeries();
 	    	
 	    	graphClosingPrices();
-	    	
+
 	    	resetMovingAverageDropdownsSelection();
     	}
     }
@@ -254,6 +254,24 @@ public class MainController {
      */
     @FXML
     private void logout(ActionEvent event) {
+		LimitedSizeQueue<String> recentlyViewedStocks = StocksRUs.getCurrentUser().getRecentlyViewedStocks();
+
+		if(!recentlyViewedStocks.isEmpty()) {
+
+			StringBuffer recentStockInfo = new StringBuffer();
+			recentStockInfo.append(StocksRUs.getCurrentUser().getEmail());
+			recentlyViewedStocks.forEach(ticker -> {
+				recentStockInfo.append(":").append(ticker);
+			});
+
+			// TODO: need to check if the user already has recently viewed stocks.
+			try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/resources/recentlyViewedStocks.txt", true))) {
+				bw.append(String.valueOf(recentStockInfo)).append("\n");
+			} catch (Exception e) {
+				displayError(e.getMessage());
+			}
+		}
+
     	navigateToLogin(event);
     }
     
@@ -554,4 +572,18 @@ public class MainController {
         primaryStage.setScene(loginScene);
         primaryStage.show();
     }
+
+	/**
+	 * Displays an Alert to the user containing the specified content.
+	 *
+	 * @param content - string that will be displayed
+	 */
+	private void displayError(String content) {
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.setTitle("Error Dialog");
+		alert.setHeaderText("An error occurred! Details below.");
+		alert.setContentText(content);
+
+		alert.showAndWait();
+	}
 }

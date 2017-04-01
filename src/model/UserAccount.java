@@ -3,47 +3,48 @@ package model;
 public class UserAccount {
     private String email;
     private String password;
-    private String favoriteStocks[];
+
+    private LimitedSizeQueue<String> recentlyViewedStocks;
 
     public UserAccount() {
         email = null;
         password = null;
-        favoriteStocks = new String[10];
+        recentlyViewedStocks = new LimitedSizeQueue<>();
     }
-    
+
     public UserAccount(String email, String password) {
     	this.email = email;
     	this.password = password;
-    	this.favoriteStocks = new String[10];
+    	this.recentlyViewedStocks = new LimitedSizeQueue<>();
     }
-    
-    public UserAccount(String email, String password, String favoriteStocks[]) {
+
+    public UserAccount(String email, String password, LimitedSizeQueue<String> recentlyViewedStocks) {
         this.email = email;
         this.password = password;
-        this.favoriteStocks = favoriteStocks;
+        this.recentlyViewedStocks = recentlyViewedStocks;
     }
 
     public String getEmail() {
         return email;
     }
-    
+
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     public String getPassword() {
         return password;
     }
-    
+
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public String[] getFavoriteStocks() {
-    	return favoriteStocks;
+
+    public LimitedSizeQueue<String> getRecentlyViewedStocks() {
+        return recentlyViewedStocks;
     }
-    
-    public void setFavoriteStocks(String[] favoriteStocks) {
-    	this.favoriteStocks = favoriteStocks;
+
+    public void setRecentlyViewedStocks(LimitedSizeQueue<String> recentlyViewedStocks) {
+        this.recentlyViewedStocks = recentlyViewedStocks;
     }
 }

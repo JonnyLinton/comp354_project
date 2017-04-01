@@ -88,6 +88,7 @@ public class LoginController {
         }
         else // if no error, login the user.
         {
+            // TODO: check if the user has any recently viewed Stocks, set the attribute
             StocksRUs.setCurrentUser(email, password);
             navigateToMain(loginButtonPressed);
         }

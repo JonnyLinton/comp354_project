@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import model.LimitedSizeQueue;
+import model.Stock;
 import model.UserAccount;
 
 import java.io.IOException;
@@ -35,15 +37,11 @@ public class StocksRUs extends Application {
         return currentUser;
     }
 
-    public static boolean setCurrentUser(String email, String password) {
+    public static void setCurrentUser(String email, String password) {
         currentUser = new UserAccount(email, password);
-
-        return currentUser != null;
     }
 
-    public static boolean setCurrentUser(String email, String password, String favoriteStocks[]) {
-    	currentUser = new UserAccount(email, password, favoriteStocks);
-    	
-    	return currentUser != null;
+    public static void setCurrentUser(String email, String password, LimitedSizeQueue<String> recentlyViewedStocks) {
+    	currentUser = new UserAccount(email, password, recentlyViewedStocks);
     }
 }
