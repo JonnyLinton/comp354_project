@@ -56,7 +56,7 @@ public class MainController {
 	private Button timelineButtons[];
 
     @FXML
-	private Label userNameLabel;
+	private Label username, recommendation;
 
     @FXML
 	private Button timeLineButton_1, timeLineButton_2, timeLineButton_5, timeLineButton_all;
@@ -75,7 +75,7 @@ public class MainController {
         // Set graph's attributes
         stockChart.setCreateSymbols(false);
 
-		userNameLabel.setText("Logged in as " + StocksRUs.getCurrentUser().getEmail());
+		username.setText("Logged in as " + StocksRUs.getCurrentUser().getEmail());
 
         // Initialize all arrays
     	initializeButtons();
@@ -106,6 +106,7 @@ public class MainController {
 	        Class<? extends Label> labelClass = new Label().getClass();
 	        Class<? extends Button> buttonClass = new Button().getClass();
 	        String selectedMovingAverage = (String)selectedMovingAverageDropdown.getValue();
+	        
 	        for (int i=0; i < contentsOfHBox.size(); i++) {
 	            if (!contentsOfHBox.get(i).equals(selectedMovingAverageDropdown)
 	            		&& !contentsOfHBox.get(i).getClass().equals(labelClass)
@@ -113,18 +114,19 @@ public class MainController {
 	                otherMovingAverageDropdown = (ComboBox<String>)contentsOfHBox.get(i);
 	            }
 	        }
+	        
 	        EventHandler<ActionEvent> mainController = selectedMovingAverageDropdown.getOnAction();
 	        selectedMovingAverageDropdown.setOnAction(null);
 	        otherMovingAverageDropdown.setOnAction(null);
 	        otherMovingAverageDropdown.getItems().remove(selectedMovingAverage);
 	
-	        // graphMovingAverage();
 	        if (otherMovingAverageDropdown.getItems().size() < 3) {
 	            Platform.runLater(() -> {
 	                resetMovingAverageDropdowns();
 	            });
 	
 	        }
+	        
 	        selectedMovingAverageDropdown.setOnAction(mainController);
 	        otherMovingAverageDropdown.setOnAction(mainController);
 	
@@ -173,6 +175,7 @@ public class MainController {
 	        }
         }
     }
+    
     private void resetMovingAverageDropdowns() {
         ObservableList<String> dropdownContents = FXCollections.observableArrayList("20 Days", "50 Days", "100 Days", "200 Days");
         maDropDown_1.getItems().setAll(dropdownContents);
@@ -182,6 +185,7 @@ public class MainController {
     private void resetMovingAverageDropdownsSelection() {
     	EventHandler<ActionEvent> maController_1 = maDropDown_1.getOnAction();
     	EventHandler<ActionEvent> maController_2 = maDropDown_2.getOnAction();
+    	
         maDropDown_1.setOnAction(null);
         maDropDown_2.setOnAction(null);
     	
@@ -222,6 +226,17 @@ public class MainController {
 	    	graphClosingPrices();
 	    	
 	    	resetMovingAverageDropdownsSelection();
+	    	
+	    	currentStock.getIntersectionsList(MovingAverageInterval.FiftyDay, MovingAverageInterval.TwoHundredDay);
+	    	
+	    	if (currentStock.getRecommendation()) {
+	    		recommendation.setText("Buy");
+	    		recommendation.setTextFill(Color.GREEN);
+	    	}
+	    	else {
+	    		recommendation.setText("Sell");
+	    		recommendation.setTextFill(Color.RED);
+	    	}
     	}
     }
     
@@ -294,6 +309,8 @@ public class MainController {
 	    	for (int i = 0; i < 4; i++) {
 	    		isMovingAverageSelected[i] = false;
 	    	}
+	    	
+	    	resetMovingAverageDropdownsSelection();
     	}
     }
     

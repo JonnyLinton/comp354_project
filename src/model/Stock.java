@@ -204,12 +204,12 @@ public class Stock
         return series;
     }
 
-    public Recommendation getRecommendation()
+    public boolean getRecommendation()
     {
-    	if(intersectionDirection.get(0))
-    		return Recommendation.BUY;
-    	else
-    		return Recommendation.SELL;
+    	if (intersectionDirection != null && intersectionDirection.size() > 0)
+    		return intersectionDirection.get(0);
+    	
+    	return false;
     }
 //------------------------------PRIVATE STOCK METHODS-----------------------------------
 
