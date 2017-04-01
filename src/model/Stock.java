@@ -147,14 +147,14 @@ public class Stock
         	{
         		System.out.println(shortTermStock.getDate() + " <--- DATE, Value ---> " + shortTermStock.getValue());
         		intersectionList.add(shortTermStock);
-        		intersectionDirection.add(true);
+        		intersectionDirection.add(false);
         		shortOnTop = false;
         	}
         	if(!shortOnTop && shortTermPrice > longTermPrice)
         	{
         		System.out.println(shortTermStock.getDate() + " <--- DATE, Value ---> " + shortTermStock.getValue());
         		intersectionList.add(shortTermStock);
-        		intersectionDirection.add(false);
+        		intersectionDirection.add(true);
         		shortOnTop = true;
         	}	
     	}
