@@ -204,12 +204,23 @@ public class Stock
         return series;
     }
 
-    public boolean getRecommendation()
+    public int getRecommendation()
     {
-    	if (intersectionDirection != null && intersectionDirection.size() > 0)
-    		return intersectionDirection.get(0);
+    	if (intersectionDirection != null) {
+    		System.out.println(intersectionDirection);
+	    	
+	    	if (intersectionDirection.size() > 0)
+	    		System.out.println(intersectionDirection.get(0));
+    	}
     	
-    	return false;
+    	if (intersectionDirection == null || intersectionDirection.size() <= 0) {
+    		return 0;
+    	}
+    	else if (intersectionDirection.get(0)) {
+    		return 1;
+    	}
+    	else
+    		return 2;
     }
 //------------------------------PRIVATE STOCK METHODS-----------------------------------
 

@@ -235,7 +235,7 @@
                </padding>
             </Label>
             <Line endX="100.0" startX="-100.0" />
-            <Label fx:id="recommendation" alignment="BASELINE_LEFT" prefHeight="18.0" prefWidth="154.0" text="Buy / Hold / Sell">
+            <Label fx:id="recommendation" alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="202.0" text="Select 2 moving averages">
                <font>
                   <Font size="14.0" />
                </font>

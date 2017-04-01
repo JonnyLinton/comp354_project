@@ -219,6 +219,9 @@ public class MainController {
 	    	     
 	        // Arm default timeline
 	    	timelineButtons[0].arm();
+	    	
+    		recommendation.setText("Select 2 moving averages");
+    		recommendation.setTextFill(Color.BLACK);
 
 	    	if (!isStockGenerated)
 	    		generateSeries();
@@ -226,17 +229,6 @@ public class MainController {
 	    	graphClosingPrices();
 	    	
 	    	resetMovingAverageDropdownsSelection();
-	    	
-	    	currentStock.getIntersectionsList(MovingAverageInterval.FiftyDay, MovingAverageInterval.TwoHundredDay);
-	    	
-	    	if (currentStock.getRecommendation()) {
-	    		recommendation.setText("Buy");
-	    		recommendation.setTextFill(Color.GREEN);
-	    	}
-	    	else {
-	    		recommendation.setText("Sell");
-	    		recommendation.setTextFill(Color.RED);
-	    	}
     	}
     }
     
@@ -305,6 +297,30 @@ public class MainController {
 	    			movingAverageSeries[i].getData().removeAll(movingAverageSeries[i].getData());
 	    	}
 	    	
+	    	for (int i = 0; i < 4; i++) {
+	    		for (int j = 0; j < 4; j++) {
+	    			if (i != j && isMovingAverageSelected[i] && isMovingAverageSelected[j]) {
+	    				currentStock.getIntersectionsList(movingAverageIntervals[i], movingAverageIntervals[j]);
+	    				
+	    				System.out.println(movingAverageIntervals[i] + ", " + movingAverageIntervals[j]);
+	    			}
+	    		}
+	    	}
+	    	
+	    	switch(currentStock.getRecommendation()) {
+		    	case 0:
+		    		recommendation.setText("Hold");
+		    		recommendation.setTextFill(Color.GRAY);
+		    		break;
+		    	case 1:
+		    		recommendation.setText("Buy");
+		    		recommendation.setTextFill(Color.GREEN);
+		    		break;
+		    	case 2:
+		    		recommendation.setText("Sell");
+		    		recommendation.setTextFill(Color.RED);
+		    		break;
+	    	}
 	    	
 	    	for (int i = 0; i < 4; i++) {
 	    		isMovingAverageSelected[i] = false;
