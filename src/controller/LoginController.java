@@ -10,7 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.LimitedSizeQueue;
+import model.LimitedSizeStockQueue;
 import model.Stock;
 import view.StocksRUs;
 
@@ -91,15 +91,15 @@ public class LoginController {
         else // if no error, login the user.
         {
             // check if the user has any recently viewed Stocks, set the attribute
-            LimitedSizeQueue<Stock> recentlyViewedStocks = initializeRecentlyViewedStocks(email);
+            LimitedSizeStockQueue recentlyViewedStocks = initializeRecentlyViewedStocks(email);
             StocksRUs.setCurrentUser(email, password, recentlyViewedStocks);
             navigateToMain(loginButtonPressed);
         }
     }
 
-    private LimitedSizeQueue<Stock> initializeRecentlyViewedStocks(String email) {
+    private LimitedSizeStockQueue initializeRecentlyViewedStocks(String email) {
         String[] recentlyViewedStockInfo;
-        LimitedSizeQueue<Stock> recentlyViewedStocks = new LimitedSizeQueue<>();
+        LimitedSizeStockQueue recentlyViewedStocks = new LimitedSizeStockQueue();
 
         try (BufferedReader reader = new BufferedReader(new FileReader("src/resources/recentlyViewedStocks.txt"))) {
             String line;

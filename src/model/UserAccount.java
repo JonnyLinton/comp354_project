@@ -4,21 +4,21 @@ public class UserAccount {
     private String email;
     private String password;
 
-    private LimitedSizeQueue<Stock> recentlyViewedStocks;
+    private LimitedSizeStockQueue recentlyViewedStocks;
 
     public UserAccount() {
         email = null;
         password = null;
-        recentlyViewedStocks = new LimitedSizeQueue<>();
+        recentlyViewedStocks = new LimitedSizeStockQueue();
     }
 
     public UserAccount(String email, String password) {
     	this.email = email;
     	this.password = password;
-    	this.recentlyViewedStocks = new LimitedSizeQueue<>();
+    	this.recentlyViewedStocks = new LimitedSizeStockQueue();
     }
 
-    public UserAccount(String email, String password, LimitedSizeQueue<Stock> recentlyViewedStocks) {
+    public UserAccount(String email, String password, LimitedSizeStockQueue recentlyViewedStocks) {
         this.email = email;
         this.password = password;
         this.recentlyViewedStocks = recentlyViewedStocks;
@@ -40,11 +40,11 @@ public class UserAccount {
         this.password = password;
     }
 
-    public LimitedSizeQueue<Stock> getRecentlyViewedStocks() {
+    public LimitedSizeStockQueue getRecentlyViewedStocks() {
         return recentlyViewedStocks;
     }
 
-    public void setRecentlyViewedStocks(LimitedSizeQueue<Stock> recentlyViewedStocks) {
+    public void setRecentlyViewedStocks(LimitedSizeStockQueue recentlyViewedStocks) {
         this.recentlyViewedStocks = recentlyViewedStocks;
     }
 }

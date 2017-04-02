@@ -32,7 +32,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import model.LimitedSizeQueue;
+import model.LimitedSizeStockQueue;
 import model.MovingAverageInterval;
 import model.Stock;
 import model.TimeInterval;
@@ -254,12 +254,8 @@ public class MainController {
     		// Change current stock
 	    	currentStock = new Stock(clickedButton.getText(), clickedButton.getId());
 
-			// check to see if this stock is already recently viewed
-			if(isStockRecentlyViewed()) {
-				// TODO: remove the element and put on the top.
-			}
-			else
-				StocksRUs.getCurrentUser().getRecentlyViewedStocks().add(currentStock); // add this stock to user's recently viewed
+			// add this stock to user's recently viewed
+			StocksRUs.getCurrentUser().getRecentlyViewedStocks().add(currentStock);
 
 			// Set graph's name
 	        stockChart.setTitle(currentStock.getName());
@@ -281,16 +277,6 @@ public class MainController {
     	}
     }
 
-	private boolean isStockRecentlyViewed() {
-		boolean stockRecentlyViewed = false;
-		LimitedSizeQueue<Stock> recentlyViewedStocks = StocksRUs.getCurrentUser().getRecentlyViewedStocks();
-		for (Stock stock : recentlyViewedStocks) {
-            if (currentStock.getTicker().equals(stock.getTicker()))
-                stockRecentlyViewed = true;
-        }
-		return stockRecentlyViewed;
-	}
-
 	/**
      *  1st Iteration function that will logout the current user and bring them back to the log in page.
      *  2nd Iteration will incl saving user information for their favorite stock.
@@ -304,7 +290,7 @@ public class MainController {
     }
 
 	private void persistRecentlyViewedStocks() {
-		LimitedSizeQueue<Stock> recentlyViewedStocks = StocksRUs.getCurrentUser().getRecentlyViewedStocks();
+		LimitedSizeStockQueue recentlyViewedStocks = StocksRUs.getCurrentUser().getRecentlyViewedStocks();
 
 		if(!recentlyViewedStocks.isEmpty()) {
 
