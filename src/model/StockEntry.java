@@ -3,6 +3,7 @@ package model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class StockEntry {
@@ -35,7 +36,7 @@ public class StockEntry {
         return this.date + " - " + this.getValue();
     }
 
-    public Calendar getComparableDate()
+    public Date getComparableDate()
     {
 
         Calendar cal = Calendar.getInstance();
@@ -46,7 +47,7 @@ public class StockEntry {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-        return cal;
+        Date currentDate = cal.getTime();
+        return currentDate;
     }
 }

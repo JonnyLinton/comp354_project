@@ -396,54 +396,81 @@ public class Stock
      * @param allTimeDataPoints
      * @return A Linked List with the desired data over specified time
      */
-    private LinkedList<StockEntry> truncateList(LinkedList<StockEntry> allTimeDataPoints)
-    {
-        // no need to truncate if all the data is needed
-        if(this.currentTimeline == TimeInterval.AllTime)
-        {
-            return allTimeDataPoints;
-        }
+//    private LinkedList<StockEntry> truncateList(LinkedList<StockEntry> allTimeDataPoints)
+//    {
+//        // no need to truncate if all the data is needed
+//        if(this.currentTimeline == TimeInterval.AllTime)
+//        {
+//            return allTimeDataPoints;
+//        }
+//
+//        LinkedList<StockEntry> truncatedData = new LinkedList<>();
+//        LinkedList<StockEntry> allTimeDataPointsTemp = new LinkedList<>(allTimeDataPoints);
+//
+//        // TODO: make all these timeFrames constants to hide it from the TA.
+//        // TODO: "Nice To Have" => make the dates into Calendar objects, and do this properly.
+//        int timeFrame = 0;
+//
+//        // this will be changed for the second iteration
+//        switch(this.currentTimeline)
+//        {
+//            case OneYear:
+//                timeFrame = NUM_TRADING_DAYS_ONE_YEAR;
+//                break;
+//
+//            case TwoYears:
+//                timeFrame = NUM_TRADING_DAYS_TWO_YEAR;
+//                break;
+//
+//            case FiveYears:
+//                timeFrame = NUM_TRADING_DAYS_FIVE_YEAR;
+//                break;
+//            case AllTime:
+//            	break;
+//
+//        }
+//
+//        int i = 0;
+//        for(StockEntry entries : allTimeDataPointsTemp)
+//        {
+//            if(i == timeFrame)
+//            {
+//                break;
+//            }
+//            else
+//            {
+//                truncatedData.add(entries);
+//                i++;
+//            }
+//        }
+//
+//        return truncatedData;
+//    }
 
+    private LinkedList<StockEntry> truncateList(LinkedList<StockEntry> allTimeDataPoints) {
+        LinkedList<StockEntry> tempAllTime = new LinkedList<>(allTimeDataPoints);
         LinkedList<StockEntry> truncatedData = new LinkedList<>();
-        LinkedList<StockEntry> allTimeDataPointsTemp = new LinkedList<>(allTimeDataPoints);
+        Calendar cal = Calendar.getInstance();
+        Date today = cal.getTime();
 
-        // TODO: make all these timeFrames constants to hide it from the TA.
-        // TODO: "Nice To Have" => make the dates into Calendar objects, and do this properly.
-        int timeFrame = 0;
-
-        // this will be changed for the second iteration
-        switch(this.currentTimeline)
-        {
+        switch(currentTimeline) {
             case OneYear:
-                timeFrame = NUM_TRADING_DAYS_ONE_YEAR;
+                cal.add(Calendar.YEAR, -1);
                 break;
-
             case TwoYears:
-                timeFrame = NUM_TRADING_DAYS_TWO_YEAR;
+                cal.add(Calendar.YEAR, -2);
                 break;
-
             case FiveYears:
-                timeFrame = NUM_TRADING_DAYS_FIVE_YEAR;
+                cal.add(Calendar.YEAR, -5);
                 break;
             case AllTime:
-            	break;
-
+                return allTimeDataPoints;
         }
 
-        int i = 0;
-        for(StockEntry entries : allTimeDataPointsTemp)
-        {
-            if(i == timeFrame)
-            {
-                break;
-            }
-            else
-            {
-                truncatedData.add(entries);
-                i++;
-            }
+        Date stoppingDate = cal.getTime();
+        while (tempAllTime.peekFirst().getComparableDate().after(stoppingDate)) {
+            truncatedData.add(tempAllTime.pop());
         }
-
         return truncatedData;
     }
 
