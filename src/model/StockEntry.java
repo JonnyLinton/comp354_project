@@ -1,5 +1,10 @@
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class StockEntry {
 
     private String date;
@@ -28,5 +33,20 @@ public class StockEntry {
 
     public String toString() {
         return this.date + " - " + this.getValue();
+    }
+
+    public Calendar getComparableDate()
+    {
+
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.CANADA);
+
+        try {
+            cal.setTime(dateFormat.parse(this.date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return cal;
     }
 }
