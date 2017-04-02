@@ -14,24 +14,7 @@ public class Stock
 
     // holds ticker of stock
     private String ticker;
-    
-    // DOW 30 trading days in the past year
-    private final int NUM_TRADING_DAYS_ONE_YEAR = 254;
-    
-    // DOW 30 trading days in the past 2 years
-    private final int NUM_TRADING_DAYS_TWO_YEAR = 505;
-    
-    // DOW 30 trading days in the past 5 years
-    private final int NUM_TRADING_DAYS_FIVE_YEAR = 1259;
 
-    // the number of total Data points for All time data list
-    private final int ALL_TIME_DATA_POINTS = 500;
-    
-    // the maximum number of all time data points before it gets smoothed
-    private final int MAX_DATA_POINTS = 1000;
-
-    // the amount the data points are being divided by for the 5 year data
-    private final int FIVE_YEAR_DIVIDER = 2;
     
     // stores the all-time adjusted closing prices of the selected stock into a linkedlist
     private LinkedList<StockEntry> data;
@@ -82,7 +65,7 @@ public class Stock
      */
     public XYChart.Series<String, Number> getPricesInRange()
     {
-    	XYChart.Series<String, Number> series = new XYChart.Series<>();
+    	XYChart.Series<String, Number> series;
         LinkedList<StockEntry> tempData = new LinkedList<>(data);
        
         tempData = truncateList(tempData);
@@ -93,7 +76,7 @@ public class Stock
     }
     
     public List<Boolean> getIntersectionData() {
-    	List<Boolean> tempList = new ArrayList<Boolean>(intersectionDirection);
+    	List<Boolean> tempList = new ArrayList<>(intersectionDirection);
     	
     	Collections.reverse(tempList);
     	
@@ -131,7 +114,7 @@ public class Stock
     	shortList = removeDataPoints(shortList);
     	longList = removeDataPoints(longList);
     	
-    	intersectionDirection = new ArrayList<Boolean>();
+    	intersectionDirection = new ArrayList<>();
     	
     	//Starts removing stocks from today and moves backwards
     	shortTermStock = shortList.remove();
@@ -205,7 +188,7 @@ public class Stock
                 
                 break;
         }
-        tempData = new LinkedList<StockEntry>(truncateList(tempData));
+        tempData = new LinkedList<>(truncateList(tempData));
         tempData = this.removeDataPoints(tempData);
         series = listToSeries(tempData);
 
@@ -231,6 +214,12 @@ public class Stock
      * @return
      */
     private LinkedList<StockEntry> removeDataPoints(LinkedList<StockEntry> allDataPoints){
+        // the number of total Data points for All time data list
+        final int ALL_TIME_DATA_POINTS = 500;
+        // the maximum number of all time data points before it gets smoothed
+        final int MAX_DATA_POINTS = 1000;
+        // the amount the data points are being divided by for the 5 year data
+        final int FIVE_YEAR_DIVIDER = 2;
 
         // here data size is the size of the array holding all the values - maybe it should be size of the list passed ?
     	if (allDataPoints.size() > MAX_DATA_POINTS){
@@ -241,7 +230,7 @@ public class Stock
 		    double total = 0;
 		    int count = 0;
 		    StockEntry currentStockEntry;
-            int dataPointDivider = this.data.size() / ALL_TIME_DATA_POINTS;
+            int dataPointDivider;
 
             if (TimeInterval.AllTime == currentTimeline) {
                 dataPointDivider = this.data.size() / ALL_TIME_DATA_POINTS;
@@ -386,7 +375,9 @@ public class Stock
         }
         finally
         {
-            csvScanner.close();
+            if (csvScanner != null) {
+                csvScanner.close();
+            }
         }
 
         return allTimeDataPoints;
@@ -396,54 +387,29 @@ public class Stock
      * @param allTimeDataPoints
      * @return A Linked List with the desired data over specified time
      */
-    private LinkedList<StockEntry> truncateList(LinkedList<StockEntry> allTimeDataPoints)
-    {
-        // no need to truncate if all the data is needed
-        if(this.currentTimeline == TimeInterval.AllTime)
-        {
-            return allTimeDataPoints;
-        }
-
+    private LinkedList<StockEntry> truncateList(LinkedList<StockEntry> allTimeDataPoints) {
+        LinkedList<StockEntry> tempAllTime = new LinkedList<>(allTimeDataPoints);
         LinkedList<StockEntry> truncatedData = new LinkedList<>();
-        LinkedList<StockEntry> allTimeDataPointsTemp = new LinkedList<>(allTimeDataPoints);
+        Calendar cal = Calendar.getInstance();
 
-        // TODO: make all these timeFrames constants to hide it from the TA.
-        // TODO: "Nice To Have" => make the dates into Calendar objects, and do this properly.
-        int timeFrame = 0;
-
-        // this will be changed for the second iteration
-        switch(this.currentTimeline)
-        {
+        switch(currentTimeline) {
             case OneYear:
-                timeFrame = NUM_TRADING_DAYS_ONE_YEAR;
+                cal.add(Calendar.YEAR, -1);
                 break;
-
             case TwoYears:
-                timeFrame = NUM_TRADING_DAYS_TWO_YEAR;
+                cal.add(Calendar.YEAR, -2);
                 break;
-
             case FiveYears:
-                timeFrame = NUM_TRADING_DAYS_FIVE_YEAR;
+                cal.add(Calendar.YEAR, -5);
                 break;
             case AllTime:
-            	break;
-
+                return allTimeDataPoints;
         }
 
-        int i = 0;
-        for(StockEntry entries : allTimeDataPointsTemp)
-        {
-            if(i == timeFrame)
-            {
-                break;
-            }
-            else
-            {
-                truncatedData.add(entries);
-                i++;
-            }
+        Date stoppingDate = cal.getTime();
+        while (tempAllTime.peekFirst().getComparableDate().after(stoppingDate)) {
+            truncatedData.add(tempAllTime.pop());
         }
-
         return truncatedData;
     }
 
