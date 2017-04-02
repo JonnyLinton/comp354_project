@@ -1,1 +1,1 @@
-test:MSFT:BA:AXP:DD:XOM
+test::Apple,AAPL:Exxon Mobil,XOM

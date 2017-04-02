@@ -23,25 +23,22 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import model.Stock;
-import model.TimeInterval;
-import model.MovingAverageInterval;
-
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import model.LimitedSizeQueue;
+import model.MovingAverageInterval;
+import model.Stock;
+import model.TimeInterval;
 import view.StocksRUs;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 public class MainController {
@@ -97,7 +94,7 @@ public class MainController {
 		recommendation.setText("Select moving averages");
 		recommendation.setTextFill(Color.BLACK);
 
-        updateMostRecentlyViewedStocks();
+        updateRecentlyViewedStocksView();
     	generateSeries();
     	graphClosingPrices();
     }
@@ -196,9 +193,9 @@ public class MainController {
 	        }
         }
     }
-    private void updateMostRecentlyViewedStocks() {
+    private void updateRecentlyViewedStocksView() {
         // TODO: Remove this line when the MRU queue is completed
-        StocksRUs.getCurrentUser().getRecentlyViewedStocks().add("Apple");
+//        StocksRUs.getCurrentUser().getRecentlyViewedStocks().add("Apple");
         // Generate favorites buttons
         // If there are no recently viewed stocks:
         if (StocksRUs.getCurrentUser().getRecentlyViewedStocks().isEmpty()) {
@@ -207,11 +204,11 @@ public class MainController {
             favoritesContainer.getChildren().add(noFavorites);
         }
         else {
-            for (String stock:StocksRUs.getCurrentUser().getRecentlyViewedStocks()) {
-                Button favoriteStock = new Button(stock);
+            for (Stock stock:StocksRUs.getCurrentUser().getRecentlyViewedStocks()) {
+                Button favoriteStock = new Button(stock.getName());
                 // TODO: Remove this line when the MRU queue contains a ticker
-                favoriteStock.setId("AAPL");
-                favoriteStock.setOnAction(event -> selectStock(event));
+                favoriteStock.setId(stock.getTicker());
+                favoriteStock.setOnAction(this::selectStock);
                 favoriteStock.setPrefWidth(185);
                 favoriteStock.setAlignment(Pos.TOP_LEFT);
                 favoritesContainer.getChildren().add(favoriteStock);
@@ -257,10 +254,14 @@ public class MainController {
     		// Change current stock
 	    	currentStock = new Stock(clickedButton.getText(), clickedButton.getId());
 
-	    	// add this stock to user's recently viewed
-			StocksRUs.getCurrentUser().getRecentlyViewedStocks().add(currentStock.getTicker());
+			// check to see if this stock is already recently viewed
+			if(isStockRecentlyViewed()) {
+				// TODO: remove the element and put on the top.
+			}
+			else
+				StocksRUs.getCurrentUser().getRecentlyViewedStocks().add(currentStock); // add this stock to user's recently viewed
 
-	        // Set graph's name
+			// Set graph's name
 	        stockChart.setTitle(currentStock.getName());
 	    	     
 	        // Arm default timeline
@@ -279,36 +280,76 @@ public class MainController {
 	    	resetIntersections();
     	}
     }
-    
-    /**
+
+	private boolean isStockRecentlyViewed() {
+		boolean stockRecentlyViewed = false;
+		LimitedSizeQueue<Stock> recentlyViewedStocks = StocksRUs.getCurrentUser().getRecentlyViewedStocks();
+		for (Stock stock : recentlyViewedStocks) {
+            if (currentStock.getTicker().equals(stock.getTicker()))
+                stockRecentlyViewed = true;
+        }
+		return stockRecentlyViewed;
+	}
+
+	/**
      *  1st Iteration function that will logout the current user and bring them back to the log in page.
      *  2nd Iteration will incl saving user information for their favorite stock.
      *  @param event Action Event
      */
     @FXML
     private void logout(ActionEvent event) {
-		LimitedSizeQueue<String> recentlyViewedStocks = StocksRUs.getCurrentUser().getRecentlyViewedStocks();
+		persistRecentlyViewedStocks();
+
+    	navigateToLogin(event);
+    }
+
+	private void persistRecentlyViewedStocks() {
+		LimitedSizeQueue<Stock> recentlyViewedStocks = StocksRUs.getCurrentUser().getRecentlyViewedStocks();
 
 		if(!recentlyViewedStocks.isEmpty()) {
 
 			StringBuffer recentStockInfo = new StringBuffer();
-			recentStockInfo.append(StocksRUs.getCurrentUser().getEmail());
-			recentlyViewedStocks.forEach(ticker -> {
-				recentStockInfo.append(":").append(ticker);
-			});
+			recentStockInfo.append(StocksRUs.getCurrentUser().getEmail()).append(":");
+			// will persist the format test@email.com::StockName1,StockTicker1:StockName2,StockTicker2
+			recentlyViewedStocks.forEach(stock -> recentStockInfo.append(":").append(stock.getName()).append(",").append(stock.getTicker()));
 
-			// TODO: need to check if the user already has recently viewed stocks.
+			deleteUsersOutdatedRecentlyViewedStockInfo();
 			try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/resources/recentlyViewedStocks.txt", true))) {
 				bw.append(String.valueOf(recentStockInfo)).append("\n");
 			} catch (Exception e) {
 				displayError(e.getMessage());
 			}
 		}
+	}
 
-    	navigateToLogin(event);
-    }
-    
-    /**
+	private boolean deleteUsersOutdatedRecentlyViewedStockInfo() {
+		boolean overwritten = false;
+    	String[] recentlyViewedStockInfo;
+
+    	File inputFile = new File("src/resources/recentlyViewedStocks.txt");
+		File tempFile = new File("src/resources/recentlyViewedStocksTemp.txt");
+
+		try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+				BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+			String line;
+			while ((line = reader.readLine()) != null) {
+				recentlyViewedStockInfo = line.split("::");
+				if (recentlyViewedStockInfo[0].equals(StocksRUs.getCurrentUser().getEmail())) {
+					// found a match, so skip this line. ie - "deletes" the line
+					overwritten = true;
+					continue;
+				}
+				writer.write(line + System.getProperty("line.separator"));
+			}
+		} catch (Exception e) {
+			displayError(e.getMessage());
+		}
+
+		return tempFile.renameTo(inputFile) && overwritten;
+	}
+
+	/**
      * Helper function so it can be called when both timeline and stock are changed
      */
     private void graphClosingPrices() {

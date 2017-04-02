@@ -5,13 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import model.LimitedSizeQueue;
 import model.Stock;
 import model.UserAccount;
 
 import java.io.IOException;
-import java.util.PriorityQueue;
 
 public class StocksRUs extends Application {
     private static UserAccount currentUser;
@@ -42,7 +40,7 @@ public class StocksRUs extends Application {
         currentUser = new UserAccount(email, password);
     }
 
-    public static void setCurrentUser(String email, String password, LimitedSizeQueue<String> recentlyViewedStocks) {
+    public static void setCurrentUser(String email, String password, LimitedSizeQueue<Stock> recentlyViewedStocks) {
     	currentUser = new UserAccount(email, password, recentlyViewedStocks);
     }
 }

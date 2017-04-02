@@ -10,6 +10,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.LimitedSizeQueue;
+import model.Stock;
 import view.StocksRUs;
 
 import java.io.*;
@@ -88,11 +90,36 @@ public class LoginController {
         }
         else // if no error, login the user.
         {
-            // TODO: check if the user has any recently viewed Stocks, set the attribute
-            StocksRUs.setCurrentUser(email, password);
+            // check if the user has any recently viewed Stocks, set the attribute
+            LimitedSizeQueue<Stock> recentlyViewedStocks = initializeRecentlyViewedStocks(email);
+            StocksRUs.setCurrentUser(email, password, recentlyViewedStocks);
             navigateToMain(loginButtonPressed);
         }
     }
+
+    private LimitedSizeQueue<Stock> initializeRecentlyViewedStocks(String email) {
+        String[] recentlyViewedStockInfo;
+        LimitedSizeQueue<Stock> recentlyViewedStocks = new LimitedSizeQueue<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/resources/recentlyViewedStocks.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                recentlyViewedStockInfo = line.split("::");
+                if (recentlyViewedStockInfo[0].equals(email)) {
+                    // found a match
+                    String[] stockNameTickerPairs = recentlyViewedStockInfo[1].split(":");
+                    for (String stockNameTickerPair : stockNameTickerPairs) {
+                        String[] stockNameTickerPairInfo = stockNameTickerPair.split(",");
+                        recentlyViewedStocks.add(new Stock(stockNameTickerPairInfo[0], stockNameTickerPairInfo[1])); // will fetch the Stock data in the Stock constructor
+                    }
+                }
+            }
+        } catch (Exception e) {
+            displayError(e.getMessage());
+        }
+        return recentlyViewedStocks;
+    }
+
 
     /**
      * Gets the text from the email and password fields in the LoginView.

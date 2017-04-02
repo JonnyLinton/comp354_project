@@ -11,10 +11,7 @@ public class LimitedSizeQueue<K> extends ArrayList<K> {
     }
 
     public boolean add(K k){
-        boolean r = false;
-        if(!this.contains(k)) {
-            r = super.add(k);
-        }
+        boolean r = super.add(k);
         if (size() > MAX_SIZE){
             removeRange(0, size() - MAX_SIZE - 1);
         }
