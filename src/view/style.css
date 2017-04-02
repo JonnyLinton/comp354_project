@@ -134,7 +134,7 @@ TextField, PasswordField {
 .default-color3.chart-series-line { -fx-stroke: #ffff33; } /* 100 Days MA */
 .default-color4.chart-series-line { -fx-stroke: #f781bf; } /* 200 Days MA */
 .default-color5.chart-series-line { -fx-stroke: transparent; } /* Buy */
-.default-color5.chart-series-line { -fx-stroke: transparent; } /* Sell */
+.default-color6.chart-series-line { -fx-stroke: transparent; } /* Sell */
 
 .default-color0.chart-line-symbol { -fx-background-color: #377eb8; } /* Closing Prices */
 .default-color1.chart-line-symbol { -fx-background-color: #984ea3; } /* 20 Days MA */

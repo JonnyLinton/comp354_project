@@ -91,7 +91,14 @@ public class Stock
        	
         return series;
     }
-   
+    
+    public List<Boolean> getIntersectionData() {
+    	List<Boolean> tempList = new ArrayList<Boolean>(intersectionDirection);
+    	
+    	Collections.reverse(tempList);
+    	
+    	return tempList;
+    }
     
     /**
      * Outputs the intersection Series of two given Moving Averages

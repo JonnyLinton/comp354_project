@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -41,6 +42,7 @@ import view.StocksRUs;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class MainController {
 
@@ -273,6 +275,8 @@ public class MainController {
 	    	graphClosingPrices();
 
 	    	resetMovingAverageDropdownsSelection();
+	    	
+	    	resetIntersections();
     	}
     }
     
@@ -309,6 +313,8 @@ public class MainController {
      */
     private void graphClosingPrices() {
     	clearData();
+    	
+    	resetIntersections();
 
         // Loop for all timeline Buttons
         for (int i = 0; i < timelineButtons.length; i++) {
@@ -350,6 +356,8 @@ public class MainController {
     @FXML
     private void graphMovingAverage(ActionEvent event) {
     	
+    	resetIntersections();
+    	
     	if (isStockGenerated) {
 	    	for (int i = 0; i < 4; i++) {
 	    		if (isMovingAverageSelected[i]) {
@@ -362,23 +370,32 @@ public class MainController {
 	    	boolean ifTwoMAsAreSelected = false;
 	    	
 	    	for (int i = 0; i < 4; i++) {
+	    		
 	    		if (ifTwoMAsAreSelected)
 	    			break;
+	    		
 	    		for (int j = 0; j < 4; j++) {
 	    			if (i != j && isMovingAverageSelected[i] && isMovingAverageSelected[j]) {
-	    				currentStock.getIntersectionsList(movingAverageIntervals[i], movingAverageIntervals[j]);
+
+	    				XYChart.Series<String, Number> tempIntersectionsSeries = currentStock.getIntersectionsList(movingAverageIntervals[i], movingAverageIntervals[j]);
+	    				
+	    				graphIntersections(tempIntersectionsSeries);
+	    				
 	    				ifTwoMAsAreSelected = true;
 	    				break;
 	    			}
 	    		}
 	    	}
+	    	
 	    	if (!ifTwoMAsAreSelected)
 	    	{
 	    		for (int i = 0; i < 4; i++) 
 	    		{
 	    			if (isMovingAverageSelected[i]) 
 	    			{
-	    				currentStock.getIntersectionsList(movingAverageIntervals[i], movingAverageIntervals[i]);
+	    				XYChart.Series<String, Number> tempIntersectionsSeries = currentStock.getIntersectionsList(movingAverageIntervals[i], movingAverageIntervals[i]);
+	    				
+	    				graphIntersections(tempIntersectionsSeries);
 	    			}
 	    		}
 	    	}
@@ -407,62 +424,42 @@ public class MainController {
     	}
     }
     
-//    private void graphMovingAverage() {
-//		/*******************DISPLAY MAs*******************/
-//		
-//		// Loop for all MA buttons
-//		for (int i = 0; i < movingAverageButtons.length; i++) {
-//			if (movingAverageButtons[i].isSelected()) {  // Ensures checkbox is activated (checked)
-//				if (!isMovingAverageDisplayed[i]) {  // Ensures MA isn't displayed
-//					movingAverageSeries[i].getData().addAll(currentStock.getMovingAverage(movingAverageIntervals[i]).getData()); // Adds MA to chart
-//					isMovingAverageDisplayed[i] = true; // Set MA to displayed
-//				}
-//			}
-//			else if (isMovingAverageDisplayed[i]) { // Ensures that MA isn't displayed
-//				movingAverageSeries[i].getData().remove(0, movingAverageSeries[i].getData().size()); // Removes MA from chart
-//				isMovingAverageDisplayed[i] = false; // Set MA to not displayed
-//			}
-//		}
-//		
-//		/*******************DISPLAY INTERSECTIONS*******************/
-//		
-//		// Checks if both 20 days and 200 days MAs are selected to display recommendations
-//		// TODO: change to accommodate any 2 MAs
-//		if (movingAverageButtons[0].isSelected() && movingAverageButtons[3].isSelected()) {
-//			// Create a new series for intersections of both MAs
-//			XYChart.Series<String, Number> tempIntersectionsSeries = currentStock.getIntersectionsList(MovingAverageInterval.TwentyDay, MovingAverageInterval.TwoHundredDay);
-//// TO BE ADDED
-////				boolean test[] = current.getIntersectValue();
-//			
-//			// Loops for all data points in the intersections
-//			for (int i = 0 ; i < tempIntersectionsSeries.getData().size(); i++) {
-//				// Creates a new pane at each intersection
-//    			StackPane tempPane = new StackPane();
-//    			tempPane.setPrefWidth(10);
-//    			tempPane.setPrefHeight(10);
-//    			// Create a background fill
-//    			BackgroundFill fill = new BackgroundFill(Color.GREEN, new CornerRadii(5), Insets.EMPTY);
-//// TO BE ADDED
-////        			if (test[i])
-////        				fill = new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY);
-////        			else
-////        				fill = new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY);
-//    			
-//    			// Set pane color
-//    			tempPane.setBackground(new Background(fill));
-//    			// Overwrite symbols in the graph
-//				tempIntersectionsSeries.getData().get(i).setNode(tempPane);
-//			}
-//			
-//			// Add all intersections with their panes to the graph
-//			buyIntersectionSeries.getData().addAll(tempIntersectionsSeries.getData());
-//		}
-//		else {
-//			// Remove all intersections from the graph if both MAs aren't selected
-//			buyIntersectionSeries.getData().remove(0, buyIntersectionSeries.getData().size());
-//		}
-//		
-//    }
+    private void graphIntersections(XYChart.Series<String, Number> tempIntersectionsSeries) {
+    	// Store intersection data
+    	List<Boolean> intersectionData = currentStock.getIntersectionData();
+    	
+    	// Loops for all data points in the intersections
+		for (int i = 0 ; i < tempIntersectionsSeries.getData().size(); i++) {
+			// Creates a new pane at each intersection
+			StackPane tempPane = new StackPane();
+			tempPane.setPrefWidth(7.5);
+			tempPane.setPrefHeight(7.5);
+			
+			// Create a background fill
+			BackgroundFill greenFill = new BackgroundFill(Color.GREEN, new CornerRadii(3.75), Insets.EMPTY);
+			BackgroundFill redFill = new BackgroundFill(Color.RED, new CornerRadii(3.75), Insets.EMPTY);
+
+			// Set pane color depending on buy or sell
+			if (intersectionData.get(i))
+				tempPane.setBackground(new Background(greenFill));
+			else
+				tempPane.setBackground(new Background(redFill));
+			
+			// Overwrite symbols in the graph
+			tempIntersectionsSeries.getData().get(i).setNode(tempPane);
+			
+			// Add data to correct intersection series
+			if (intersectionData.get(i))
+				buyIntersectionSeries.getData().add(tempIntersectionsSeries.getData().get(i));
+			else
+				sellIntersectionSeries.getData().add(tempIntersectionsSeries.getData().get(i));
+		}
+    }
+    
+    private void resetIntersections() {
+    	buyIntersectionSeries.getData().removeAll(buyIntersectionSeries.getData());
+    	sellIntersectionSeries.getData().removeAll(sellIntersectionSeries.getData());
+    }
     
     /**
      * Generates the series for the first selected stock.
