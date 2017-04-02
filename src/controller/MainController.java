@@ -295,44 +295,17 @@ public class MainController {
 		if(!recentlyViewedStocks.isEmpty()) {
 
 			StringBuffer recentStockInfo = new StringBuffer();
-			recentStockInfo.append(StocksRUs.getCurrentUser().getEmail()).append(":");
-			// will persist the format test@email.com::StockName1,StockTicker1:StockName2,StockTicker2
-			recentlyViewedStocks.forEach(stock -> recentStockInfo.append(":").append(stock.getName()).append(",").append(stock.getTicker()));
+			// will persist the format StockName1,StockTicker1\nStockName2,StockTicker2\n
+			recentlyViewedStocks.forEach(stock -> recentStockInfo.append(stock.getName()).append(",").append(stock.getTicker()).append("\n"));
 
-			deleteUsersOutdatedRecentlyViewedStockInfo();
-			try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/resources/recentlyViewedStocks.txt", true))) {
-				bw.append(String.valueOf(recentStockInfo)).append("\n");
+			String fileName = "src/resources/stock_info/" +StocksRUs.getCurrentUser().getEmail() +".txt";
+
+			try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, false))) {
+				bw.append(String.valueOf(recentStockInfo));
 			} catch (Exception e) {
 				displayError(e.getMessage());
 			}
 		}
-	}
-
-	private boolean deleteUsersOutdatedRecentlyViewedStockInfo() {
-		boolean overwritten = false;
-    	String[] recentlyViewedStockInfo;
-
-    	File inputFile = new File("src/resources/recentlyViewedStocks.txt");
-		File tempFile = new File("src/resources/recentlyViewedStocksTemp.txt");
-
-		try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-				BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
-
-			String line;
-			while ((line = reader.readLine()) != null) {
-				recentlyViewedStockInfo = line.split("::");
-				if (recentlyViewedStockInfo[0].equals(StocksRUs.getCurrentUser().getEmail())) {
-					// found a match, so skip this line. ie - "deletes" the line
-					overwritten = true;
-					continue;
-				}
-				writer.write(line + System.getProperty("line.separator"));
-			}
-		} catch (Exception e) {
-			displayError(e.getMessage());
-		}
-
-		return tempFile.renameTo(inputFile) && overwritten;
 	}
 
 	/**

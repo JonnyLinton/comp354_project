@@ -1,1 +1,0 @@
-test::Apple,AAPL:Exxon Mobil,XOM

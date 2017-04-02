@@ -98,22 +98,19 @@ public class LoginController {
     }
 
     private LimitedSizeStockQueue initializeRecentlyViewedStocks(String email) {
-        String[] recentlyViewedStockInfo;
         LimitedSizeStockQueue recentlyViewedStocks = new LimitedSizeStockQueue();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/resources/recentlyViewedStocks.txt"))) {
+        String fileName = "src/resources/stock_info/" +email +".txt";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                recentlyViewedStockInfo = line.split("::");
-                if (recentlyViewedStockInfo[0].equals(email)) {
-                    // found a match
-                    String[] stockNameTickerPairs = recentlyViewedStockInfo[1].split(":");
-                    for (String stockNameTickerPair : stockNameTickerPairs) {
-                        String[] stockNameTickerPairInfo = stockNameTickerPair.split(",");
-                        recentlyViewedStocks.add(new Stock(stockNameTickerPairInfo[0], stockNameTickerPairInfo[1])); // will fetch the Stock data in the Stock constructor
-                    }
-                }
+                String[] stockNameTickerPair = line.split(",");
+                recentlyViewedStocks.add(new Stock(stockNameTickerPair[0], stockNameTickerPair[1])); // will fetch the Stock data in the Stock constructor
             }
+        } catch (FileNotFoundException ex){
+            // user does not have any previously viewed stock info stored, return the default
+            return recentlyViewedStocks;
         } catch (Exception e) {
             displayError(e.getMessage());
         }
