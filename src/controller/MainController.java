@@ -18,18 +18,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.Stock;
 import model.TimeInterval;
 import model.MovingAverageInterval;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
@@ -37,11 +35,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import model.LimitedSizeQueue;
-import model.MovingAverageInterval;
-import model.Stock;
-import model.TimeInterval;
 import view.StocksRUs;
 
 import java.io.BufferedWriter;
@@ -101,20 +95,7 @@ public class MainController {
 		recommendation.setText("Select moving averages");
 		recommendation.setTextFill(Color.BLACK);
 
-		// Generate favorites buttons
-        // If there are no recently viewed stocks:
-        if (StocksRUs.getCurrentUser().getFavoriteStocks().isEmpty()) {
-            Label noFavorites = new Label("No Recently Viewed Stocks");
-            noFavorites.setStyle("-fx-font-size: 14px;");
-            favoritesContainer.getChildren().add(noFavorites);
-        }
-        else {
-            for (String stock:StocksRUs.getCurrentUser().getFavoriteStocks()) {
-                Button favoriteStock = new Button(stock);
-                favoritesContainer.getChildren().add(favoriteStock);
-            }
-        }
-
+        updateMostRecentlyViewedStocks();
     	generateSeries();
     	graphClosingPrices();
     }
@@ -211,6 +192,28 @@ public class MainController {
 		                 break;
 		         }
 	        }
+        }
+    }
+    private void updateMostRecentlyViewedStocks() {
+        // TODO: Remove this line when the MRU queue is completed
+        StocksRUs.getCurrentUser().getRecentlyViewedStocks().add("Apple");
+        // Generate favorites buttons
+        // If there are no recently viewed stocks:
+        if (StocksRUs.getCurrentUser().getRecentlyViewedStocks().isEmpty()) {
+            Label noFavorites = new Label("No Recently Viewed Stocks");
+            noFavorites.setStyle("-fx-font-size: 14px;");
+            favoritesContainer.getChildren().add(noFavorites);
+        }
+        else {
+            for (String stock:StocksRUs.getCurrentUser().getRecentlyViewedStocks()) {
+                Button favoriteStock = new Button(stock);
+                // TODO: Remove this line when the MRU queue contains a ticker
+                favoriteStock.setId("AAPL");
+                favoriteStock.setOnAction(event -> selectStock(event));
+                favoriteStock.setPrefWidth(185);
+                favoriteStock.setAlignment(Pos.TOP_LEFT);
+                favoritesContainer.getChildren().add(favoriteStock);
+            }
         }
     }
     
