@@ -14,15 +14,6 @@ public class Stock
 
     // holds ticker of stock
     private String ticker;
-    
-    // DOW 30 trading days in the past year
-    private final int NUM_TRADING_DAYS_ONE_YEAR = 254;
-    
-    // DOW 30 trading days in the past 2 years
-    private final int NUM_TRADING_DAYS_TWO_YEAR = 505;
-    
-    // DOW 30 trading days in the past 5 years
-    private final int NUM_TRADING_DAYS_FIVE_YEAR = 1259;
 
     // the number of total Data points for All time data list
     private final int ALL_TIME_DATA_POINTS = 500;
@@ -396,57 +387,6 @@ public class Stock
      * @param allTimeDataPoints
      * @return A Linked List with the desired data over specified time
      */
-//    private LinkedList<StockEntry> truncateList(LinkedList<StockEntry> allTimeDataPoints)
-//    {
-//        // no need to truncate if all the data is needed
-//        if(this.currentTimeline == TimeInterval.AllTime)
-//        {
-//            return allTimeDataPoints;
-//        }
-//
-//        LinkedList<StockEntry> truncatedData = new LinkedList<>();
-//        LinkedList<StockEntry> allTimeDataPointsTemp = new LinkedList<>(allTimeDataPoints);
-//
-//        // TODO: make all these timeFrames constants to hide it from the TA.
-//        // TODO: "Nice To Have" => make the dates into Calendar objects, and do this properly.
-//        int timeFrame = 0;
-//
-//        // this will be changed for the second iteration
-//        switch(this.currentTimeline)
-//        {
-//            case OneYear:
-//                timeFrame = NUM_TRADING_DAYS_ONE_YEAR;
-//                break;
-//
-//            case TwoYears:
-//                timeFrame = NUM_TRADING_DAYS_TWO_YEAR;
-//                break;
-//
-//            case FiveYears:
-//                timeFrame = NUM_TRADING_DAYS_FIVE_YEAR;
-//                break;
-//            case AllTime:
-//            	break;
-//
-//        }
-//
-//        int i = 0;
-//        for(StockEntry entries : allTimeDataPointsTemp)
-//        {
-//            if(i == timeFrame)
-//            {
-//                break;
-//            }
-//            else
-//            {
-//                truncatedData.add(entries);
-//                i++;
-//            }
-//        }
-//
-//        return truncatedData;
-//    }
-
     private LinkedList<StockEntry> truncateList(LinkedList<StockEntry> allTimeDataPoints) {
         LinkedList<StockEntry> tempAllTime = new LinkedList<>(allTimeDataPoints);
         LinkedList<StockEntry> truncatedData = new LinkedList<>();
