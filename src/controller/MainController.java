@@ -91,6 +91,7 @@ public class MainController {
         // Arm default timeline
     	timelineButtons[3].arm();
     	
+		recommendation.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
 		recommendation.setText("Select moving averages");
 		recommendation.setTextFill(Color.BLACK);
 
@@ -261,7 +262,7 @@ public class MainController {
 	        // Arm default timeline
 	    	timelineButtons[0].arm();
 	    	
-    		recommendation.setText("Select 2 moving averages");
+    		recommendation.setText("Select moving averages");
     		recommendation.setTextFill(Color.BLACK);
 
 	    	if (!isStockGenerated)
@@ -414,7 +415,6 @@ public class MainController {
 		    		recommendation.setTextFill(Color.RED);
 		    		break;
 	    	}
-			recommendation.setStyle("-fx-font-size: 17px; -fx-font-weight: bold;");
 	    	
 	    	for (int i = 0; i < 4; i++) {
 	    		isMovingAverageSelected[i] = false;
