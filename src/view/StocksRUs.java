@@ -1,5 +1,6 @@
 package view;
 
+import controller.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -41,5 +42,9 @@ public class StocksRUs extends Application {
 
     public static void setCurrentUser(String email, String password, LimitedSizeStockQueue recentlyViewedStocks) {
     	currentUser = new UserAccount(email, password, recentlyViewedStocks);
+    }
+    @Override
+    public void stop() {
+        MainController.persistRecentlyViewedStocks();
     }
 }

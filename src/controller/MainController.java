@@ -279,7 +279,7 @@ public class MainController {
 
 	/**
      *  1st Iteration function that will logout the current user and bring them back to the log in page.
-     *  2nd Iteration will incl saving user information for their favorite stock.
+     *  2nd Iteration will incl saving user information for their most recently viewed stocks.
      *  @param event Action Event
      */
     @FXML
@@ -289,7 +289,7 @@ public class MainController {
     	navigateToLogin(event);
     }
 
-	private void persistRecentlyViewedStocks() {
+	public static void persistRecentlyViewedStocks() {
 		LimitedSizeStockQueue recentlyViewedStocks = StocksRUs.getCurrentUser().getRecentlyViewedStocks();
 
 		if(!recentlyViewedStocks.isEmpty()) {
@@ -303,7 +303,6 @@ public class MainController {
 			try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, false))) {
 				bw.append(String.valueOf(recentStockInfo));
 			} catch (Exception e) {
-				displayError(e.getMessage());
 			}
 		}
 	}
@@ -403,18 +402,19 @@ public class MainController {
 	    	
 	    	switch(currentStock.getRecommendation()) {
 		    	case 0:
-		    		recommendation.setText("Hold");
+		    		recommendation.setText("HOLD");
 		    		recommendation.setTextFill(Color.GRAY);
 		    		break;
 		    	case 1:
-		    		recommendation.setText("Buy");
+		    		recommendation.setText("BUY");
 		    		recommendation.setTextFill(Color.GREEN);
 		    		break;
 		    	case 2:
-		    		recommendation.setText("Sell");
+		    		recommendation.setText("SELL");
 		    		recommendation.setTextFill(Color.RED);
 		    		break;
 	    	}
+			recommendation.setStyle("-fx-font-size: 17px; -fx-font-weight: bold;");
 	    	
 	    	for (int i = 0; i < 4; i++) {
 	    		isMovingAverageSelected[i] = false;
