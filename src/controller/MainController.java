@@ -194,9 +194,6 @@ public class MainController {
         }
     }
     private void updateRecentlyViewedStocksView() {
-        // TODO: Remove this line when the MRU queue is completed
-//        StocksRUs.getCurrentUser().getRecentlyViewedStocks().add("Apple");
-        // Generate favorites buttons
         // If there are no recently viewed stocks:
         if (StocksRUs.getCurrentUser().getRecentlyViewedStocks().isEmpty()) {
             Label noFavorites = new Label("No Recently Viewed Stocks");
@@ -204,6 +201,7 @@ public class MainController {
             favoritesContainer.getChildren().add(noFavorites);
         }
         else {
+			favoritesContainer.getChildren().clear();
             for (Stock stock:StocksRUs.getCurrentUser().getRecentlyViewedStocks()) {
                 Button favoriteStock = new Button(stock.getName());
                 // TODO: Remove this line when the MRU queue contains a ticker
@@ -274,6 +272,8 @@ public class MainController {
 	    	resetMovingAverageDropdownsSelection();
 	    	
 	    	resetIntersections();
+
+	    	updateRecentlyViewedStocksView();
     	}
     }
 
