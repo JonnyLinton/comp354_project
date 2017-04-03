@@ -253,8 +253,8 @@ public class MainController {
     		// Change current stock
 	    	currentStock = new Stock(clickedButton.getText(), clickedButton.getId());
 
-			// add this stock to user's recently viewed
-			StocksRUs.getCurrentUser().getRecentlyViewedStocks().add(currentStock);
+			// adds this stock to user's recently viewed
+			StocksRUs.getCurrentUser().getRecentlyViewedStocks().addToFront(currentStock);
 
 			// Set graph's name
 	        stockChart.setTitle(currentStock.getName());

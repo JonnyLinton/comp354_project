@@ -10,7 +10,7 @@ public class LimitedSizeStockQueue extends ArrayList<Stock> {
         super(MAX_SIZE);
     }
 
-    public boolean add(Stock stock){
+    public boolean addToFront(Stock stock){
         boolean isNewStock = true;
 
         int index = indexOf(stock);
@@ -28,6 +28,24 @@ public class LimitedSizeStockQueue extends ArrayList<Stock> {
         return isNewStock;
     }
 
+    public boolean addToBack(Stock stock){
+        boolean isNewStock = true;
+
+        int index = indexOf(stock);
+
+        if(index != -1) { // stock is in queue
+            this.remove(index); // remove it, so that it can be put back on top
+            isNewStock = false;
+        }
+        add(stock);
+
+        if (size() > MAX_SIZE){
+            this.removeRange(0, size() - MAX_SIZE - 1);
+        }
+
+        return isNewStock;
+    }
+
     private int indexOf(Stock stock) {
         for (int i=0; i<this.size(); i++) {
             if (stock.getTicker().equals(this.get(i).getTicker()))
@@ -38,10 +56,10 @@ public class LimitedSizeStockQueue extends ArrayList<Stock> {
     }
 
     public Stock getMostRecent() {
-        return get(size() - 1);
+        return get(0);
     }
 
     public Stock getOldest() {
-        return get(0);
+        return get(size() - 1);
     }
 }
