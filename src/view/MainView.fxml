@@ -185,7 +185,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </ScrollPane>
-            <Label text="Favorites" textFill="#797979">
+            <Label text="Recent" textFill="#797979" wrapText="true">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
