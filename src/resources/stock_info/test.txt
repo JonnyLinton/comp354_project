@@ -1,5 +1,5 @@
+Coca-Cola,KO
 Chevron,CVX
 Caterpillar,CAT
 Disney,DD
 JPMorgan Chase,JPM
-Apple,AAPL

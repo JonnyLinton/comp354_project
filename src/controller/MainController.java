@@ -1,14 +1,3 @@
-/*
-   Controller for the Main view of the inStock app for the first iteration
-   Generates moving averages for a specific timeline of a stock and displays them according to user input
-   To be fully implemented in the 2nd iteration:
-            Full SearchStock() method based on Yahoo Finance API for top 30 Stocks
-            Recommendations() method
-            FavoriteStock() method based on user login preferences
-            Logout() method will be updated to save any stocks the user wishes to keep
-            DisplayError() added to ensure a timeline selected exits for stock selected.
- */
-
 package controller;
 
 import javafx.application.Platform;
@@ -32,25 +21,38 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 import model.LimitedSizeStockQueue;
 import model.MovingAverageInterval;
 import model.Stock;
 import model.TimeInterval;
+
 import view.StocksRUs;
 
 import java.io.*;
 import java.util.List;
 
+/**
+ * MainController class controls the MainView.
+ * Handles events fired in the MainView by users such as
+ * selecting stocks, changing time lines and graphing moving averages.
+ * Updates information inside JavaFX nodes according to Stock objects,
+ * which are contained as attributes inside the class.
+ * 
+ * @author Jonathan Linton
+ * @author Laura Elena Gonzalez
+ * @author Louis-Olivier Guérin
+ * @author Simon Jacques
+ */
+
 public class MainController {
 
-	private boolean isStockGenerated = false;
+	private boolean isStockSelected;
 	private boolean isMovingAverageSelected[], isTimeLineDisplayed[];
     private Stock currentStock;
 	private TimeInterval timeIntervals[];
 	private MovingAverageInterval movingAverageIntervals[];
-	private XYChart.Series<String, Number> stockSeries;
-	private XYChart.Series<String, Number> buyIntersectionSeries;
-	private XYChart.Series<String, Number> sellIntersectionSeries;
+	private XYChart.Series<String, Number> stockSeries, buyIntersectionSeries, sellIntersectionSeries;
 	private XYChart.Series<String, Number>[] movingAverageSeries;
 	private Button timelineButtons[];
 
@@ -61,7 +63,7 @@ public class MainController {
 	private Button timeLineButton_1, timeLineButton_2, timeLineButton_5, timeLineButton_all;
     
     @FXML
-    private ComboBox<String> maDropDown_1, maDropDown_2;
+    private ComboBox<String> movingAverageDropdown_1, movingAverageDropdown_2;
 
     @FXML
 	private LineChart<String, Number> stockChart;
@@ -70,19 +72,23 @@ public class MainController {
     private VBox favoritesContainer;
 
     /**
-     * Function called when the view is created
+     * Called when MainView is instantiated.
+     * Modifies the chart's attributes, initializes buttons and sets styles.
+     * Graphs DOW Jones 30 closing prices as a default stock.
      */
     @FXML
     private void initialize() {
         // Set graph's attributes
         stockChart.setCreateSymbols(false);
+        
+        isStockSelected = false;
 
 		username.setText("Logged in as " + StocksRUs.getCurrentUser().getEmail());
 
-        // Initialize all arrays
+        // Initialize all buttons inside arrays
     	initializeButtons();
     	
-    	//Default DOW30 index stock
+    	// Default DOW30 index stock
     	currentStock = new Stock("DOW Jones 30", "^DJI");
 
         // Set graph's name
@@ -91,6 +97,7 @@ public class MainController {
         // Arm default timeline
     	timelineButtons[3].arm();
     	
+    	// Sets style for recommendation label
 		recommendation.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
 		recommendation.setText("Select moving averages");
 		recommendation.setTextFill(Color.BLACK);
@@ -101,24 +108,24 @@ public class MainController {
     }
     
     /**
-     * Graph and display the stock according to current timeline
-     * @Param = TimeLineButton Event
+     * Calls the time line graphing method if a stock has been selected
+     * @param event - fired when user presses a time line button
      */
     @FXML
     private void timelineSelected(ActionEvent event) {
-    	if (isStockGenerated)
+    	if (isStockSelected)
     		graphClosingPrices();
     }
     
     /**
-     * Triggering & helper function to load MAs to the graph
-     * @param event an ActionEvent sent from MainView
+     * Ensures the drop down lists of moving averages do not contain duplicates
+     * @param event - fired when user selects any moving averages from drop downs
      */
     @SuppressWarnings("unchecked")
 	@FXML
     private void movingAverageSelected(ActionEvent event) {
     	
-    	if (isStockGenerated) {
+    	if (isStockSelected) {
 	        ObservableList<Node> contentsOfHBox = ((Node)event.getSource()).getParent().getChildrenUnmodifiable();
 	        ComboBox<String> selectedMovingAverageDropdown = (ComboBox<String>)event.getSource();
 	        ComboBox<String> otherMovingAverageDropdown = null;
@@ -134,7 +141,8 @@ public class MainController {
 	            }
 	        }
 	        
-	        EventHandler<ActionEvent> mainController = selectedMovingAverageDropdown.getOnAction();
+	        EventHandler<ActionEvent> selectedMovingAverageController = selectedMovingAverageDropdown.getOnAction();
+	       
 	        selectedMovingAverageDropdown.setOnAction(null);
 	        otherMovingAverageDropdown.setOnAction(null);
 	        otherMovingAverageDropdown.getItems().remove(selectedMovingAverage);
@@ -146,8 +154,8 @@ public class MainController {
 	
 	        }
 	        
-	        selectedMovingAverageDropdown.setOnAction(mainController);
-	        otherMovingAverageDropdown.setOnAction(mainController);
+	        selectedMovingAverageDropdown.setOnAction(selectedMovingAverageController);
+	        otherMovingAverageDropdown.setOnAction(selectedMovingAverageController);
 	
 	        switch ((String)selectedMovingAverageDropdown.getValue()) {
 	            case "20 Days":
@@ -194,51 +202,11 @@ public class MainController {
 	        }
         }
     }
-    private void updateRecentlyViewedStocksView() {
-        // If there are no recently viewed stocks:
-        if (StocksRUs.getCurrentUser().getRecentlyViewedStocks().isEmpty()) {
-            Label noFavorites = new Label("No Recently Viewed Stocks");
-            noFavorites.setStyle("-fx-font-size: 14px;");
-            favoritesContainer.getChildren().add(noFavorites);
-        }
-        else {
-			favoritesContainer.getChildren().clear();
-            for (Stock stock:StocksRUs.getCurrentUser().getRecentlyViewedStocks()) {
-                Button favoriteStock = new Button(stock.getName());
-                favoriteStock.setId(stock.getTicker());
-                favoriteStock.setOnAction(this::selectStock);
-                favoriteStock.setPrefWidth(185);
-                favoriteStock.setAlignment(Pos.TOP_LEFT);
-                favoritesContainer.getChildren().add(favoriteStock);
-            }
-        }
-    }
-    
-    private void resetMovingAverageDropdowns() {
-        ObservableList<String> dropdownContents = FXCollections.observableArrayList("20 Days", "50 Days", "100 Days", "200 Days");
-        maDropDown_1.getItems().setAll(dropdownContents);
-        maDropDown_2.getItems().setAll(dropdownContents);
-    }
-    
-    private void resetMovingAverageDropdownsSelection() {
-    	EventHandler<ActionEvent> maController_1 = maDropDown_1.getOnAction();
-    	EventHandler<ActionEvent> maController_2 = maDropDown_2.getOnAction();
-    	
-        maDropDown_1.setOnAction(null);
-        maDropDown_2.setOnAction(null);
-    	
-    	maDropDown_1.getSelectionModel().clearSelection();
-    	maDropDown_2.getSelectionModel().clearSelection();
-    	
-    	resetMovingAverageDropdowns();
-    	
-        maDropDown_1.setOnAction(maController_1);
-        maDropDown_2.setOnAction(maController_2);
-    }
     
     /**
-     * Allows the user to change between all stocks
-     * @param event an ActionEvent sent from MainView
+     * Allows the user to select different stocks and graph their
+     * closing prices.
+     * @param event - fired when user selects a stock
      */
     @FXML
     private void selectStock(ActionEvent event) {
@@ -264,7 +232,7 @@ public class MainController {
     		recommendation.setText("Select moving averages");
     		recommendation.setTextFill(Color.BLACK);
 
-	    	if (!isStockGenerated)
+	    	if (!isStockSelected)
 	    		generateSeries();
 	    	
 	    	graphClosingPrices();
@@ -276,88 +244,19 @@ public class MainController {
 	    	updateRecentlyViewedStocksView();
     	}
     }
-
-	/**
-     *  1st Iteration function that will logout the current user and bring them back to the log in page.
-     *  2nd Iteration will incl saving user information for their most recently viewed stocks.
-     *  @param event Action Event
-     */
-    @FXML
-    private void logout(ActionEvent event) {
-		persistRecentlyViewedStocks();
-
-    	navigateToLogin(event);
-    }
-
-	public static void persistRecentlyViewedStocks() {
-		LimitedSizeStockQueue recentlyViewedStocks = StocksRUs.getCurrentUser().getRecentlyViewedStocks();
-
-		if(!recentlyViewedStocks.isEmpty()) {
-
-			StringBuffer recentStockInfo = new StringBuffer();
-			// will persist the format StockName1,StockTicker1\nStockName2,StockTicker2\n
-			recentlyViewedStocks.forEach(stock -> recentStockInfo.append(stock.getName()).append(",").append(stock.getTicker()).append("\n"));
-
-			String fileName = "src/resources/stock_info/" +StocksRUs.getCurrentUser().getEmail() +".txt";
-
-			try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, false))) {
-				bw.append(String.valueOf(recentStockInfo));
-			} catch (Exception e) {
-			}
-		}
-	}
-
-	/**
-     * Helper function so it can be called when both timeline and stock are changed
-     */
-    private void graphClosingPrices() {
-    	clearData();
-    	
-    	resetIntersections();
-
-        // Loop for all timeline Buttons
-        for (int i = 0; i < timelineButtons.length; i++) {
-		    // Filter which timeline is picked
-		    if(timelineButtons[i].isArmed() && !isTimeLineDisplayed[i]) {
-		    	// Updates current Timeline
-		        currentStock.setTimeline(timeIntervals[i]);
-
-		        // Generates stock info and set up name for the title
-		        stockSeries.getData().addAll(currentStock.getPricesInRange().getData());
-	            
-		        // Add the correct timeline name to legend
-		        switch (i) {
-			        case 0: stockSeries.setName("Closing Prices: One Year"); break;
-			        case 1: stockSeries.setName("Closing Prices: Two Years"); break;
-			        case 2: stockSeries.setName("Closing Prices: Five Years"); break;
-			        case 3: stockSeries.setName("Closing Prices: All Time"); break;
-		        }
-		        
-		        // Loads currently selected MAs with new timeline
-		        //graphMovingAverage();
-		        
-		        // makes sure only 1 button is selected
-		        timelineButtons[i].disarm();
-		        
-		        isTimeLineDisplayed[i] = true;
-		        
-		        // Break out as soon as it finds that 1 button is armed
-		        break;
-		    }
-        }
-    }
     
     /**
-     * Displays MA based on the info generated by the graphMovingAverages() method
-     * Checks for all 4 checkboxes at once
+     * Adds the 2 currently selected moving averages to the graph.
+     * Also adds intersection indicator where the 2 moving averages cross.
+     * If only 1 is selected, will compute the intersections with closing prices.
+     * @param event - fired when user clicks graph button
      */
-
     @FXML
     private void graphMovingAverage(ActionEvent event) {
     	
     	resetIntersections();
     	
-    	if (isStockGenerated) {
+    	if (isStockSelected) {
 	    	for (int i = 0; i < 4; i++) {
 	    		if (isMovingAverageSelected[i]) {
 	    			movingAverageSeries[i].getData().addAll(currentStock.getMovingAverage(movingAverageIntervals[i]).getData());
@@ -422,17 +321,124 @@ public class MainController {
 	    	resetMovingAverageDropdownsSelection();
     	}
     }
+
+	/**
+     *  TODO - Add Javadoc comments here
+     *  @param event - fired when user clicks the log out button
+     */
+    @FXML
+    private void logout(ActionEvent event) {
+		persistRecentlyViewedStocks();
+    	navigateToLogin(event);
+    }
     
-    private void graphIntersections(XYChart.Series<String, Number> tempIntersectionsSeries) {
+    /**
+     * TODO - Add Javadoc comments here
+     */
+    private void updateRecentlyViewedStocksView() {
+        // If there are no recently viewed stocks:
+        if (StocksRUs.getCurrentUser().getRecentlyViewedStocks().isEmpty()) {
+            Label noFavorites = new Label("No Recently Viewed Stocks");
+            noFavorites.setStyle("-fx-font-size: 14px;");
+            favoritesContainer.getChildren().add(noFavorites);
+        }
+        else {
+			favoritesContainer.getChildren().clear();
+            for (Stock stock:StocksRUs.getCurrentUser().getRecentlyViewedStocks()) {
+                Button favoriteStock = new Button(stock.getName());
+                favoriteStock.setId(stock.getTicker());
+                favoriteStock.setOnAction(this::selectStock);
+                favoriteStock.setPrefWidth(185);
+                favoriteStock.setAlignment(Pos.TOP_LEFT);
+                favoritesContainer.getChildren().add(favoriteStock);
+            }
+        }
+    }
+    
+    /**
+     * Resets the content of both moving average drop downs
+     */
+    private void resetMovingAverageDropdowns() {
+        ObservableList<String> dropdownContents = FXCollections.observableArrayList("20 Days", "50 Days", "100 Days", "200 Days");
+        movingAverageDropdown_1.getItems().setAll(dropdownContents);
+        movingAverageDropdown_2.getItems().setAll(dropdownContents);
+    }
+    
+    /**
+     * Resets the selection of both moving average drop downs
+     */
+    private void resetMovingAverageDropdownsSelection() {
+    	EventHandler<ActionEvent> movingAverageController_1 = movingAverageDropdown_1.getOnAction();
+    	EventHandler<ActionEvent> movingAverageController_2 = movingAverageDropdown_2.getOnAction();
+    	
+        movingAverageDropdown_1.setOnAction(null);
+        movingAverageDropdown_2.setOnAction(null);
+    	
+    	movingAverageDropdown_1.getSelectionModel().clearSelection();
+    	movingAverageDropdown_2.getSelectionModel().clearSelection();
+    	
+    	resetMovingAverageDropdowns();
+    	
+        movingAverageDropdown_1.setOnAction(movingAverageController_1);
+        movingAverageDropdown_2.setOnAction(movingAverageController_2);
+    }
+
+	/**
+     * Graphs the closing prices of currently selected stock according to
+     * currently selected time line.
+     */
+    private void graphClosingPrices() {
+    	clearData();
+    	
+    	resetIntersections();
+
+        // Loop for all timeline Buttons
+        for (int i = 0; i < timelineButtons.length; i++) {
+		    // Filter which timeline is picked
+		    if(timelineButtons[i].isArmed() && !isTimeLineDisplayed[i]) {
+		    	// Updates current Timeline
+		        currentStock.setTimeline(timeIntervals[i]);
+
+		        // Generates stock info and set up name for the title
+		        stockSeries.getData().addAll(currentStock.getPricesInRange().getData());
+	            
+		        // Add the correct timeline name to legend
+		        switch (i) {
+			        case 0: stockSeries.setName("Closing Prices: One Year"); break;
+			        case 1: stockSeries.setName("Closing Prices: Two Years"); break;
+			        case 2: stockSeries.setName("Closing Prices: Five Years"); break;
+			        case 3: stockSeries.setName("Closing Prices: All Time"); break;
+		        }
+		        
+		        // Loads currently selected MAs with new timeline
+		        //graphMovingAverage();
+		        
+		        // makes sure only 1 button is selected
+		        timelineButtons[i].disarm();
+		        
+		        isTimeLineDisplayed[i] = true;
+		        
+		        // Break out as soon as it finds that 1 button is armed
+		        break;
+		    }
+        }
+    }
+    
+    /**
+     * Graphs the intersections of 2 moving averages. Red indicators mean sell,
+     * green indicators mean buy.
+     * @param intersectionSeries - a list of intersections for 2 moving averages
+     */
+    private void graphIntersections(XYChart.Series<String, Number> intersectionSeries) {
     	// Store intersection data
     	List<Boolean> intersectionData = currentStock.getIntersectionData();
     	
     	// Loops for all data points in the intersections
-		for (int i = 0 ; i < tempIntersectionsSeries.getData().size(); i++) {
+		for (int i = 0 ; i < intersectionSeries.getData().size(); i++) {
 			// Creates a new pane at each intersection
-			StackPane tempPane = new StackPane();
-			tempPane.setPrefWidth(7.5);
-			tempPane.setPrefHeight(7.5);
+			StackPane intersectionPane = new StackPane();
+			intersectionPane.setPrefWidth(7.5);
+			intersectionPane.setPrefHeight(7.5);
 			
 			// Create a background fill
 			BackgroundFill greenFill = new BackgroundFill(Color.GREEN, new CornerRadii(3.75), Insets.EMPTY);
@@ -440,31 +446,34 @@ public class MainController {
 
 			// Set pane color depending on buy or sell
 			if (intersectionData.get(i))
-				tempPane.setBackground(new Background(greenFill));
+				intersectionPane.setBackground(new Background(greenFill));
 			else
-				tempPane.setBackground(new Background(redFill));
+				intersectionPane.setBackground(new Background(redFill));
 			
 			// Overwrite symbols in the graph
-			tempIntersectionsSeries.getData().get(i).setNode(tempPane);
+			intersectionSeries.getData().get(i).setNode(intersectionPane);
 			
 			// Add data to correct intersection series
 			if (intersectionData.get(i))
-				buyIntersectionSeries.getData().add(tempIntersectionsSeries.getData().get(i));
+				buyIntersectionSeries.getData().add(intersectionSeries.getData().get(i));
 			else
-				sellIntersectionSeries.getData().add(tempIntersectionsSeries.getData().get(i));
+				sellIntersectionSeries.getData().add(intersectionSeries.getData().get(i));
 		}
     }
     
+    /**
+     * Removes any intersections from the graph
+     */
     private void resetIntersections() {
     	buyIntersectionSeries.getData().removeAll(buyIntersectionSeries.getData());
     	sellIntersectionSeries.getData().removeAll(sellIntersectionSeries.getData());
     }
     
     /**
-     * Generates the series for the first selected stock.
-     * Series remain the same for all selected stocks afterwards
+     * Generates the series for closing prices, moving averages and
+     * intersections. This happens only once. Series remain the same
+     * for all selected stocks afterwards.
      */
-
 	@SuppressWarnings("unchecked")
 	private void generateSeries() {		
 
@@ -499,11 +508,12 @@ public class MainController {
     	);
     	
     	// Ensures stock doesn't get generated multiple times
-    	isStockGenerated = true;
+    	isStockSelected = true;
     }
 	
 	/**
-	 * Add all buttons to their respective arrays and other arrays
+	 * Add all buttons to their respective arrays and generates
+	 * other arrays
 	 */
 	@SuppressWarnings("unchecked")
 	private void initializeButtons() {
@@ -515,15 +525,15 @@ public class MainController {
         timelineButtons[2] = timeLineButton_5;
         timelineButtons[3] = timeLineButton_all;
 
-        maDropDown_1.getItems().add("20 Days");
-        maDropDown_1.getItems().add("50 Days");
-        maDropDown_1.getItems().add("100 Days");
-        maDropDown_1.getItems().add("200 Days");
+        movingAverageDropdown_1.getItems().add("20 Days");
+        movingAverageDropdown_1.getItems().add("50 Days");
+        movingAverageDropdown_1.getItems().add("100 Days");
+        movingAverageDropdown_1.getItems().add("200 Days");
 
-        maDropDown_2.getItems().add("20 Days");
-        maDropDown_2.getItems().add("50 Days");
-        maDropDown_2.getItems().add("100 Days");
-        maDropDown_2.getItems().add("200 Days");
+        movingAverageDropdown_2.getItems().add("20 Days");
+        movingAverageDropdown_2.getItems().add("50 Days");
+        movingAverageDropdown_2.getItems().add("100 Days");
+        movingAverageDropdown_2.getItems().add("200 Days");
         
         // Add time intervals
         timeIntervals = new TimeInterval[4];
@@ -578,7 +588,8 @@ public class MainController {
 	}
 
     /**
-     *  Stage change method to support the logout method
+     * Stage change method to support log out
+     * @param event - passed from log out method
      */
     private void navigateToLogin(ActionEvent event) {
         Parent loginView = null;
@@ -599,7 +610,6 @@ public class MainController {
 
 	/**
 	 * Displays an Alert to the user containing the specified content.
-	 *
 	 * @param content - string that will be displayed
 	 */
 	private void displayError(String content) {
@@ -609,5 +619,26 @@ public class MainController {
 		alert.setContentText(content);
 
 		alert.showAndWait();
+	}
+	
+	/**
+	 * TODO - Add Jacadoc comments here
+	 */
+	public static void persistRecentlyViewedStocks() {
+		LimitedSizeStockQueue recentlyViewedStocks = StocksRUs.getCurrentUser().getRecentlyViewedStocks();
+
+		if(!recentlyViewedStocks.isEmpty()) {
+
+			StringBuffer recentStockInfo = new StringBuffer();
+			// will persist the format StockName1,StockTicker1\nStockName2,StockTicker2\n
+			recentlyViewedStocks.forEach(stock -> recentStockInfo.append(stock.getName()).append(",").append(stock.getTicker()).append("\n"));
+
+			String fileName = "src/resources/stock_info/" +StocksRUs.getCurrentUser().getEmail() +".txt";
+
+			try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, false))) {
+				bw.append(String.valueOf(recentStockInfo));
+			} catch (Exception e) {
+			}
+		}
 	}
 }
