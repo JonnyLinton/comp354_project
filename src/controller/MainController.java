@@ -205,7 +205,6 @@ public class MainController {
 			favoritesContainer.getChildren().clear();
             for (Stock stock:StocksRUs.getCurrentUser().getRecentlyViewedStocks()) {
                 Button favoriteStock = new Button(stock.getName());
-                // TODO: Remove this line when the MRU queue contains a ticker
                 favoriteStock.setId(stock.getTicker());
                 favoriteStock.setOnAction(this::selectStock);
                 favoriteStock.setPrefWidth(185);
@@ -566,7 +565,6 @@ public class MainController {
         }
         
     	// Resets timeline display checks
-		// TODO: remove this? SIMON
     	for (int i = 0; i < isTimeLineDisplayed.length; i++)
     		isTimeLineDisplayed[i] = false;
     	

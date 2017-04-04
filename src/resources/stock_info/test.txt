@@ -1,5 +1,5 @@
-Apple,AAPL
+Chevron,CVX
 Caterpillar,CAT
 Disney,DD
 JPMorgan Chase,JPM
-Nike,NKE
+Apple,AAPL
