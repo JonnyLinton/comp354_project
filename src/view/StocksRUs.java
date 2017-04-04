@@ -45,6 +45,8 @@ public class StocksRUs extends Application {
     }
     @Override
     public void stop() {
-        MainController.persistRecentlyViewedStocks();
+        if (StocksRUs.getCurrentUser() != null) {
+            MainController.persistRecentlyViewedStocks();
+        }
     }
 }
