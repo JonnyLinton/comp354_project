@@ -1,6 +1,5 @@
 package view;
 
-import controller.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +9,8 @@ import model.LimitedSizeStockQueue;
 import model.UserAccount;
 
 import java.io.IOException;
+
+import controller.MainController;
 
 public class StocksRUs extends Application {
     private static UserAccount currentUser;
