@@ -41,7 +41,7 @@ import java.util.List;
  * 
  * @author Jonathan Linton
  * @author Laura Elena Gonzalez
- * @author Louis-Olivier Guérin
+ * @author Louis-Olivier Guï¿½rin
  * @author Simon Jacques
  */
 
@@ -202,7 +202,7 @@ public class MainController {
 	        }
         }
     }
-    
+
     /**
      * TODO - Add javadoc comments here
      */
@@ -296,8 +296,10 @@ public class MainController {
     }
 
 	/**
-	 * TODO - add javadoc comments here
-	 * @param event
+	 * Saves the User's recentlyViewedStocks to a file,
+	 * then logs out the User, and navigates to the Login Page.
+	 *
+	 * @param event - fired when the User clicks the Logout button
 	 */
     @FXML
     private void logout(ActionEvent event) {
@@ -307,9 +309,10 @@ public class MainController {
     }
     
     /**
-     * TODO - add javadoc comments here
+     * Saves the User's recentlyViewedStocks to a file. If the
+	 * recentlyViewedStocks queue is empty, it does nothing.
      */
-	public static void persistRecentlyViewedStocks() {
+	public void persistRecentlyViewedStocks() {
 		LimitedSizeStockQueue recentlyViewedStocks = StocksRUs.getCurrentUser().getRecentlyViewedStocks();
 
 		if(!recentlyViewedStocks.isEmpty()) {
@@ -323,6 +326,7 @@ public class MainController {
 			try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, false))) {
 				bw.append(String.valueOf(recentStockInfo));
 			} catch (Exception e) {
+				displayError(e.getMessage());
 			}
 		}
 	}
@@ -607,7 +611,8 @@ public class MainController {
 	}
 
     /**
-     * TODO - add javadoc comments here
+     * Navigates the User back to the Login Page.
+	 *
      * @param event - passed from the logout method
      */
     private void navigateToLogin(ActionEvent event) {
