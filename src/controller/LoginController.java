@@ -76,6 +76,7 @@ public class LoginController {
     /**
      * Gets the text from the email and password fields in the LoginView.
      * If this info is valid, it navigates to the MainView, else displays an error.
+     * Also initializes the User's recentlyViewedStocks from storage.
      *
      * @param loginButtonPressed - the ActionEvent from the login button.
      */
@@ -97,6 +98,13 @@ public class LoginController {
         }
     }
 
+    /**
+     * Initializes the User's recentlyViewedStocks queue from the save file.
+     * If the user does not have a save file, it returns a new empty LimitedSizeStockQueue.s
+     *
+     * @param email User's email
+     * @return LimitedSizeStockQueue containing the User's saved recentlyViewedStocks.
+     */
     private LimitedSizeStockQueue initializeRecentlyViewedStocks(String email) {
         LimitedSizeStockQueue recentlyViewedStocks = new LimitedSizeStockQueue();
 
