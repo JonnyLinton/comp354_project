@@ -2,6 +2,10 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * A fixed-size Queue of Stock Objects that extends ArrayList.
+ * Trims elements as soon as size exceeds the maximum.
+ */
 public class LimitedSizeStockQueue extends ArrayList<Stock> {
 
     private static final int MAX_SIZE = 4;
@@ -10,6 +14,15 @@ public class LimitedSizeStockQueue extends ArrayList<Stock> {
         super(MAX_SIZE);
     }
 
+    /**
+     * Adds a Stock object to the 'front' of the queue (position 0).
+     * If the element is already in the Queue, it is repositioned to the front.
+     * If there are more than 5 elements after addition, the 'oldest'
+     * elements are removed (Stocks at the 'back' of the queue).
+     *
+     * @param stock Stock object to be added.
+     * @return true if the stock is not already in the queue.
+     */
     public boolean addToFront(Stock stock){
         boolean isNewStock = true;
 
@@ -28,6 +41,15 @@ public class LimitedSizeStockQueue extends ArrayList<Stock> {
         return isNewStock;
     }
 
+    /**
+     * Adds a Stock object to the 'back' of the queue (position 4),
+     * if the Stock is already in the Queue, it repositions it to
+     * be at the back of the Queue. If the maximum size is exceeded,
+     * element at the 'front' of the list is removed.
+     *
+     * @param stock Stock object to be added.
+     * @return true if the stock is not already in the queue.
+     */
     public boolean addToBack(Stock stock){
         boolean isNewStock = true;
 
@@ -46,6 +68,13 @@ public class LimitedSizeStockQueue extends ArrayList<Stock> {
         return isNewStock;
     }
 
+    /**
+     * Gives the index of the specified Stock,
+     * -1 if not an element in the Queue.
+     *
+     * @param stock Stock to check the index of
+     * @return index of the specified Stock, -1 if not in the Queue.
+     */
     private int indexOf(Stock stock) {
         for (int i=0; i<this.size(); i++) {
             if (stock.getTicker().equals(this.get(i).getTicker()))
@@ -53,13 +82,5 @@ public class LimitedSizeStockQueue extends ArrayList<Stock> {
         }
 
         return -1;
-    }
-
-    public Stock getMostRecent() {
-        return get(0);
-    }
-
-    public Stock getOldest() {
-        return get(size() - 1);
     }
 }
