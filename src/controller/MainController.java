@@ -312,7 +312,7 @@ public class MainController {
      * Saves the User's recentlyViewedStocks to a file. If the
 	 * recentlyViewedStocks queue is empty, it does nothing.
      */
-	public void persistRecentlyViewedStocks() {
+	public static void persistRecentlyViewedStocks() {
 		LimitedSizeStockQueue recentlyViewedStocks = StocksRUs.getCurrentUser().getRecentlyViewedStocks();
 
 		if(!recentlyViewedStocks.isEmpty()) {
@@ -326,7 +326,7 @@ public class MainController {
 			try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, false))) {
 				bw.append(String.valueOf(recentStockInfo));
 			} catch (Exception e) {
-				displayError(e.getMessage());
+				e.printStackTrace();
 			}
 		}
 	}

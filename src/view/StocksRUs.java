@@ -37,13 +37,10 @@ public class StocksRUs extends Application {
         return currentUser;
     }
 
-    public static void setCurrentUser(String email, String password) {
-        currentUser = new UserAccount(email, password);
-    }
-
     public static void setCurrentUser(String email, String password, LimitedSizeStockQueue recentlyViewedStocks) {
     	currentUser = new UserAccount(email, password, recentlyViewedStocks);
     }
+
     @Override
     public void stop() {
         if (StocksRUs.getCurrentUser() != null) {

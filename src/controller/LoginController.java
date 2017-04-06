@@ -100,7 +100,7 @@ public class LoginController {
 
     /**
      * Initializes the User's recentlyViewedStocks queue from the save file.
-     * If the user does not have a save file, it returns a new empty LimitedSizeStockQueue.s
+     * If the user does not have a save file, it returns a new empty LimitedSizeStockQueue.
      *
      * @param email User's email
      * @return LimitedSizeStockQueue containing the User's saved recentlyViewedStocks.
