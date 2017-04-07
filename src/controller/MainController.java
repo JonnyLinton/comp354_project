@@ -631,17 +631,4 @@ public class MainController {
         primaryStage.setScene(loginScene);
         primaryStage.show();
     }
-
-	/**
-	 * Displays an Alert to the user containing the specified content.
-	 * @param content - string that will be displayed
-	 */
-	private void displayError(String content) {
-		Alert alert = new Alert(Alert.AlertType.ERROR);
-		alert.setTitle("Error Dialog");
-		alert.setHeaderText("An error occurred! Details below.");
-		alert.setContentText(content);
-
-		alert.showAndWait();
-	}
 }
