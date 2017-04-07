@@ -14,22 +14,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import model.LimitedSizeStockQueue;
 import model.MovingAverageInterval;
 import model.Stock;
 import model.TimeInterval;
-
 import view.StocksRUs;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -41,7 +40,7 @@ import java.util.List;
  * 
  * @author Jonathan Linton
  * @author Laura Elena Gonzalez
- * @author Louis-Olivier Gu�rin
+ * @author Louis-Olivier Guerin
  * @author Simon Jacques
  */
 
