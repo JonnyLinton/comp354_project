@@ -8,7 +8,7 @@ import java.util.*;
 public class Stock
 {
 //------------------------------STOCK ATTRIBUTES-----------------------------------
-	
+
     // holds name of stock
     private String name;
 
@@ -36,7 +36,7 @@ public class Stock
     {
         this.name = "";
         this.ticker = "";
-        this.currentTimeline = TimeInterval.AllTime;
+        this.currentTimeline = TimeInterval.OneYear;
     }
 
     /**
@@ -444,5 +444,13 @@ public class Stock
 
     public String getTicker() {
         return ticker;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTicker(String ticker) {
+        this.ticker = ticker;
     }
 }

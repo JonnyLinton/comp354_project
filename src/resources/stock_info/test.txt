@@ -1,5 +1,5 @@
-Boeing,BA
-Apple,AAPL
-Coca-Cola,KO
 Chevron,CVX
+Apple,AAPL
 Caterpillar,CAT
+Boeing,BA
+Coca-Cola,KO

@@ -115,7 +115,10 @@ public class LoginController {
             while ((line = reader.readLine()) != null) {
                 String[] stockNameTickerPair = line.split(",");
                 // adding the Stock will also fetch the Stock data as per the Stock constructor
-                recentlyViewedStocks.addToBack(new Stock(stockNameTickerPair[0], stockNameTickerPair[1]));
+                Stock tempStock = new Stock();
+                tempStock.setName(stockNameTickerPair[0]);
+                tempStock.setTicker(stockNameTickerPair[1]);
+                recentlyViewedStocks.addToBack(tempStock);
             }
         } catch (FileNotFoundException ex){
             // user does not have any previously viewed stock info stored, return the default
