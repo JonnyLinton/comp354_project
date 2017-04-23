@@ -114,7 +114,6 @@ public class LoginController {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] stockNameTickerPair = line.split(",");
-                // adding the Stock will also fetch the Stock data as per the Stock constructor
                 Stock tempStock = new Stock();
                 tempStock.setName(stockNameTickerPair[0]);
                 tempStock.setTicker(stockNameTickerPair[1]);
